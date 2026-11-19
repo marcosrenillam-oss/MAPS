@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Rin &amp; Mosa · Invierno 2026</title>
+  <meta name="description" content="Itinerario visual: Düsseldorf, Colonia y Maastricht · 8–11 diciembre 2026">
+
+  <!-- Pantalla completa al añadir a inicio -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Rin & Mosa">
+  <meta name="application-name" content="Rin & Mosa">
+  <meta name="theme-color" content="#15161C">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+
+  <link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Franja bajo la barra de estado / notch -->
+  <div class="status-scrim" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <main id="app">
+    <!-- ============ PORTADA ============ -->
+    <section id="cover" class="cover" data-nav="cover">
+      <div class="cover__slides" aria-hidden="true" id="slides"></div>
+      <canvas class="snow" aria-hidden="true"></canvas>
+      <div class="cover__shade" aria-hidden="true"></div>
+
+      <header class="cover__top">
+        <span class="eyebrow">Cuaderno de viaje</span>
+        <span class="eyebrow">Invierno · 2026</span>
+      </header>
+
+      <div class="cover__body">
+        <p class="cover__route">
+          <span>Düsseldorf</span><i></i><span>Köln</span><i></i><span>Maastricht</span>
+        </p>
+        <h1 class="cover__title">Tres ciudades,<br><em>un invierno.</em></h1>
+        <div class="cover__meta">
+          <div class="cover__dates">
+            <b>08</b><span>→</span><b>11</b>
+            <small>Diciembre</small>
+          </div>
+          <div class="cover__count" id="countdown"></div>
+        </div>
+        <button class="cover__today" id="goToday" hidden>Ir a hoy</button>
+      </div>
+
+      <a class="cover__cue" href="#route" aria-label="Empezar">
+        <span>Desliza</span><i></i>
+      </a>
+    </section>
+
+    <!-- ============ LA RUTA (mapa artesanal) ============ -->
+    <section id="route" class="route" data-nav="route">
+      <div class="route__sticky">
+        <div class="route__head">
+          <span class="eyebrow">La ruta</span>
+          <h2 class="route__title">Entre el Rin <em>y el Mosa</em></h2>
+        </div>
+        <div class="route__map">
+          <svg id="map" viewBox="0 0 360 290" role="img" aria-label="Mapa de la ruta"></svg>
+        </div>
+        <div class="route__cards" id="routeCards"></div>
+      </div>
+      <div class="route__steps" id="routeSteps"></div>
+    </section>
+
+    <!-- ============ DÍAS (se generan desde data.js) ============ -->
+    <div id="days"></div>
+
+    <!-- ============ KIT DE VIAJE ============ -->
+    <section id="info" class="info" data-nav="info">
+      <div class="wrap">
+        <span class="eyebrow">Antes de salir</span>
+        <h2 class="h2">Kit de <em>supervivencia</em></h2>
+        <div class="tips" id="tips"></div>
+
+        <div class="offline" data-reveal>
+          <div>
+            <h4>Llévatelo sin cobertura</h4>
+            <p>Descarga todas las fotos al móvil para que la guía funcione en el avión o sin datos.</p>
+          </div>
+          <button class="btn btn--dark" id="offlineBtn">Guardar sin conexión</button>
+        </div>
+
+        <h3 class="h3">Cuatro palabras</h3>
+        <div class="phrases" id="phrases"></div>
+
+        <h3 class="h3">Checklist</h3>
+        <ul class="checklist" id="checklist"></ul>
+
+        <footer class="credits">
+          <p class="credits__end">Gute Reise ✦ Goeie reis</p>
+          <p>Precios y horarios aproximados (nov. 2026). Confirmad horarios de tren y bus en DB Navigator y FlixBus la víspera.</p>
+          <p>Fotografías: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (licencias CC, autores en <a href="credits.html">créditos</a>).</p>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ NAVEGACIÓN ============ -->
+  <nav class="dock" id="dock" aria-label="Días">
+    <span class="dock__pill" aria-hidden="true"></span>
+    <a href="#route" data-target="route"><svg viewBox="0 0 24 24"><path d="M4 18c3-1 4-6 8-6s4 4 8 2M5 18a1.5 1.5 0 1 0 0-.01M19 14a1.5 1.5 0 1 0 0-.01"/></svg><span>Ruta</span></a>
+    <a href="#d1" data-target="d1"><b>08</b><span>DUS</span></a>
+    <a href="#d2" data-target="d2"><b>09</b><span>KÖLN</span></a>
+    <a href="#d3" data-target="d3"><b>10</b><span>MAAS</span></a>
+    <a href="#d4" data-target="d4"><b>11</b><span>VUELTA</span></a>
+    <a href="#info" data-target="info"><svg viewBox="0 0 24 24"><path d="M12 8h.01M11 12h1v5h1M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/></svg><span>Info</span></a>
+  </nav>
+
+  <!-- ============ FICHA (bottom sheet) ============ -->
+  <div class="sheet" id="sheet" aria-hidden="true">
+    <div class="sheet__backdrop" data-close></div>
+    <article class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet__grab" data-grab><i></i></div>
+      <div class="sheet__scroll">
+        <figure class="sheet__img"><img alt="" id="sheetImg"></figure>
+        <div class="sheet__body">
+          <span class="chip" id="sheetTag"></span>
+          <h3 id="sheetTitle"></h3>
+          <p class="sheet__desc" id="sheetDesc"></p>
+          <div class="sheet__facts" id="sheetFacts"></div>
+          <div class="sheet__tip" id="sheetTip"></div>
+          <div class="sheet__actions">
+            <a class="btn btn--dark" id="sheetMaps" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              Llévame (Google Maps)
+            </a>
+            <button class="btn btn--ghost" id="sheetSeen">
+              <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+              <span>Marcar como visto</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="sheet__close" data-close aria-label="Cerrar">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </article>
+  </div>
+
+  <script src="js/images.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
