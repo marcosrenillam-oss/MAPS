@@ -133,12 +133,46 @@
   /* ---------------------------------------------------------
      DÍAS
      --------------------------------------------------------- */
+  /* ---------------------------------------------------------
+     DISTANCIAS (línea recta × 1,3 ≈ recorrido real a pie, 80 m/min)
+     --------------------------------------------------------- */
+  const POI_DAY = {};
+  function dist(a, b) {
+    const A = GEO[a], B = GEO[b];
+    if (!A || !B) return null;
+    const r = (x) => (x * Math.PI) / 180;
+    const h = Math.sin(r(B[0] - A[0]) / 2) ** 2 + Math.cos(r(A[0])) * Math.cos(r(B[0])) * Math.sin(r(B[1] - A[1]) / 2) ** 2;
+    return 2 * 6371000 * Math.asin(Math.sqrt(h)) * 1.3;
+  }
+  const fmtM = (m) => (m < 950 ? `${Math.max(50, Math.round(m / 50) * 50)} m` : `${(m / 1000).toFixed(1).replace(".", ",")} km`);
+  const walkMin = (m) => Math.max(1, Math.round(m / 80));
+  function hop(a, b) {
+    const m = dist(a, b);
+    if (m == null) return null;
+    if (m < 40) return { m: 0, min: 0, same: true, label: "mismo sitio", short: "aquí mismo" };
+    const far = m > 3000;
+    const min = walkMin(m);
+    return { m, min, far, label: far ? `${fmtM(m)} · mejor en transporte` : `${fmtM(m)} · ${min}′ a pie`, short: far ? `${fmtM(m)} · transporte` : `${min}′ · ${fmtM(m)}` };
+  }
+  function dayPlaces(d) {
+    const seenAt = new Set(), out = [];
+    const add = (name, at, kind) => { if (at && GEO[at] && !seenAt.has(at)) { seenAt.add(at); out.push({ name, at, kind }); } };
+    add(BASE_NAME[d.base] ? BASE_NAME[d.base][0].toUpperCase() + BASE_NAME[d.base].slice(1) : "Estación", d.base, "base");
+    [...d.xmas, ...d.always, ...(d.gems || [])].forEach((p) => add(p.name, p.at, "poi"));
+    (d.markets ? d.markets.list : []).forEach((m) => add(m.name, m.at, "market"));
+    d.food.forEach((f) => add(f.name, f.at, "food"));
+    return out;
+  }
+
   const seen = new Set(store.get("seen", []));
   let mode = store.get("mode", "xmas");
   const POI_INDEX = {};
 
   function poiCard(p, i) {
     POI_INDEX[p.id] = p;
+    const d = POI_DAY[p.id];
+    const h = d && hop(d.base, p.at);
+    const from = h ? `<div class="poi__from">${ICON.walk}<span>${h.same ? "En la estación" : h.short + " desde " + BASE_NAME[d.base]}</span></div>` : "";
     return `
       <button class="poi ${seen.has(p.id) ? "is-seen" : ""}" data-poi="${p.id}" style="--i:${i}">
         <img src="${img(p.img)}" alt="${p.name}" loading="lazy" decoding="async">
@@ -147,6 +181,7 @@
           <h4>${p.name}</h4>
           <p>${p.short}</p>
           <div class="poi__meta"><span>${ICON.clock}${p.time}</span><span>${ICON.euro}${p.price}</span></div>
+          ${from}
         </div>
       </button>`;
   }
@@ -162,7 +197,16 @@
 
   function buildDays() {
     const root = $("#days");
+    DAYS.forEach((d) => [...d.xmas, ...d.always, ...(d.gems || [])].forEach((p) => { POI_DAY[p.id] = d; POI_INDEX[p.id] = p; }));
     root.innerHTML = DAYS.map((d, di) => {
+      let walkTotal = 0;
+      const walkStops = d.walk ? d.walk.stops.map((st, i) => {
+        if (i === 0) return { ...st, lbl: "inicio" };
+        if (st.tram) return { ...st, lbl: "tranvía", sub: st.tram };
+        const h = hop(d.walk.stops[i - 1].at, st.at);
+        if (h) walkTotal += h.m;
+        return { ...st, lbl: h ? `+${h.min}′` : st.m, sub: h && !h.same ? fmtM(h.m) : "" };
+      }) : [];
       const walk = d.walk ? `
         <div class="block">
           <div class="block__head" data-reveal><h3>Ruta <em>a pie</em></h3><span class="eyebrow">${ICON.walk ? "" : ""}Paso a paso</span></div>
@@ -170,9 +214,9 @@
             <div class="walk__head">
               <span class="eyebrow" style="opacity:.6">${d.city}</span>
               <h4>${d.walk.title}</h4>
-              <p>${d.walk.total}</p>
+              <p>≈ ${fmtM(walkTotal)} · ${walkMin(walkTotal)} min andando sin paradas</p>
             </div>
-            <ol>${d.walk.stops.map((s, i) => `<li style="--i:${i}"><span class="walk__dot"></span><span class="walk__name">${s.n}</span><span class="walk__min">${s.m ? "+" + s.m : "inicio"}</span></li>`).join("")}</ol>
+            <ol>${walkStops.map((s, i) => `<li style="--i:${i}"><span class="walk__dot"></span><span class="walk__name">${s.n}${s.sub ? `<small>${s.sub}</small>` : ""}</span><span class="walk__min">${s.lbl}</span></li>`).join("")}</ol>
             <a class="btn btn--light" href="${mapsWalk(d.walk.gmaps)}" target="_blank" rel="noopener">${ICON.pin}Abrir ruta en Google Maps</a>
           </div>
         </div>` : "";
@@ -239,10 +283,13 @@
             <span class="seg__pill"></span>
             <button data-m="xmas" class="${mode === "xmas" ? "is-on" : ""}">✦ En Navidad</button>
             <button data-m="always" class="${mode === "always" ? "is-on" : ""}">Todo el año</button>
+            <button data-m="gems" class="${mode === "gems" ? "is-on" : ""}">★ Joyas</button>
           </div>
           <div class="rail" data-rail="${di}"></div>
           <div class="rail__hint"><span>Toca una tarjeta para ver la ficha</span><span class="dots" data-dots="${di}"></span></div>
         </div>
+
+        ${marketsBlock(d, di)}
 
         <div class="block">
           <div class="block__head" data-reveal><h3>Dónde <em>comer</em></h3><span class="eyebrow">€ · €€</span></div>
@@ -260,12 +307,131 @@
           </div>
         </div>
 
+        ${distBlock(d, di)}
         ${walk}
         <div class="day__end"></div>
       </section>`;
     }).join("");
 
     renderRails();
+  }
+
+  /* ---------- mercados: mini-mapa + horarios + distancias ---------- */
+  function miniMap(points, base, accent) {
+    const all = [...points, base].filter((x) => x && GEO[x.at]);
+    if (!all.length) return "";
+    const lat = all.map((x) => GEO[x.at][0]), lon = all.map((x) => GEO[x.at][1]);
+    const k = Math.cos((lat[0] * Math.PI) / 180);
+    let x0 = Math.min(...lon) * k, x1 = Math.max(...lon) * k, y0 = Math.min(...lat), y1 = Math.max(...lat);
+    const W = 340, H = 230, pad = 30;
+    const span = Math.max(x1 - x0, (y1 - y0) * (W / H), 0.004);
+    const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    const sc = (W - pad * 2) / span;
+    const P = (at) => [W / 2 + (GEO[at][1] * k - cx) * sc, H / 2 - (GEO[at][0] - cy) * sc];
+    const uniq = [];
+    points.forEach((m) => { if (!uniq.find((u) => u.at === m.at)) uniq.push(m); });
+    let path = "", labels = "";
+    const chain = [base, ...uniq];
+    chain.forEach((m, i) => {
+      const [x, y] = P(m.at);
+      path += (i ? " L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
+      if (i) {
+        const [px, py] = P(chain[i - 1].at);
+        const h = hop(chain[i - 1].at, m.at);
+        if (h && !h.same && Math.hypot(x - px, y - py) > 46) labels += `<g class="mm__lbl" transform="translate(${((x + px) / 2).toFixed(1)} ${((y + py) / 2).toFixed(1)})"><rect x="-15" y="-8" width="30" height="16" rx="8"/><text y="3.5">${h.min}′</text></g>`;
+      }
+    });
+    const dots = uniq.map((m, i) => { const [x, y] = P(m.at); return `<g class="mm__dot"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="10"/><text x="${x.toFixed(1)}" y="${(y + 3.8).toFixed(1)}">${i + 1}</text></g>`; }).join("");
+    const [bx, by] = P(base.at);
+    return `<svg class="mm" viewBox="0 0 ${W} ${H}" style="--c:${accent}">
+      <path class="mm__path" d="${path}" pathLength="1"/>
+      <g class="mm__base"><rect x="${(bx - 7).toFixed(1)}" y="${(by - 7).toFixed(1)}" width="14" height="14" rx="3"/><text x="${(bx > W / 2 ? bx - 12 : bx + 12).toFixed(1)}" y="${(by + 3.5).toFixed(1)}" text-anchor="${bx > W / 2 ? "end" : "start"}">${base.name}</text></g>
+      ${labels}${dots}
+    </svg>`;
+  }
+
+  function marketsBlock(d, di) {
+    if (!d.markets) return "";
+    const L = d.markets.list;
+    const uniqAt = [];
+    L.forEach((m) => { if (!uniqAt.includes(m.at)) uniqAt.push(m.at); });
+    const num = (m) => uniqAt.indexOf(m.at) + 1;
+    const base = { at: d.base, name: BASE_NAME[d.base] };
+    const first = hop(d.base, L[0].at);
+    const items = L.map((m, i) => {
+      const h = i ? hop(L[i - 1].at, m.at) : null;
+      const conn = i ? `<li class="mk__hop">${ICON.walk}<span>${h && !h.same ? h.label : "en el mismo sitio"}</span></li>` : "";
+      return `${conn}
+        <li class="mk__item" data-reveal data-open="${m.open.join(",")}" data-date="${d.date}">
+          <span class="mk__n">${num(m)}</span>
+          <div class="mk__txt">
+            <h4>${m.name}</h4>
+            <p class="mk__h">${ICON.clock}<span>${m.hours}</span></p>
+            ${m.tip ? `<p class="mk__tip">${m.tip}</p>` : ""}
+            <span class="mk__status"></span>
+          </div>
+          <a class="mk__go" href="${mapsSearch(m.name + " " + d.city)}" target="_blank" rel="noopener" aria-label="Abrir en Google Maps">${ICON.pin}</a>
+        </li>`;
+    }).join("");
+    return `
+        <div class="block">
+          <div class="block__head" data-reveal><h3>Mercados <em>navideños</em></h3><span class="eyebrow">Horarios · a pie</span></div>
+          <p class="mk__note" data-reveal>${d.markets.note}</p>
+          <div class="mk__map" data-reveal>${miniMap(L, base, d.accent)}</div>
+          <ol class="mk">
+            <li class="mk__hop mk__hop--start">${ICON.walk}<span>Desde ${BASE_NAME[d.base]}: ${first ? first.label : ""}</span></li>
+            ${items}
+          </ol>
+        </div>`;
+  }
+
+  /* ---------- explorador de distancias ---------- */
+  function distBlock(d, di) {
+    const places = dayPlaces(d).filter((x) => x.kind !== "food");
+    return `
+        <div class="block">
+          <div class="block__head" data-reveal><h3>Distancias <em>a pie</em></h3><span class="eyebrow">Elige origen</span></div>
+          <div class="dx" data-dx="${di}" data-reveal>
+            <div class="dx__chips">${places.map((x, i) => `<button data-from="${x.at}" class="${i === 0 ? "is-on" : ""}">${x.name}</button>`).join("")}</div>
+            <ul class="dx__list"></ul>
+          </div>
+        </div>`;
+  }
+  function renderDx(box, fromAt) {
+    const d = DAYS[+box.dataset.dx];
+    const rows = dayPlaces(d).filter((x) => x.at !== fromAt).map((x) => ({ ...x, h: hop(fromAt, x.at) })).filter((x) => x.h).sort((a, b) => a.h.m - b.h.m);
+    const max = Math.min(Math.max(...rows.filter((r) => !r.h.far).map((r) => r.h.m), 800), 3000);
+    $(".dx__list", box).innerHTML = rows.map((r, i) => `
+      <li style="--i:${i}" class="${r.h.far ? "is-far" : ""}">
+        <div class="dx__row"><span class="dx__name">${r.name}${r.kind === "food" ? ' <i>comer</i>' : r.kind === "market" ? ' <i>mercado</i>' : ""}</span><b>${r.h.far ? fmtM(r.h.m) : r.h.min + "′"}</b></div>
+        <div class="dx__bar"><span style="--w:${Math.min(1, r.h.m / max).toFixed(3)}"></span></div>
+        <small>${r.h.far ? "Mejor en bus/U-Bahn" : fmtM(r.h.m) + " a pie"}</small>
+      </li>`).join("");
+  }
+  function bindDx() {
+    $$("[data-dx]").forEach((box) => renderDx(box, $("button.is-on", box).dataset.from));
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest(".dx__chips button");
+      if (!b) return;
+      const box = b.closest("[data-dx]");
+      $$("button", box).forEach((x) => x.classList.toggle("is-on", x === b));
+      renderDx(box, b.dataset.from);
+    });
+  }
+
+  function marketStatus() {
+    const t = todayISO();
+    const now = new Date();
+    const h = now.getHours() + now.getMinutes() / 60;
+    $$(".mk__item").forEach((li) => {
+      const [o, c] = li.dataset.open.split(",").map(Number);
+      const st = $(".mk__status", li);
+      const pad = (x) => (x >= 24 ? "00" : String(x).padStart(2, "0")) + ":00";
+      if (li.dataset.date !== t) { st.className = "mk__status"; st.textContent = ""; return; }
+      if (h < o) { st.className = "mk__status is-soon"; st.textContent = `Abre a las ${pad(o)}`; }
+      else if (h < c) { st.className = "mk__status is-open"; st.textContent = `Abierto ahora · cierra ${pad(c)}`; }
+      else { st.className = "mk__status is-closed"; st.textContent = "Cerrado por hoy"; }
+    });
   }
 
   function lighten(hex) {
@@ -279,13 +445,14 @@
     DAYS.forEach((d, di) => {
       const rail = $(`[data-rail="${di}"]`);
       const items = d[mode] && d[mode].length ? d[mode] : d.always;
+      items.forEach((p) => (POI_DAY[p.id] = d));
       rail.innerHTML = items.map(poiCard).join("");
       rail.scrollLeft = 0;
       const dots = $(`[data-dots="${di}"]`);
       dots.innerHTML = items.map((_, i) => `<i class="${i === 0 ? "is-on" : ""}"></i>`).join("");
     });
     // también indexamos los de la otra pestaña para la ficha
-    DAYS.forEach((d) => [...d.xmas, ...d.always].forEach((p) => (POI_INDEX[p.id] = p)));
+    DAYS.forEach((d) => [...d.xmas, ...d.always, ...(d.gems || [])].forEach((p) => (POI_INDEX[p.id] = p)));
   }
 
   function bindRails() {
@@ -340,6 +507,9 @@
     $("#sheetDesc").textContent = p.desc;
     $("#sheetFacts").innerHTML = `<div><small>Tiempo</small><b>${p.time}</b></div><div><small>Precio</small><b>${p.price}</b></div>`;
     $("#sheetTip").innerHTML = `${ICON.bulb}<span>${p.tip}</span>`;
+    const dd = POI_DAY[id];
+    const near = dd ? dayPlaces(dd).filter((x) => x.at !== p.at).map((x) => ({ ...x, h: hop(p.at, x.at) })).filter((x) => x.h).sort((a, b) => a.h.m - b.h.m).slice(0, 7) : [];
+    $("#sheetNear").innerHTML = near.length ? `<h4>Distancias desde aquí</h4><ul>${near.map((x) => `<li><span>${x.name}</span><b>${x.h.short}</b></li>`).join("")}</ul>` : "";
     $("#sheetMaps").href = mapsSearch(p.q);
     updateSeenBtn();
     $(".sheet__scroll").scrollTop = 0;
@@ -646,11 +816,13 @@
   buildDays();
   buildInfo();
   bindRails();
+  bindDx();
   bindSheet();
   bindReveal();
   bindScroll();
   timeState();
-  setInterval(timeState, 60e3);
+  marketStatus();
+  setInterval(() => { timeState(); marketStatus(); }, 60e3);
   weather();
   snow();
   noZoom();

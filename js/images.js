@@ -211,6 +211,46 @@ const IMG = {
  "cgn_altermarkt": {
   "s": "img/cgn_altermarkt.webp",
   "l": "img/cgn_altermarkt.webp"
+ },
+ "dus_eko": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/D%C3%BCsseldorf_-_Br%C3%BCggener_Weg_-_EKO-Haus_-_Japanischer_Garten_%2B_Tempel_01_ies.jpg/960px-D%C3%BCsseldorf_-_Br%C3%BCggener_Weg_-_EKO-Haus_-_Japanischer_Garten_%2B_Tempel_01_ies.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/D%C3%BCsseldorf_-_Br%C3%BCggener_Weg_-_EKO-Haus_-_Japanischer_Garten_%2B_Tempel_01_ies.jpg/1280px-D%C3%BCsseldorf_-_Br%C3%BCggener_Weg_-_EKO-Haus_-_Japanischer_Garten_%2B_Tempel_01_ies.jpg"
+ },
+ "dus_nordpark": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/D%C3%BCsseldorf%2C_Japanischer_Garten_im_Nordpark_%281%29.jpg/960px-D%C3%BCsseldorf%2C_Japanischer_Garten_im_Nordpark_%281%29.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/D%C3%BCsseldorf%2C_Japanischer_Garten_im_Nordpark_%281%29.jpg/1280px-D%C3%BCsseldorf%2C_Japanischer_Garten_im_Nordpark_%281%29.jpg"
+ },
+ "dus_k21": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/20170609_153054a.jpg/960px-20170609_153054a.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/20170609_153054a.jpg/1280px-20170609_153054a.jpg"
+ },
+ "dus_k20": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bild_K20_aktuell.jpg/960px-Bild_K20_aktuell.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bild_K20_aktuell.jpg/1280px-Bild_K20_aktuell.jpg"
+ },
+ "dus_kaiserswerth": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Panopfalz-innen.jpg/960px-Panopfalz-innen.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/1/14/Panopfalz-innen.jpg"
+ },
+ "cgn_kolumba": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Kolumba.jpg/960px-Kolumba.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Kolumba.jpg"
+ },
+ "cgn_belgisch": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg/960px-Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg/1280px-Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg"
+ },
+ "mst_kruisheren": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Kruisherenkerk_Maastricht_1.JPG/960px-Kruisherenkerk_Maastricht_1.JPG",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Kruisherenkerk_Maastricht_1.JPG/1280px-Kruisherenkerk_Maastricht_1.JPG"
+ },
+ "mst_bassin": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Montage_Maastricht_Bassin.jpg/960px-Montage_Maastricht_Bassin.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Montage_Maastricht_Bassin.jpg"
+ },
+ "mst_fort": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Maastricht-Fort_Sint_Pieter_%2812%29.jpg/960px-Maastricht-Fort_Sint_Pieter_%2812%29.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Maastricht-Fort_Sint_Pieter_%2812%29.jpg/1280px-Maastricht-Fort_Sint_Pieter_%2812%29.jpg"
  }
 };
 const IMG_FILES = {
@@ -266,5 +306,15 @@ const IMG_FILES = {
  "food_stollen": "Stollen-Dresdner Christstollen.jpg",
  "dus_ko": "GER Düsseldorf, Königsallee, Stadtgraben 0003.jpg",
  "dus_rheinturm": "Rheinturm - Gesamtansicht vom Medienhafen.jpg",
- "cgn_altermarkt": "Alter Markt, Köln-7847.jpg"
+ "cgn_altermarkt": "Alter Markt, Köln-7847.jpg",
+ "dus_eko": "Düsseldorf - Brüggener Weg - EKO-Haus - Japanischer Garten + Tempel 01 ies.jpg",
+ "dus_nordpark": "Düsseldorf, Japanischer Garten im Nordpark (1).jpg",
+ "dus_k21": "20170609 153054a.jpg",
+ "dus_k20": "Bild K20 aktuell.jpg",
+ "dus_kaiserswerth": "Panopfalz-innen.jpg",
+ "cgn_kolumba": "Kolumba.jpg",
+ "cgn_belgisch": "Belgisches Viertel Kreuzung Bruesseler- und Luetticher Strasse.jpg",
+ "mst_kruisheren": "Kruisherenkerk Maastricht 1.JPG",
+ "mst_bassin": "Montage Maastricht Bassin.jpg",
+ "mst_fort": "Maastricht-Fort Sint Pieter (12).jpg"
 };
