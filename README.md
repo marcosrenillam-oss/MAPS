@@ -12,7 +12,7 @@ Web estática pensada para añadirse a la pantalla de inicio del móvil: pantall
 - **Mercados navideños** con horarios oficiales 2026, mini-mapa, minutos a pie entre ellos y aviso «abierto ahora».
 - **Joyas escondidas** (EKŌ-Haus, K21 In Orbit, Kolumba, Carolus Thermen…) y **explorador de distancias**: eliges un origen y ves cuánto se tarda andando a todo lo demás.
 - **Apartamento como base** (Talstraße 9): distancias desde el apartamento y botón «Volver al apartamento» en cada día.
-- **Llegada y vuelta por Weeze** (bus SW1 + RE10) con horarios orientativos.
+- **Vuelos Málaga ⇄ Weeze** (llegada 12:30, vuelta 14:55) con bus SW1 + RE10 y horarios orientativos.
 - **Distancias reales a pie** calculadas por calles (OpenStreetMap / OSRM) y guardadas en la app (funcionan sin conexión).
 - **Cerca de mí**: con tu ubicación, cada sitio muestra «a X min de ti» y se puede ordenar por cercanía.
 - **Modo oscuro** automático de noche (17:00–8:00) o manual.

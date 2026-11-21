@@ -58,10 +58,10 @@
   ];
   const STEPS = [
     { n: "✦", kick: "Resumen", title: "Cuatro días entre dos ríos", text: "Base en Düsseldorf. Un día en Colonia siguiendo el Rin y otro en Aquisgrán, la ciudad de Carlomagno, junto a la frontera.", stats: [["4", "días"], ["3", "ciudades"], ["2", "catedrales UNESCO"], ["10+", "mercados"]], c: "#B08D57", on: [], view: [-10, -78, 380, 335] },
-    { n: "08", kick: "Martes · Llegada", title: "Madrid → Weeze → Düsseldorf", text: "Aterrizaje 12:30 en Weeze. Bus SW1 + tren RE10 hasta Düsseldorf y 18 min a pie al apartamento.", stats: [["≈1 h 30", "hasta Düsseldorf"], ["SW1+RE10", "en D-Ticket"]], c: DAYS[0].accent, on: ["fly1", "l1"], nodes: ["nrn", "dus"], view: [70, -85, 240, 190] },
+    { n: "08", kick: "Martes · Llegada", title: "Málaga → Weeze → Düsseldorf", text: "Aterrizaje 12:30 en Weeze. Bus SW1 + tren RE10 hasta Düsseldorf y 18 min a pie al apartamento.", stats: [["≈1 h 30", "hasta Düsseldorf"], ["SW1+RE10", "en D-Ticket"]], c: DAYS[0].accent, on: ["fly1", "l1"], nodes: ["nrn", "dus"], view: [70, -85, 240, 190] },
     { n: "09", kick: "Miércoles · Excursión", title: "Düsseldorf → Köln", text: "Regional por la orilla del Rin. Catedral, siete mercados y Kölsch.", stats: [["≈40 km", "distancia"], ["25–35′", "en RE"]], c: DAYS[1].accent, on: ["l2"], nodes: ["dus", "cgn"], view: [175, 30, 185, 180] },
     { n: "10", kick: "Jueves · Carlomagno", title: "Düsseldorf → Aquisgrán", text: "Tren regional (RE4 o RE1). Catedral, ayuntamiento y mercado, todo a pie desde la estación.", stats: [["≈80 km", "distancia"], ["≈1 h 25", "en tren"]], c: DAYS[2].accent, on: ["l3"], nodes: ["dus", "aac"], view: [30, 40, 290, 225] },
-    { n: "11", kick: "Viernes · Vuelta", title: "Düsseldorf → Weeze → Madrid", text: "Mañana libre, salir del apartamento a las 12:15 y vuelo a las 16:30 desde Weeze.", stats: [["12:15", "salir"], ["16:30", "vuelo"]], c: DAYS[3].accent, on: ["l4", "fly2"], nodes: ["dus", "nrn"], view: [70, -85, 240, 190] },
+    { n: "11", kick: "Viernes · Vuelta", title: "Düsseldorf → Weeze → Málaga", text: "Desayuno y último paseo, salir del apartamento a las 10:50 y vuelo a Málaga a las 14:55.", stats: [["10:50", "salir"], ["14:55", "vuelo"]], c: DAYS[3].accent, on: ["l4", "fly2"], nodes: ["dus", "nrn"], view: [70, -85, 240, 190] },
   ];
 
   function buildMap() {

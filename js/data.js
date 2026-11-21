@@ -23,7 +23,7 @@ const MAP_NODES = {
   nrn:  { x: 131, y: -52, label: "Weeze ✈" },
   cgn:  { x: 311, y: 181, label: "Köln" },
   aac:  { x: 118, y: 238, label: "Aachen" },
-  mad:  { x: 200, y: 300, label: "Madrid" },
+  agp:  { x: 0, y: 300, label: "Málaga" },
 };
 
 /* Coordenadas reales (OpenStreetMap) para calcular distancias a pie */
@@ -123,7 +123,7 @@ const DAYS = [
     intro:
       "Aterrizáis en Weeze a mediodía y en hora y media estáis en Düsseldorf. El apartamento está en la Talstraße, justo al sur de la Königsallee: perfecto para dejar las maletas, subir la Kö a pie, ver el atardecer en el Rin (≈16:25) y quedaros en la Altstadt cuando se encienden los mercados.",
     timeline: [
-      { t: "10:00", h: "Salida de Madrid", d: "Vuelo a Weeze (NRN). Llevad efectivo: en muchos Brauhaus solo aceptan cash." },
+      { t: "Mañana", h: "Salida de Málaga", d: "Vuelo a Weeze (NRN). Llevad efectivo: en muchos Brauhaus solo aceptan cash." },
       { t: "12:30", h: "Aterrizaje en Weeze", d: "Aeropuerto pequeño: en 15 min estáis fuera. Sal a la parada de autobuses frente a la terminal." },
       { t: "12:50", h: "Bus SW1 → Weeze Bahnhof", d: "11 min hasta la estación de tren de Weeze. Entra en el Deutschlandticket.", tag: "transit" },
       { t: "13:15", h: "RE10 → Düsseldorf Hbf", d: "≈1 h, cada 30 min. Siéntate a la derecha para ver el campo del Bajo Rin.", tag: "transit" },
@@ -445,7 +445,7 @@ const DAYS = [
   {
     id: "d4",
     base: "dus-hotel",
-    rainPlan: ["dus4-carls", "dus4-k21", "dus-k20"],
+    rainPlan: ["dus4-carls"],
     num: "11",
     weekday: "Viernes",
     date: "2026-12-11",
@@ -455,20 +455,20 @@ const DAYS = [
     accentSoft: "#E3E1EA",
     kicker: "Vuelta",
     title: "Hasta pronto",
-    subtitle: "Mañana tranquila y vuelo desde Weeze a las 16:30",
+    subtitle: "Mañana corta y vuelo a Málaga desde Weeze a las 14:55",
     hero: "dus_medienhafen",
     heroAlt: "MedienHafen de Düsseldorf",
     intro:
-      "Mañana corta: Weeze está a hora y media, así que hay que salir del apartamento hacia las 12:15. Da tiempo a desayunar en el mercado de Carlsplatz (a 8 min del apartamento), dar un último paseo por el MedienHafen o el jardín del EKŌ-Haus y comer algo antes del tren.",
+      "Mañana corta: el vuelo sale a las 14:55 y Weeze está a hora y media, así que hay que salir del apartamento hacia las 10:50. Da tiempo a desayunar en el mercado de Carlsplatz (abre a las 8, a 8 min del apartamento) y a un último paseo por la Kö o el Rin. Los mercados navideños abren a las 11: el último Glühwein, el jueves por la noche.",
     timeline: [
-      { t: "08:45", h: "Desayuno en Carlsplatz", d: "Mercado gourmet cubierto a 8 min del apartamento: café, pan, Reibekuchen y dulces." },
-      { t: "09:45", h: "MedienHafen o jardín del EKŌ-Haus", d: "Gehry con luz de día (15 min a pie del apartamento) o el jardín zen del templo japonés (gratis, abre a las 10 h; bus 828/836)." },
-      { t: "11:15", h: "Comida temprana y últimas compras", d: "Currywurst o ramen. Souvenirs: mostaza Löwensenf y Printen." },
-      { t: "12:15", h: "Salir del apartamento con las maletas", d: "18 min a pie al Hbf (o tranvía/taxi).", tag: "transit" },
-      { t: "12:45", h: "RE10 → Weeze Bahnhof", d: "≈1 h. Revisa la hora exacta en DB Navigator: va cada 30 min.", tag: "transit" },
-      { t: "13:50", h: "Bus SW1 → aeropuerto de Weeze", d: "11 min. Si no cuadra, taxi (≈20 €).", tag: "transit" },
-      { t: "14:15", h: "En el aeropuerto", d: "Facturación y control: Weeze es pequeño, con 2 h vas sobrado." },
-      { t: "16:30", h: "Vuelo a Madrid", d: "Auf Wiedersehen · ¡Hasta la próxima!" },
+      { t: "08:15", h: "Desayuno en Carlsplatz", d: "Mercado gourmet cubierto a 8 min del apartamento (abre a las 8): café, pan, Reibekuchen y dulces. Compra aquí los souvenirs: mostaza Löwensenf y Printen." },
+      { t: "09:15", h: "Último paseo", d: "La Kö con luz de día y el paseo del Rin, o el MedienHafen (15 min a pie del apartamento). Vuelve hacia las 10:30." },
+      { t: "10:30", h: "Recoger maletas", d: "Comprueba que no te dejas nada y algo de comer para el viaje." },
+      { t: "10:50", h: "Salir del apartamento con las maletas", d: "18 min a pie al Hbf (o tranvía/taxi).", tag: "transit" },
+      { t: "11:15", h: "RE10 → Weeze Bahnhof", d: "≈1 h. Revisa la hora exacta en DB Navigator: va cada 30 min. Si lo pierdes, el siguiente aún llega bien.", tag: "transit" },
+      { t: "12:20", h: "Bus SW1 → aeropuerto de Weeze", d: "11 min. Si no cuadra, taxi (≈20 €).", tag: "transit" },
+      { t: "12:45", h: "En el aeropuerto", d: "Unas 2 h antes del vuelo: facturación y control sin prisas." },
+      { t: "14:55", h: "Vuelo a Málaga", d: "Auf Wiedersehen · ¡Hasta la próxima!" },
     ],
     transit: [
       {
@@ -493,30 +493,15 @@ const DAYS = [
         alt: "Alternativa: Airport Weeze Shuttle directo desde Düsseldorf Hbf (≈1 h 15, ≈24 €, con reserva). Útil si coincide con vuestra hora.",
       },
     ],
-    xmas: [
-      { id: "dus4-sternchen", at: "dus-sternchen", name: "Sternchenmarkt", tag: "Mercado", img: "dus_wm2", short: "Schadowstraße: estrellas sobre las casetas.", desc: "El mercado de las estrellas, en la calle comercial Schadowstraße. Buen sitio para comprar adornos de última hora.", tip: "Está entre el Hbf y la Kö: pilla de camino.", time: "20 min", price: "Gratis", q: "Schadowstraße Düsseldorf" },
-      { id: "dus4-engel", at: "dus-engel", name: "Último Glühwein", tag: "Mercado", img: "food_gluehwein", short: "Despedida en el Engelchen-Markt.", desc: "Los mercados abren hacia las 11 h. Un último vino caliente con las tazas que aún no tienes.", tip: "No te pases: luego hay control de seguridad 😉", time: "20 min", price: "≈5 €", q: "Engelchen-Markt Düsseldorf" },
-    ],
+    xmas: [],
     always: [
       { id: "dus4-carls", at: "dus-carlsplatz", name: "Carlsplatz", tag: "Mercado", img: "dus_carlsplatz", short: "El mercado gourmet de la ciudad.", desc: "Más de 60 puestos: fruta, quesos, flores, café y comida para llevar. El desayuno perfecto.", tip: "La mostaza de Düsseldorf (Löwensenf) es el souvenir que nadie se espera.", time: "45 min", price: "€", q: "Carlsplatz Düsseldorf" },
       { id: "dus4-medien", at: "dus-medien", name: "MedienHafen de día", tag: "Arquitectura", img: "dus_medienhafen", short: "Gehry con luz natural.", desc: "Los Neuer Zollhof cambian de color según la luz. Pasea por las dársenas y el Hafenbrücke.", tip: "15–20 min a pie desde la Altstadt por el paseo del Rin.", time: "45 min", price: "Gratis", q: "Neuer Zollhof Düsseldorf" },
       { id: "dus4-hofgarten", at: "dus-hofgarten", name: "Hofgarten", tag: "Parque", img: "dus_hofgarten", short: "El parque público más antiguo de Alemania.", desc: "Un respiro verde (o invernal) detrás de la Kö-Bogen, con el estanque y el Jägerhof.", tip: "Atajo entre la Kö y la Altstadt.", time: "30 min", price: "Gratis", q: "Hofgarten Düsseldorf" },
     ],
-    gems: [
-      { id: "dus4-eko", at: "dus-eko", name: "Jardín del EKŌ-Haus", tag: "Joya", img: "dus_eko", short: "Plan de última mañana: el jardín zen del templo japonés.", desc: "El viernes por la mañana el jardín delantero del templo está abierto de 10 a 17 h y es gratis. Silencio, musgo, linternas de piedra y un puente rojo: la despedida perfecta.", tip: "Bus 828 u 836 hasta Niederkasseler Kirchweg. Vuelve al centro a las 12 h para ir sin prisa al aeropuerto.", time: "1 h", price: "Gratis (jardín)", q: "EKŌ-Haus der Japanischen Kultur Düsseldorf" },
-      { id: "dus4-k21", at: "dus-k21", name: "K21 · In Orbit", tag: "Joya", img: "dus_k21", short: "Pasear por una red a 25 m de altura.", desc: "Si no os dio tiempo el primer día: la red de Saraceno en el K21 abre por la mañana.", tip: "Reserva franja online. A 15 min a pie de la Altstadt.", time: "1 h", price: "≈12–14 €", q: "K21 Ständehaus Düsseldorf" },
-    ],
-    markets: {
-      note: "Viernes: 11–21 h. Abren a las 11: justo para un último paseo antes del aeropuerto.",
-      list: [
-        { name: "Sternchenmarkt", at: "dus-sternchen", hours: "11–21 h", open: [11, 21], tip: "Camino del Hbf." },
-        { name: "Engelchen-Markt", at: "dus-engel", hours: "11–21 h", open: [11, 21], tip: "La última taza de recuerdo." },
-        { name: "Marktplatz · Rathaus", at: "dus-rathaus", hours: "11–21 h", open: [11, 21], tip: "" },
-      ],
-    },
     food: [
       { name: "Carlsplatz", at: "dus-carlsplatz", type: "Desayuno", price: "€", img: "dus_carlsplatz", what: "Café, Brötchen y algo dulce.", note: "Ideal antes de las 10 h.", q: "Carlsplatz Düsseldorf" },
-      { name: "Naniwa", at: "dus-naniwa", type: "Ramen", price: "€", img: "food_ramen", what: "Ramen de despedida.", note: "Abre a mediodía: ve pronto.", q: "Naniwa Noodles Düsseldorf" },
+      
       { name: "Bäckerei Hinkel", at: "dus-hinkel", type: "Panadería", price: "€", img: "food_stollen", what: "Stollen y pan de la casa.", note: "Panadería mítica de la Altstadt.", q: "Bäckerei Hinkel Düsseldorf" },
     ],
     walk: null,
