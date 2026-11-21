@@ -120,62 +120,6 @@ const IMG = {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2018-10-28-Halve_Hahn-9090.jpg/960px-2018-10-28-Halve_Hahn-9090.jpg",
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2018-10-28-Halve_Hahn-9090.jpg/1280px-2018-10-28-Halve_Hahn-9090.jpg"
  },
- "mst_city": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Maastricht_sunset.jpg/960px-Maastricht_sunset.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Maastricht_sunset.jpg/1280px-Maastricht_sunset.jpg"
- },
- "mst_magisch": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/2022_Magisch_Maastricht_%2806%29.jpg/960px-2022_Magisch_Maastricht_%2806%29.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/2022_Magisch_Maastricht_%2806%29.jpg/1280px-2022_Magisch_Maastricht_%2806%29.jpg"
- },
- "mst_vrijthof": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Vrijthof_-_Maastricht%2C_Holland_-_panoramio.jpg/960px-Vrijthof_-_Maastricht%2C_Holland_-_panoramio.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Vrijthof_-_Maastricht%2C_Holland_-_panoramio.jpg/1280px-Vrijthof_-_Maastricht%2C_Holland_-_panoramio.jpg"
- },
- "mst_servaas": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Maastricht%2C_de_Sint_Servaasbasiliek_op_het_Vrijhof_foto8_2011-01-30_13.01.JPG/960px-Maastricht%2C_de_Sint_Servaasbasiliek_op_het_Vrijhof_foto8_2011-01-30_13.01.JPG",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Maastricht%2C_de_Sint_Servaasbasiliek_op_het_Vrijhof_foto8_2011-01-30_13.01.JPG/1280px-Maastricht%2C_de_Sint_Servaasbasiliek_op_het_Vrijhof_foto8_2011-01-30_13.01.JPG"
- },
- "mst_brug": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Maastricht%2C_Sint_Servaasbrug_-_montage.jpg/960px-Maastricht%2C_Sint_Servaasbrug_-_montage.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Maastricht%2C_Sint_Servaasbrug_-_montage.jpg/1280px-Maastricht%2C_Sint_Servaasbrug_-_montage.jpg"
- },
- "mst_stadhuis": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Maastricht_2010-30-03_%E2%80%93_Stadthaus_am_Markt_-_panoramio_%28cropped%29.jpg/960px-Maastricht_2010-30-03_%E2%80%93_Stadthaus_am_Markt_-_panoramio_%28cropped%29.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Maastricht_2010-30-03_%E2%80%93_Stadthaus_am_Markt_-_panoramio_%28cropped%29.jpg/1280px-Maastricht_2010-30-03_%E2%80%93_Stadthaus_am_Markt_-_panoramio_%28cropped%29.jpg"
- },
- "mst_olv": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/c/c0/OLV-01_%28cropped%29.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/c/c0/OLV-01_%28cropped%29.jpg"
- },
- "mst_olvplein": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Maastricht_platz_vor_liebfrauenkirche.jpg/960px-Maastricht_platz_vor_liebfrauenkirche.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Maastricht_platz_vor_liebfrauenkirche.jpg"
- },
- "mst_helpoort": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Maastricht_Helpoort_BW_2017-08-19_13-58-28.jpg/960px-Maastricht_Helpoort_BW_2017-08-19_13-58-28.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Maastricht_Helpoort_BW_2017-08-19_13-58-28.jpg/1280px-Maastricht_Helpoort_BW_2017-08-19_13-58-28.jpg"
- },
- "mst_molen": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Maastricht-Bisschopsmolen-1.JPG/960px-Maastricht-Bisschopsmolen-1.JPG",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Maastricht-Bisschopsmolen-1.JPG/1280px-Maastricht-Bisschopsmolen-1.JPG"
- },
- "mst_geis": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mestreechter_Geis_Mari_Andriessen_Het_Bat_Maastricht.JPG/960px-Mestreechter_Geis_Mari_Andriessen_Het_Bat_Maastricht.JPG",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Mestreechter_Geis_Mari_Andriessen_Het_Bat_Maastricht.JPG/1280px-Mestreechter_Geis_Mari_Andriessen_Het_Bat_Maastricht.JPG"
- },
- "mst_wyck": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Maastricht%2C_stadszicht_over_de_Maas_met_de_Sint-Janskerk_RM27704%2C_de_Augustijnenkerk_RM27612_en_de_Sint-Servaasbasiliek_RM27671_2022-04-03_10.00.jpg/960px-Maastricht%2C_stadszicht_over_de_Maas_met_de_Sint-Janskerk_RM27704%2C_de_Augustijnenkerk_RM27612_en_de_Sint-Servaasbasiliek_RM27671_2022-04-03_10.00.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Maastricht%2C_stadszicht_over_de_Maas_met_de_Sint-Janskerk_RM27704%2C_de_Augustijnenkerk_RM27612_en_de_Sint-Servaasbasiliek_RM27671_2022-04-03_10.00.jpg/1280px-Maastricht%2C_stadszicht_over_de_Maas_met_de_Sint-Janskerk_RM27704%2C_de_Augustijnenkerk_RM27612_en_de_Sint-Servaasbasiliek_RM27671_2022-04-03_10.00.jpg"
- },
- "mst_dominicanen": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Dominicanenkerkplein%2C_Maastricht%2C_Netherlands_-_panoramio_%289a%29_%28cropped%29.jpg/960px-Dominicanenkerkplein%2C_Maastricht%2C_Netherlands_-_panoramio_%289a%29_%28cropped%29.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Dominicanenkerkplein%2C_Maastricht%2C_Netherlands_-_panoramio_%289a%29_%28cropped%29.jpg/1280px-Dominicanenkerkplein%2C_Maastricht%2C_Netherlands_-_panoramio_%289a%29_%28cropped%29.jpg"
- },
- "mst_vlaai": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Kirsch-Vlario.jpg/960px-Kirsch-Vlario.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Kirsch-Vlario.jpg/1280px-Kirsch-Vlario.jpg"
- },
  "food_currywurst": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/20220430_currywurst.jpg/960px-20220430_currywurst.jpg",
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/20220430_currywurst.jpg/1280px-20220430_currywurst.jpg"
@@ -191,10 +135,6 @@ const IMG = {
  "food_ramen": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg/960px-Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg",
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg/1280px-Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg"
- },
- "food_frites": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/8/83/French_Fries.JPG",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/8/83/French_Fries.JPG"
  },
  "food_stollen": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Stollen-Dresdner_Christstollen.jpg/960px-Stollen-Dresdner_Christstollen.jpg",
@@ -240,17 +180,69 @@ const IMG = {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg/960px-Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg",
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg/1280px-Belgisches_Viertel_Kreuzung_Bruesseler-_und_Luetticher_Strasse.jpg"
  },
- "mst_kruisheren": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Kruisherenkerk_Maastricht_1.JPG/960px-Kruisherenkerk_Maastricht_1.JPG",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Kruisherenkerk_Maastricht_1.JPG/1280px-Kruisherenkerk_Maastricht_1.JPG"
+ "aac_dom": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Aachen_Germany_Imperial-Cathedral-01.jpg/960px-Aachen_Germany_Imperial-Cathedral-01.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Aachen_Germany_Imperial-Cathedral-01.jpg/1280px-Aachen_Germany_Imperial-Cathedral-01.jpg"
  },
- "mst_bassin": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Montage_Maastricht_Bassin.jpg/960px-Montage_Maastricht_Bassin.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Montage_Maastricht_Bassin.jpg"
+ "aac_city": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Blick_auf_das_Rathaus_und_den_Dom_Aachens_aufgenommen_von_St_Jakob.jpg/960px-Blick_auf_das_Rathaus_und_den_Dom_Aachens_aufgenommen_von_St_Jakob.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Blick_auf_das_Rathaus_und_den_Dom_Aachens_aufgenommen_von_St_Jakob.jpg/1280px-Blick_auf_das_Rathaus_und_den_Dom_Aachens_aufgenommen_von_St_Jakob.jpg"
  },
- "mst_fort": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Maastricht-Fort_Sint_Pieter_%2812%29.jpg/960px-Maastricht-Fort_Sint_Pieter_%2812%29.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Maastricht-Fort_Sint_Pieter_%2812%29.jpg/1280px-Maastricht-Fort_Sint_Pieter_%2812%29.jpg"
+ "aac_rathaus": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/AC_BD_Rathaus_Aachen_S%C3%BCdseite_2026.jpg/960px-AC_BD_Rathaus_Aachen_S%C3%BCdseite_2026.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/AC_BD_Rathaus_Aachen_S%C3%BCdseite_2026.jpg/1280px-AC_BD_Rathaus_Aachen_S%C3%BCdseite_2026.jpg"
+ },
+ "aac_elisen": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Elisenbrunnen_Aachen_zur_blauen_Stunde.jpg/960px-Elisenbrunnen_Aachen_zur_blauen_Stunde.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Elisenbrunnen_Aachen_zur_blauen_Stunde.jpg/1280px-Elisenbrunnen_Aachen_zur_blauen_Stunde.jpg"
+ },
+ "aac_katschhof": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Aachener_Dom3.jpg/960px-Aachener_Dom3.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Aachener_Dom3.jpg"
+ },
+ "aac_schatz": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Domschatzkammer2.jpg/960px-Domschatzkammer2.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Domschatzkammer2.jpg/1280px-Domschatzkammer2.jpg"
+ },
+ "aac_centre": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Aachen%2C_Katschhof%2C_Centre_Charlemagne.jpg/960px-Aachen%2C_Katschhof%2C_Centre_Charlemagne.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Aachen%2C_Katschhof%2C_Centre_Charlemagne.jpg/1280px-Aachen%2C_Katschhof%2C_Centre_Charlemagne.jpg"
+ },
+ "aac_ponttor": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/202001311416a_Aachen%2C_Ponttor.jpg/960px-202001311416a_Aachen%2C_Ponttor.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/202001311416a_Aachen%2C_Ponttor.jpg/1280px-202001311416a_Aachen%2C_Ponttor.jpg"
+ },
+ "aac_puppen": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Aachen%2C_Puppenbrunnen_--_2016_--_2783.jpg/960px-Aachen%2C_Puppenbrunnen_--_2016_--_2783.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Aachen%2C_Puppenbrunnen_--_2016_--_2783.jpg/1280px-Aachen%2C_Puppenbrunnen_--_2016_--_2783.jpg"
+ },
+ "aac_lousberg": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Aachen%2C_Lousberg.jpg/960px-Aachen%2C_Lousberg.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Aachen%2C_Lousberg.jpg/1280px-Aachen%2C_Lousberg.jpg"
+ },
+ "aac_dreilaender": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Ac_vaalserberg.JPG/960px-Ac_vaalserberg.JPG",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Ac_vaalserberg.JPG/1280px-Ac_vaalserberg.JPG"
+ },
+ "aac_carolus": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Carolus_Thermen.JPG/960px-Carolus_Thermen.JPG",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Carolus_Thermen.JPG"
+ },
+ "aac_printen": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Kraeuterprinten_1.jpg/960px-Kraeuterprinten_1.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Kraeuterprinten_1.jpg/1280px-Kraeuterprinten_1.jpg"
+ },
+ "aac_wm": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Aachener_Weihnachtsmarkt_2025.jpg/960px-Aachener_Weihnachtsmarkt_2025.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Aachener_Weihnachtsmarkt_2025.jpg/1280px-Aachener_Weihnachtsmarkt_2025.jpg"
+ },
+ "aac_postwagen": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aachen_%E2%80%93_das_originelle_Restaurant_%E2%80%9EPostwagen%E2%80%9C_direkt_neben_dem_Ratskeller_Ratskeller_-_panoramio.jpg/960px-Aachen_%E2%80%93_das_originelle_Restaurant_%E2%80%9EPostwagen%E2%80%9C_direkt_neben_dem_Ratskeller_Ratskeller_-_panoramio.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aachen_%E2%80%93_das_originelle_Restaurant_%E2%80%9EPostwagen%E2%80%9C_direkt_neben_dem_Ratskeller_Ratskeller_-_panoramio.jpg/1280px-Aachen_%E2%80%93_das_originelle_Restaurant_%E2%80%9EPostwagen%E2%80%9C_direkt_neben_dem_Ratskeller_Ratskeller_-_panoramio.jpg"
+ },
+ "aac_pont": {
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Aachen%2C_Pontstra%C3%9Fe.jpg/960px-Aachen%2C_Pontstra%C3%9Fe.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Aachen%2C_Pontstra%C3%9Fe.jpg/1280px-Aachen%2C_Pontstra%C3%9Fe.jpg"
  }
 };
 const IMG_FILES = {
@@ -284,25 +276,10 @@ const IMG_FILES = {
  "cgn_koelsch": "Zunft-Kölsch Glas.JPG",
  "cgn_reibekuchen": "Kartoffelpuffer.jpg",
  "cgn_halvehahn": "2018-10-28-Halve Hahn-9090.jpg",
- "mst_city": "Maastricht sunset.jpg",
- "mst_magisch": "2022 Magisch Maastricht (06).jpg",
- "mst_vrijthof": "Vrijthof - Maastricht, Holland - panoramio.jpg",
- "mst_servaas": "Maastricht, de Sint Servaasbasiliek op het Vrijhof foto8 2011-01-30 13.01.JPG",
- "mst_brug": "Maastricht, Sint Servaasbrug - montage.jpg",
- "mst_stadhuis": "Maastricht 2010-30-03 – Stadthaus am Markt - panoramio (cropped).jpg",
- "mst_olv": "OLV-01 (cropped).jpg",
- "mst_olvplein": "Maastricht platz vor liebfrauenkirche.jpg",
- "mst_helpoort": "Maastricht Helpoort BW 2017-08-19 13-58-28.jpg",
- "mst_molen": "Maastricht-Bisschopsmolen-1.JPG",
- "mst_geis": "Mestreechter Geis Mari Andriessen Het Bat Maastricht.JPG",
- "mst_wyck": "Maastricht, stadszicht over de Maas met de Sint-Janskerk RM27704, de Augustijnenkerk RM27612 en de Sint-Servaasbasiliek RM27671 2022-04-03 10.00.jpg",
- "mst_dominicanen": "Dominicanenkerkplein, Maastricht, Netherlands - panoramio (9a) (cropped).jpg",
- "mst_vlaai": "Kirsch-Vlario.jpg",
  "food_currywurst": "20220430 currywurst.jpg",
  "food_gluehwein": "Glühwein Weinnachtsmarkt OS.JPG",
  "food_haxe": "00ane Haxen.jpg",
  "food_ramen": "Shoyu Ramen（Tokyo Ramen） - 01.jpg",
- "food_frites": "French Fries.JPG",
  "food_stollen": "Stollen-Dresdner Christstollen.jpg",
  "dus_ko": "GER Düsseldorf, Königsallee, Stadtgraben 0003.jpg",
  "dus_rheinturm": "Rheinturm - Gesamtansicht vom Medienhafen.jpg",
@@ -314,7 +291,20 @@ const IMG_FILES = {
  "dus_kaiserswerth": "Panopfalz-innen.jpg",
  "cgn_kolumba": "Kolumba.jpg",
  "cgn_belgisch": "Belgisches Viertel Kreuzung Bruesseler- und Luetticher Strasse.jpg",
- "mst_kruisheren": "Kruisherenkerk Maastricht 1.JPG",
- "mst_bassin": "Montage Maastricht Bassin.jpg",
- "mst_fort": "Maastricht-Fort Sint Pieter (12).jpg"
+ "aac_dom": "Aachen Germany Imperial-Cathedral-01.jpg",
+ "aac_city": "Blick auf das Rathaus und den Dom Aachens aufgenommen von St Jakob.jpg",
+ "aac_rathaus": "AC BD Rathaus Aachen Südseite 2026.jpg",
+ "aac_elisen": "Elisenbrunnen Aachen zur blauen Stunde.jpg",
+ "aac_katschhof": "Aachener Dom3.jpg",
+ "aac_schatz": "Domschatzkammer2.jpg",
+ "aac_centre": "Aachen, Katschhof, Centre Charlemagne.jpg",
+ "aac_ponttor": "202001311416a Aachen, Ponttor.jpg",
+ "aac_puppen": "Aachen, Puppenbrunnen -- 2016 -- 2783.jpg",
+ "aac_lousberg": "Aachen, Lousberg.jpg",
+ "aac_dreilaender": "Ac vaalserberg.JPG",
+ "aac_carolus": "Carolus Thermen.JPG",
+ "aac_printen": "Kraeuterprinten 1.jpg",
+ "aac_wm": "Aachener Weihnachtsmarkt 2025.jpg",
+ "aac_postwagen": "Aachen – das originelle Restaurant „Postwagen“ direkt neben dem Ratskeller Ratskeller - panoramio.jpg",
+ "aac_pont": "Aachen, Pontstraße.jpg"
 };

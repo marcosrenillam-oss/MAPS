@@ -1,6 +1,6 @@
-# Rin & Mosa · Invierno 2026
+# Invierno en el Rin · 2026
 
-Cuaderno de viaje interactivo para **Düsseldorf · Köln · Maastricht** (8–11 diciembre 2026).
+Cuaderno de viaje interactivo para **Düsseldorf · Köln · Aachen (Aquisgrán)** (8–11 diciembre 2026).
 Web estática pensada para añadirse a la pantalla de inicio del móvil: pantalla completa, sin zoom y con modo sin conexión.
 
 ## Qué incluye
@@ -10,9 +10,9 @@ Web estática pensada para añadirse a la pantalla de inicio del móvil: pantall
 - **Un capítulo por día**: plan por horas (marca lo que ya pasó y lo que toca *ahora*), billetes de transporte paso a paso, sitios que ver con modo **Navidad / Todo el año**, dónde comer barato y ruta a pie que se abre en Google Maps.
 - **Fichas** de cada sitio con foto, consejo, tiempo, precio y distancias a pie al resto; puedes marcarlos como vistos.
 - **Mercados navideños** con horarios oficiales 2026, mini-mapa, minutos a pie entre ellos y aviso «abierto ahora».
-- **Joyas escondidas** (EKŌ-Haus, K21 In Orbit, Kolumba, Kruisherenhotel…) y **explorador de distancias**: eliges un origen y ves cuánto se tarda andando a todo lo demás.
+- **Joyas escondidas** (EKŌ-Haus, K21 In Orbit, Kolumba, Carolus Thermen…) y **explorador de distancias**: eliges un origen y ves cuánto se tarda andando a todo lo demás.
 - **Tiempo real** (Open-Meteo) en cada día cuando la fecha entra en la previsión de 16 días.
-- **Kit de viaje**: Deutschlandticket, efectivo, Pfand, frases en alemán y neerlandés y checklist que se guarda.
+- **Kit de viaje**: Deutschlandticket, efectivo, Pfand, frases en alemán con pronunciación y checklist que se guarda.
 
 ## Publicar con GitHub Pages
 
@@ -34,4 +34,4 @@ manifest.webmanifest pantalla completa / icono
 credits.html         créditos de las fotos
 ```
 
-Precios y horarios son aproximados (noviembre 2026): confirmad trenes en DB Navigator y buses en FlixBus la víspera.
+Precios y horarios son aproximados (noviembre 2026): confirmad trenes en DB Navigator la víspera.

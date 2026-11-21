@@ -1,5 +1,5 @@
-/* Rin & Mosa · service worker: funciona sin conexión */
-const VERSION = "rm-v2";
+/* Invierno en el Rin · service worker: funciona sin conexión */
+const VERSION = "rm-v3";
 const CORE = [
   "./", "index.html", "credits.html", "manifest.webmanifest",
   "css/style.css", "js/images.js", "js/data.js", "js/app.js",

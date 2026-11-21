@@ -204,7 +204,7 @@ em { font-style: italic; }
   margin: 14px -8px 0;
   position: relative;
 }
-#map { width: 100%; height: auto; overflow: visible; }
+#map { width: 100%; height: auto; overflow: hidden; }
 #map .land { fill: var(--paper-2); }
 #map .grid { stroke: rgba(21,22,28,.06); stroke-width: .5; }
 #map .river { fill: none; stroke: #9DB8C1; stroke-width: 2.4; stroke-linecap: round; }

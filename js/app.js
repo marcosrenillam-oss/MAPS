@@ -1,5 +1,5 @@
 /* =========================================================
-   Rin & Mosa · interacción
+   Invierno en el Rin · interacción
    ========================================================= */
 (() => {
   "use strict";
@@ -46,15 +46,15 @@
     { id: "fly1", day: 1, d: "M178 330 C 215 250, 245 150, 268 57", flight: true },
     { id: "l1", day: 1, d: "M268 57 C 273 64, 273 72, 270 79" },
     { id: "l2", day: 2, d: "M270 79 C 292 100, 318 128, 322 150 C 325 165, 317 176, 311 181" },
-    { id: "l3", day: 3, d: "M270 79 C 232 82, 202 90, 182 110 C 160 134, 122 160, 92 180 C 66 195, 46 205, 31 211" },
+    { id: "l3", day: 3, d: "M270 79 C 238 84, 208 92, 192 110 C 172 134, 150 180, 135 205 C 128 218, 122 230, 118 238" },
     { id: "l4", day: 4, d: "M270 79 C 265 72, 263 64, 268 57" },
     { id: "fly2", day: 4, d: "M268 57 C 240 140, 205 240, 160 330", flight: true },
   ];
   const STEPS = [
-    { n: "✦", kick: "Resumen", title: "Cuatro días entre dos ríos", text: "Base en Düsseldorf. Un día en Colonia siguiendo el Rin y otro cruzando a Holanda, a orillas del Mosa.", stats: [["4", "días"], ["3", "ciudades"], ["2", "países"], ["10+", "mercados"]], c: "#B08D57", on: [] },
+    { n: "✦", kick: "Resumen", title: "Cuatro días entre dos ríos", text: "Base en Düsseldorf. Un día en Colonia siguiendo el Rin y otro en Aquisgrán, la ciudad de Carlomagno, junto a la frontera.", stats: [["4", "días"], ["3", "ciudades"], ["2", "catedrales UNESCO"], ["10+", "mercados"]], c: "#B08D57", on: [] },
     { n: "08", kick: "Martes · Llegada", title: "Madrid → Düsseldorf", text: "Aterrizaje 12:30. S11 al centro en 12 minutos y tarde de Kö, Altstadt y mercados.", stats: [["12′", "al centro"], ["≈3,80€", "billete"]], c: DAYS[0].accent, on: ["fly1", "l1"], nodes: ["air", "dus"] },
     { n: "09", kick: "Miércoles · Excursión", title: "Düsseldorf → Köln", text: "Regional por la orilla del Rin. Catedral, siete mercados y Kölsch.", stats: [["≈40 km", "distancia"], ["25–35′", "en RE"]], c: DAYS[1].accent, on: ["l2"], nodes: ["dus", "cgn"] },
-    { n: "10", kick: "Jueves · Holanda", title: "Düsseldorf → Maastricht", text: "FlixBus cruzando la frontera. Todo el centro se hace a pie desde la estación.", stats: [["≈105 km", "distancia"], ["≈2 h", "en bus"]], c: DAYS[2].accent, on: ["l3"], nodes: ["dus", "mst"] },
+    { n: "10", kick: "Jueves · Carlomagno", title: "Düsseldorf → Aquisgrán", text: "Tren regional (RE4 o RE1). Catedral, ayuntamiento y mercado, todo a pie desde la estación.", stats: [["≈80 km", "distancia"], ["≈1 h 25", "en tren"]], c: DAYS[2].accent, on: ["l3"], nodes: ["dus", "aac"] },
     { n: "11", kick: "Viernes · Vuelta", title: "Düsseldorf → Madrid", text: "Mañana libre, S11 al aeropuerto a las 13:45 y vuelo a las 16:30.", stats: [["16:30", "vuelo"], ["14:30", "en DUS"]], c: DAYS[3].accent, on: ["l4", "fly2"], nodes: ["dus", "air"] },
   ];
 
@@ -66,7 +66,7 @@
     for (let x = 0; x <= 360; x += 30) grid += `<line class="grid" x1="${x}" y1="0" x2="${x}" y2="290"/>`;
     for (let y = 0; y <= 290; y += 30) grid += `<line class="grid" x1="0" y1="${y}" x2="360" y2="${y}"/>`;
     const towns = [
-      ["Bonn", 341, 251], ["Venlo", 137, 30], ["Roermond", 95, 92], ["Aachen", 118, 238], ["Duisburg", 268, 10],
+      ["Bonn", 341, 251], ["Venlo", 137, 30], ["Roermond", 95, 92], ["Maastricht", 31, 211], ["Duisburg", 268, 10],
     ];
     svg.innerHTML = `
       <defs>
@@ -86,10 +86,10 @@
       ${towns.map(([n, x, y]) => `<circle class="town" cx="${x}" cy="${y}" r="1.6"/><text class="town-label" x="${x + 4}" y="${y + 2.5}">${n}</text>`).join("")}
       <rect x="0" y="0" width="360" height="290" fill="url(#vign)"/>
       ${LEGS.map((l) => `<path class="leg ${l.flight ? "leg--flight" : ""}" data-leg="${l.id}" pathLength="1" d="${l.d}" stroke="${legColor(l)}" ${l.flight ? 'stroke-dasharray="0.012 0.012"' : ""}/>`).join("")}
-      ${["air", "dus", "cgn", "mst"].map((k) => {
+      ${["air", "dus", "cgn", "aac"].map((k) => {
         const p = N[k];
-        const anchor = k === "mst" ? "start" : "end";
-        const dx = k === "mst" ? 9 : -9;
+        const anchor = k === "aac" ? "start" : "end";
+        const dx = k === "aac" ? 9 : -9;
         const dy = k === "air" ? -2 : 4;
         return `<g class="node" data-node="${k}"><circle class="halo" cx="${p.x}" cy="${p.y}" r="5"/><circle class="core" cx="${p.x}" cy="${p.y}" r="${k === "air" ? 2.6 : 4}"/><text x="${p.x + dx}" y="${p.y + dy}" text-anchor="${anchor}">${p.label}</text></g>`;
       }).join("")}
@@ -579,17 +579,17 @@
         <div><h4>${t.title}</h4><p>${t.body}</p></div>
       </article>`).join("");
 
-    $("#phrases").innerHTML = `<div class="phrase__hd"><span>🇩🇪 Alemán</span><span>🇳🇱 Neerlandés</span></div>` +
+    $("#phrases").innerHTML = `<div class="phrase__hd"><span>🇩🇪 Alemán</span><span>Cómo se dice</span></div>` +
       PHRASES.map((p) => `<div class="phrase"><small>${p.es}</small><div><b>${p.de}</b><b>${p.nl}</b></div></div>`).join("");
 
     const items = [
       "DNI o pasaporte",
       "Tarjeta Sanitaria Europea",
       "60–80 € en efectivo (billetes pequeños)",
-      "Billete FlixBus a Maastricht (ida y vuelta)",
-      "Apps: DB Navigator, Rheinbahn, FlixBus",
+      "Deutschlandticket de diciembre (DB Navigator)",
+      "Apps: DB Navigator, Rheinbahn, KVB, ASEAG",
       "Mapas offline de las 3 ciudades",
-      "Decidir: Deutschlandticket o billetes sueltos",
+      "Bañador si vais a las Carolus Thermen",
       "Reservar cena del día 8 en un Brauhaus",
       "Abrigo, gorro, guantes y calzado impermeable",
       "Batería externa",
@@ -660,7 +660,7 @@
      TIEMPO (Open-Meteo, sin clave). Solo si la fecha está dentro
      de la previsión (≈16 días); si no, se queda el clima medio.
      --------------------------------------------------------- */
-  const COORDS = { dus: [51.2277, 6.7735], cgn: [50.9375, 6.9603], mst: [50.8514, 5.691] };
+  const COORDS = { dus: [51.2277, 6.7735], cgn: [50.9375, 6.9603], aac: [50.7753, 6.0839] };
   const wxText = (c) =>
     c === 0 ? ["Despejado", "sun"] : c <= 3 ? ["Nubes y claros", "weather"] : c <= 48 ? ["Niebla", "weather"] :
     c <= 67 ? ["Lluvia", "rain"] : c <= 77 ? ["Nieve", "snow"] : c <= 82 ? ["Chubascos", "rain"] : c <= 86 ? ["Nieve", "snow"] : ["Tormenta", "rain"];
@@ -811,7 +811,7 @@
   }
 
   /* --------------------------------------------------------- */
-  $("#slides").innerHTML = ["dus_city", "cgn_dom", "mst_magisch"].map((k) => `<div class="cover__slide" style="background-image:url('${img(k, true)}')"></div>`).join("");
+  $("#slides").innerHTML = ["dus_city", "cgn_dom", "aac_wm"].map((k) => `<div class="cover__slide" style="background-image:url('${img(k, true)}')"></div>`).join("");
   buildMap();
   buildDays();
   buildInfo();
