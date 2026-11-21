@@ -11,6 +11,12 @@ Web estática pensada para añadirse a la pantalla de inicio del móvil: pantall
 - **Fichas** de cada sitio con foto, consejo, tiempo, precio y distancias a pie al resto; puedes marcarlos como vistos.
 - **Mercados navideños** con horarios oficiales 2026, mini-mapa, minutos a pie entre ellos y aviso «abierto ahora».
 - **Joyas escondidas** (EKŌ-Haus, K21 In Orbit, Kolumba, Carolus Thermen…) y **explorador de distancias**: eliges un origen y ves cuánto se tarda andando a todo lo demás.
+- **Apartamento como base** (Talstraße 9): distancias desde el apartamento y botón «Volver al apartamento» en cada día.
+- **Llegada y vuelta por Weeze** (bus SW1 + RE10) con horarios orientativos.
+- **Distancias reales a pie** calculadas por calles (OpenStreetMap / OSRM) y guardadas en la app (funcionan sin conexión).
+- **Cerca de mí**: con tu ubicación, cada sitio muestra «a X min de ti» y se puede ordenar por cercanía.
+- **Modo oscuro** automático de noche (17:00–8:00) o manual.
+- **Tazas de Glühwein**, **plan B si llueve** (se abre solo si la previsión da lluvia) y **compartir progreso** con tus acompañantes por enlace.
 - **Tiempo real** (Open-Meteo) en cada día cuando la fecha entra en la previsión de 16 días.
 - **Kit de viaje**: Deutschlandticket, efectivo, Pfand, frases en alemán con pronunciación y checklist que se guarda.
 

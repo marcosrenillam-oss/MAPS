@@ -37,25 +37,31 @@
     sun: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
     rain: '<svg viewBox="0 0 24 24"><path d="M7 15h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6 8a3.5 3.5 0 0 0 1 7ZM8 18l-1 3M12 18l-1 3M16 18l-1 3"/></svg>',
     snow: '<svg viewBox="0 0 24 24"><path d="M12 2v20M4 7l16 10M20 7 4 17"/></svg>',
+    home: '<svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 9.5V20h12V9.5M10 20v-5h4v5"/></svg>',
+    locate: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7.5"/></svg>',
+    moon: '<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>',
+    mug: '<svg viewBox="0 0 24 24"><path d="M5 8h11v7a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4Z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/></svg>',
+    share: '<svg viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>',
+    umbrella: '<svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0ZM12 12v7a2 2 0 0 0 4 0"/></svg>',
   };
 
   /* ---------------------------------------------------------
      MAPA ARTESANAL
      --------------------------------------------------------- */
   const LEGS = [
-    { id: "fly1", day: 1, d: "M178 330 C 215 250, 245 150, 268 57", flight: true },
-    { id: "l1", day: 1, d: "M268 57 C 273 64, 273 72, 270 79" },
+    { id: "fly1", day: 1, d: "M-30 140 C 20 70, 80 -12, 131 -52", flight: true },
+    { id: "l1", day: 1, d: "M131 -52 C 160 -25, 195 10, 222 40 C 240 60, 258 72, 270 79" },
     { id: "l2", day: 2, d: "M270 79 C 292 100, 318 128, 322 150 C 325 165, 317 176, 311 181" },
     { id: "l3", day: 3, d: "M270 79 C 238 84, 208 92, 192 110 C 172 134, 150 180, 135 205 C 128 218, 122 230, 118 238" },
-    { id: "l4", day: 4, d: "M270 79 C 265 72, 263 64, 268 57" },
-    { id: "fly2", day: 4, d: "M268 57 C 240 140, 205 240, 160 330", flight: true },
+    { id: "l4", day: 4, d: "M270 79 C 258 72, 240 60, 222 40 C 195 10, 160 -25, 131 -52" },
+    { id: "fly2", day: 4, d: "M131 -52 C 70 0, 10 95, -30 175", flight: true },
   ];
   const STEPS = [
-    { n: "✦", kick: "Resumen", title: "Cuatro días entre dos ríos", text: "Base en Düsseldorf. Un día en Colonia siguiendo el Rin y otro en Aquisgrán, la ciudad de Carlomagno, junto a la frontera.", stats: [["4", "días"], ["3", "ciudades"], ["2", "catedrales UNESCO"], ["10+", "mercados"]], c: "#B08D57", on: [] },
-    { n: "08", kick: "Martes · Llegada", title: "Madrid → Düsseldorf", text: "Aterrizaje 12:30. S11 al centro en 12 minutos y tarde de Kö, Altstadt y mercados.", stats: [["12′", "al centro"], ["≈3,80€", "billete"]], c: DAYS[0].accent, on: ["fly1", "l1"], nodes: ["air", "dus"] },
-    { n: "09", kick: "Miércoles · Excursión", title: "Düsseldorf → Köln", text: "Regional por la orilla del Rin. Catedral, siete mercados y Kölsch.", stats: [["≈40 km", "distancia"], ["25–35′", "en RE"]], c: DAYS[1].accent, on: ["l2"], nodes: ["dus", "cgn"] },
-    { n: "10", kick: "Jueves · Carlomagno", title: "Düsseldorf → Aquisgrán", text: "Tren regional (RE4 o RE1). Catedral, ayuntamiento y mercado, todo a pie desde la estación.", stats: [["≈80 km", "distancia"], ["≈1 h 25", "en tren"]], c: DAYS[2].accent, on: ["l3"], nodes: ["dus", "aac"] },
-    { n: "11", kick: "Viernes · Vuelta", title: "Düsseldorf → Madrid", text: "Mañana libre, S11 al aeropuerto a las 13:45 y vuelo a las 16:30.", stats: [["16:30", "vuelo"], ["14:30", "en DUS"]], c: DAYS[3].accent, on: ["l4", "fly2"], nodes: ["dus", "air"] },
+    { n: "✦", kick: "Resumen", title: "Cuatro días entre dos ríos", text: "Base en Düsseldorf. Un día en Colonia siguiendo el Rin y otro en Aquisgrán, la ciudad de Carlomagno, junto a la frontera.", stats: [["4", "días"], ["3", "ciudades"], ["2", "catedrales UNESCO"], ["10+", "mercados"]], c: "#B08D57", on: [], view: [-10, -78, 380, 335] },
+    { n: "08", kick: "Martes · Llegada", title: "Madrid → Weeze → Düsseldorf", text: "Aterrizaje 12:30 en Weeze. Bus SW1 + tren RE10 hasta Düsseldorf y 18 min a pie al apartamento.", stats: [["≈1 h 30", "hasta Düsseldorf"], ["SW1+RE10", "en D-Ticket"]], c: DAYS[0].accent, on: ["fly1", "l1"], nodes: ["nrn", "dus"], view: [70, -85, 240, 190] },
+    { n: "09", kick: "Miércoles · Excursión", title: "Düsseldorf → Köln", text: "Regional por la orilla del Rin. Catedral, siete mercados y Kölsch.", stats: [["≈40 km", "distancia"], ["25–35′", "en RE"]], c: DAYS[1].accent, on: ["l2"], nodes: ["dus", "cgn"], view: [175, 30, 185, 180] },
+    { n: "10", kick: "Jueves · Carlomagno", title: "Düsseldorf → Aquisgrán", text: "Tren regional (RE4 o RE1). Catedral, ayuntamiento y mercado, todo a pie desde la estación.", stats: [["≈80 km", "distancia"], ["≈1 h 25", "en tren"]], c: DAYS[2].accent, on: ["l3"], nodes: ["dus", "aac"], view: [30, 40, 290, 225] },
+    { n: "11", kick: "Viernes · Vuelta", title: "Düsseldorf → Weeze → Madrid", text: "Mañana libre, salir del apartamento a las 12:15 y vuelo a las 16:30 desde Weeze.", stats: [["12:15", "salir"], ["16:30", "vuelo"]], c: DAYS[3].accent, on: ["l4", "fly2"], nodes: ["dus", "nrn"], view: [70, -85, 240, 190] },
   ];
 
   function buildMap() {
@@ -63,20 +69,21 @@
     const N = MAP_NODES;
     const legColor = (l) => DAYS[l.day - 1].accent;
     let grid = "";
-    for (let x = 0; x <= 360; x += 30) grid += `<line class="grid" x1="${x}" y1="0" x2="${x}" y2="290"/>`;
-    for (let y = 0; y <= 290; y += 30) grid += `<line class="grid" x1="0" y1="${y}" x2="360" y2="${y}"/>`;
+    for (let x = 0; x <= 360; x += 30) grid += `<line class="grid" x1="${x}" y1="-90" x2="${x}" y2="290"/>`;
+    for (let y = -90; y <= 290; y += 30) grid += `<line class="grid" x1="0" y1="${y}" x2="360" y2="${y}"/>`;
     const towns = [
       ["Bonn", 341, 251], ["Venlo", 137, 30], ["Roermond", 95, 92], ["Maastricht", 31, 211], ["Duisburg", 268, 10],
     ];
     svg.innerHTML = `
       <defs>
-        <radialGradient id="vign" cx="50%" cy="45%" r="70%"><stop offset="60%" stop-color="#F4EFE6" stop-opacity="0"/><stop offset="100%" stop-color="#F4EFE6" stop-opacity="1"/></radialGradient>
+        <radialGradient id="vign" cx="50%" cy="45%" r="70%"><stop offset="60%" style="stop-color:var(--paper)" stop-opacity="0"/><stop offset="100%" style="stop-color:var(--paper)" stop-opacity="1"/></radialGradient>
       </defs>
       ${grid}
-      <path class="river" d="M350 290 C 345 265, 342 255, 338 245 C 330 225, 318 200, 314 182 C 310 165, 320 150, 316 140 C 312 128, 298 125, 292 118 C 284 108, 262 100, 265 88 C 268 76, 258 66, 260 52 C 262 38, 258 22, 264 0"/>
-      <path class="river river--thin" d="M0 285 C 12 262, 26 236, 30 212 C 33 190, 45 165, 65 140 C 82 118, 92 104, 96 92 C 104 70, 128 50, 136 30 C 140 18, 140 8, 142 0"/>
+      <path class="river" d="M350 290 C 345 265, 342 255, 338 245 C 330 225, 318 200, 314 182 C 310 165, 320 150, 316 140 C 312 128, 298 125, 292 118 C 284 108, 262 100, 265 88 C 268 76, 258 66, 260 52 C 262 38, 258 22, 264 0 C 268 -20, 255 -45, 240 -80"/>
+      <path class="river river--thin" d="M0 285 C 12 262, 26 236, 30 212 C 33 190, 45 165, 65 140 C 82 118, 92 104, 96 92 C 104 70, 128 50, 136 30 C 140 18, 140 8, 142 0 C 140 -20, 120 -45, 98 -80"/>
       <text class="river-label" x="322" y="214" transform="rotate(68 322 214)">Rhein</text>
       <text class="river-label" x="50" y="164" transform="rotate(-55 50 164)">Maas</text>
+      <path class="border" d="M92 -80 C 98 -58, 108 -36, 122 -20 C 136 -8, 148 -8, 150 0"/>
       <path class="border" d="M150 0 C 152 15, 151 25, 150 40 C 148 60, 146 80, 141 95 C 130 115, 90 130, 72 155 C 86 170, 116 172, 119 190 C 121 205, 110 225, 104 245"/>
       <path class="border" d="M104 245 C 80 249, 50 251, 36 251 C 24 240, 22 226, 24 214 C 28 196, 44 172, 60 150 C 40 140, 20 130, 0 125"/>
       <path class="border" d="M104 245 C 112 262, 120 276, 126 290"/>
@@ -84,14 +91,14 @@
       <text class="country" x="176" y="146">DEUTSCHLAND</text>
       <text class="country" x="40" y="282">BELGIË</text>
       ${towns.map(([n, x, y]) => `<circle class="town" cx="${x}" cy="${y}" r="1.6"/><text class="town-label" x="${x + 4}" y="${y + 2.5}">${n}</text>`).join("")}
-      <rect x="0" y="0" width="360" height="290" fill="url(#vign)"/>
+      <rect x="0" y="-90" width="360" height="380" fill="url(#vign)"/>
       ${LEGS.map((l) => `<path class="leg ${l.flight ? "leg--flight" : ""}" data-leg="${l.id}" pathLength="1" d="${l.d}" stroke="${legColor(l)}" ${l.flight ? 'stroke-dasharray="0.012 0.012"' : ""}/>`).join("")}
-      ${["air", "dus", "cgn", "aac"].map((k) => {
+      ${["nrn", "dus", "cgn", "aac"].map((k) => {
         const p = N[k];
-        const anchor = k === "aac" ? "start" : "end";
-        const dx = k === "aac" ? 9 : -9;
-        const dy = k === "air" ? -2 : 4;
-        return `<g class="node" data-node="${k}"><circle class="halo" cx="${p.x}" cy="${p.y}" r="5"/><circle class="core" cx="${p.x}" cy="${p.y}" r="${k === "air" ? 2.6 : 4}"/><text x="${p.x + dx}" y="${p.y + dy}" text-anchor="${anchor}">${p.label}</text></g>`;
+        const anchor = k === "aac" || k === "nrn" ? "start" : "end";
+        const dx = k === "aac" || k === "nrn" ? 9 : -9;
+        const dy = 4;
+        return `<g class="node" data-node="${k}"><circle class="halo" cx="${p.x}" cy="${p.y}" r="5"/><circle class="core" cx="${p.x}" cy="${p.y}" r="${k === "nrn" ? 3 : 4}"/><text x="${p.x + dx}" y="${p.y + dy}" text-anchor="${anchor}">${p.label}</text></g>`;
       }).join("")}
     `;
     // los vuelos tienen trazo discontinuo: animamos su opacidad en lugar del dash
@@ -108,7 +115,21 @@
         </div>`).join("");
     steps.innerHTML = STEPS.map((_, i) => `<div class="step" data-step="${i}"></div>`).join("");
 
+    let vb = [-10, -78, 380, 335], vbAnim = null;
+    const camera = (to) => {
+      const from = vb.slice(), t0 = performance.now(), dur = 950;
+      cancelAnimationFrame(vbAnim);
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      const tick = (now) => {
+        const k = ease(Math.min(1, (now - t0) / dur));
+        vb = from.map((f, n) => f + (to[n] - f) * k);
+        svg.setAttribute("viewBox", vb.map((x) => x.toFixed(1)).join(" "));
+        if (k < 1) vbAnim = requestAnimationFrame(tick);
+      };
+      vbAnim = requestAnimationFrame(tick);
+    };
     const setStep = (i) => {
+      if (STEPS[i].view) camera(STEPS[i].view);
       $$(".step__card", cards).forEach((el, j) => {
         el.classList.toggle("is-on", j === i);
         el.classList.toggle("is-past", j < i);
@@ -138,6 +159,9 @@
      --------------------------------------------------------- */
   const POI_DAY = {};
   function dist(a, b) {
+    if (a === b) return 0;
+    const w = WALK[a + "|" + b] ?? WALK[b + "|" + a];
+    if (w != null) return w;
     const A = GEO[a], B = GEO[b];
     if (!A || !B) return null;
     const r = (x) => (x * Math.PI) / 180;
@@ -165,6 +189,9 @@
   }
 
   const seen = new Set(store.get("seen", []));
+  let ME = null;                       // [lat, lng] cuando se activa la ubicación
+  let NEAR = false;                    // ordenar por cercanía
+  const MUGS = store.get("mugs", {});
   let mode = store.get("mode", "xmas");
   const POI_INDEX = {};
 
@@ -172,7 +199,9 @@
     POI_INDEX[p.id] = p;
     const d = POI_DAY[p.id];
     const h = d && hop(d.base, p.at);
-    const from = h ? `<div class="poi__from">${ICON.walk}<span>${h.same ? "En la estación" : h.short + " desde " + BASE_NAME[d.base]}</span></div>` : "";
+    const hm = ME && hop("me", p.at);
+    const from = hm ? `<div class="poi__from is-me">${ICON.locate}<span>${hm.short} de ti</span></div>`
+      : h ? `<div class="poi__from">${d.base === "dus-hotel" ? ICON.home : ICON.walk}<span>${h.same ? "Aquí mismo" : h.short + " desde " + BASE_NAME[d.base]}</span></div>` : "";
     return `
       <button class="poi ${seen.has(p.id) ? "is-seen" : ""}" data-poi="${p.id}" style="--i:${i}">
         <img src="${img(p.img)}" alt="${p.name}" loading="lazy" decoding="async">
@@ -197,6 +226,7 @@
 
   function buildDays() {
     const root = $("#days");
+    DAYS.forEach((d) => [...d.xmas, ...d.always, ...(d.gems || [])].forEach((p) => { POI_DAY[p.id] = POI_DAY[p.id] || d; POI_INDEX[p.id] = p; }));
     DAYS.forEach((d) => [...d.xmas, ...d.always, ...(d.gems || [])].forEach((p) => { POI_DAY[p.id] = d; POI_INDEX[p.id] = p; }));
     root.innerHTML = DAYS.map((d, di) => {
       let walkTotal = 0;
@@ -222,7 +252,7 @@
         </div>` : "";
 
       return `
-      <section class="day" id="${d.id}" data-nav="${d.id}" style="--accent:${d.accent};--accent-soft:${d.accentSoft}">
+      <section class="day" id="${d.id}" data-nav="${d.id}" style="--acc-l:${d.accent};--soft-l:${d.accentSoft};--acc-d:${mix(d.accent, "#FFFFFF", 0.38)};--soft-d:${mix(d.accent, "#0E1015", 0.72)}">
         <header class="day-hero">
           <div class="day-hero__img" style="background-image:url('${img(d.hero, true)}')" role="img" aria-label="${d.heroAlt}"></div>
           <span class="day-hero__num" aria-hidden="true">${d.num}</span>
@@ -235,6 +265,8 @@
         </header>
 
         <p class="day__intro" data-reveal>${d.intro}</p>
+        ${hotelStrip(d)}
+        ${rainBlock(d)}
 
         <div class="block">
           <div class="block__head" data-reveal><h3>El <em>plan</em></h3><span class="eyebrow">${d.weekday}</span></div>
@@ -278,7 +310,7 @@
         </div>
 
         <div class="block">
-          <div class="block__head" data-reveal><h3>Qué <em>ver</em></h3></div>
+          <div class="block__head" data-reveal><h3>Qué <em>ver</em></h3><button class="near-btn ${NEAR ? "is-on" : ""}" data-near>${ICON.locate}<span>Cerca de mí</span></button></div>
           <div class="seg" data-reveal data-seg data-mode="${mode}">
             <span class="seg__pill"></span>
             <button data-m="xmas" class="${mode === "xmas" ? "is-on" : ""}">✦ En Navidad</button>
@@ -370,7 +402,10 @@
             ${m.tip ? `<p class="mk__tip">${m.tip}</p>` : ""}
             <span class="mk__status"></span>
           </div>
-          <a class="mk__go" href="${mapsSearch(m.name + " " + d.city)}" target="_blank" rel="noopener" aria-label="Abrir en Google Maps">${ICON.pin}</a>
+          <div class="mk__side">
+            <a class="mk__go" href="${mapsSearch(m.name + " " + d.city)}" target="_blank" rel="noopener" aria-label="Abrir en Google Maps">${ICON.pin}</a>
+            <button class="mug" data-mug="${d.id}:${m.name}" aria-label="Sumar una taza">${ICON.mug}<b>${MUGS[d.id + ":" + m.name] || 0}</b></button>
+          </div>
         </li>`;
     }).join("");
     return `
@@ -392,7 +427,7 @@
         <div class="block">
           <div class="block__head" data-reveal><h3>Distancias <em>a pie</em></h3><span class="eyebrow">Elige origen</span></div>
           <div class="dx" data-dx="${di}" data-reveal>
-            <div class="dx__chips">${places.map((x, i) => `<button data-from="${x.at}" class="${i === 0 ? "is-on" : ""}">${x.name}</button>`).join("")}</div>
+            <div class="dx__chips"><button data-from="me" class="dx__me" ${ME ? "" : "hidden"}>${ICON.locate} Tú</button>${places.map((x, i) => `<button data-from="${x.at}" class="${i === 0 ? "is-on" : ""}">${x.name}</button>`).join("")}</div>
             <ul class="dx__list"></ul>
           </div>
         </div>`;
@@ -434,6 +469,56 @@
     });
   }
 
+  /* ---------- apartamento ---------- */
+  const hotelDir = (mode = "walking") => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(HOTEL.address)}&travelmode=${mode}`;
+  function hotelStrip(d) {
+    const inDus = d.cityKey === "dus";
+    const sub = inDus
+      ? `${HOTEL.address} · ${fmtM(dist("dus-hotel", "dus-hbf"))} del Hbf`
+      : `Tren a Düsseldorf Hbf y ${walkMin(dist("dus-hotel", "dus-hbf"))}′ a pie hasta ${HOTEL.address.split(",")[0]}`;
+    return `
+        <a class="hotel" data-reveal href="${hotelDir(inDus ? "walking" : "transit")}" target="_blank" rel="noopener">
+          <span class="hotel__ico">${ICON.home}</span>
+          <span class="hotel__txt"><small>Volver al apartamento</small><b>${HOTEL.name}</b><em>${sub}</em></span>
+          <span class="hotel__go">${ICON.pin}</span>
+        </a>`;
+  }
+
+  /* ---------- plan si llueve ---------- */
+  function rainBlock(d) {
+    if (!d.rainPlan) return "";
+    const items = d.rainPlan.map((id) => POI_INDEX[id]).filter(Boolean);
+    return `
+        <details class="rain" data-rain="${d.date}" data-reveal>
+          <summary>${ICON.umbrella}<span class="rain__t">Plan B si llueve</span><span class="rain__badge"></span>${ICON.chev}</summary>
+          <p>Todo bajo techo y cerca de la ruta del día:</p>
+          <div class="rain__chips">${items.map((p) => `<button data-poi="${p.id}">${p.name}</button>`).join("")}</div>
+        </details>`;
+  }
+  function markRain(data) {
+    $$("[data-rain]").forEach((el) => {
+      const d = DAYS.find((x) => x.date === el.dataset.rain);
+      const dly = data[d.cityKey];
+      if (!dly) return;
+      const i = dly.time.indexOf(d.date);
+      if (i < 0) return;
+      const p = dly.precipitation_probability_max ? dly.precipitation_probability_max[i] : 0;
+      const c = dly.weather_code[i];
+      const wet = p >= 50 || (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || c >= 95;
+      el.classList.toggle("is-wet", wet);
+      if (wet) {
+        el.open = true;
+        $(".rain__badge", el).textContent = `Previsión: ${p}% de lluvia`;
+      }
+    });
+  }
+
+  function mix(hex, hex2, t) {
+    const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const A = p(hex), B = p(hex2);
+    return "#" + A.map((c, i) => Math.round(c + (B[i] - c) * t).toString(16).padStart(2, "0")).join("");
+  }
+
   function lighten(hex) {
     const n = parseInt(hex.slice(1), 16);
     const r = n >> 16, g = (n >> 8) & 255, b = n & 255;
@@ -444,8 +529,9 @@
   function renderRails() {
     DAYS.forEach((d, di) => {
       const rail = $(`[data-rail="${di}"]`);
-      const items = d[mode] && d[mode].length ? d[mode] : d.always;
+      let items = d[mode] && d[mode].length ? d[mode] : d.always;
       items.forEach((p) => (POI_DAY[p.id] = d));
+      if (NEAR && ME) items = [...items].sort((a, b) => (dist("me", a.at) ?? 1e9) - (dist("me", b.at) ?? 1e9));
       rail.innerHTML = items.map(poiCard).join("");
       rail.scrollLeft = 0;
       const dots = $(`[data-dots="${di}"]`);
@@ -509,7 +595,9 @@
     $("#sheetTip").innerHTML = `${ICON.bulb}<span>${p.tip}</span>`;
     const dd = POI_DAY[id];
     const near = dd ? dayPlaces(dd).filter((x) => x.at !== p.at).map((x) => ({ ...x, h: hop(p.at, x.at) })).filter((x) => x.h).sort((a, b) => a.h.m - b.h.m).slice(0, 7) : [];
-    $("#sheetNear").innerHTML = near.length ? `<h4>Distancias desde aquí</h4><ul>${near.map((x) => `<li><span>${x.name}</span><b>${x.h.short}</b></li>`).join("")}</ul>` : "";
+    const meH = ME && hop("me", p.at);
+    $("#sheetNear").innerHTML = (meH ? `<div class="near-me">${ICON.locate}<span>Desde donde estás: <b>${meH.label}</b></span></div>` : "") +
+      (near.length ? `<h4>Distancias desde aquí</h4><ul>${near.map((x) => `<li><span>${x.name}</span><b>${x.h.short}</b></li>`).join("")}</ul>` : "");
     $("#sheetMaps").href = mapsSearch(p.q);
     updateSeenBtn();
     $(".sheet__scroll").scrollTop = 0;
@@ -665,7 +753,7 @@
     c === 0 ? ["Despejado", "sun"] : c <= 3 ? ["Nubes y claros", "weather"] : c <= 48 ? ["Niebla", "weather"] :
     c <= 67 ? ["Lluvia", "rain"] : c <= 77 ? ["Nieve", "snow"] : c <= 82 ? ["Chubascos", "rain"] : c <= 86 ? ["Nieve", "snow"] : ["Tormenta", "rain"];
   async function weather() {
-    const cache = store.get("wx", null);
+    const cache = store.get("wx2", null);
     let data = cache && Date.now() - cache.ts < 3 * 3600e3 ? cache.data : null;
     if (!data) {
       try {
@@ -678,7 +766,7 @@
         const arr = Array.isArray(j) ? j : [j];
         data = {};
         keys.forEach((k, i) => (data[k] = arr[i].daily));
-        store.set("wx", { ts: Date.now(), data });
+        store.set("wx2", { ts: Date.now(), data });
       } catch { return; }
     }
     $$("[data-wx]").forEach((el) => {
@@ -690,6 +778,7 @@
       const p = dly.precipitation_probability_max ? dly.precipitation_probability_max[i] : null;
       el.innerHTML = `${ICON[ic]}<span>${txt} · ${Math.round(dly.temperature_2m_max[i])}° / ${Math.round(dly.temperature_2m_min[i])}°${p != null ? ` · ${p}% lluvia` : ""}</span>`;
     });
+    markRain(data);
   }
 
   /* ---------------------------------------------------------
@@ -796,6 +885,149 @@
   }
 
   /* ---------------------------------------------------------
+     UBICACIÓN EN VIVO
+     --------------------------------------------------------- */
+  let watchId = null, lastFix = 0;
+  function refreshNear() {
+    renderRails();
+    $$(".dx__me").forEach((b) => (b.hidden = !ME));
+    $$("[data-dx]").forEach((box) => { const on = $("button.is-on", box); if (on && on.dataset.from === "me") renderDx(box, "me"); });
+    $$("[data-near]").forEach((b) => b.classList.toggle("is-on", NEAR));
+  }
+  function startLocation() {
+    if (!("geolocation" in navigator)) { toast("Este navegador no da la ubicación"); return; }
+    if (watchId != null) return;
+    $$("[data-near]").forEach((b) => b.classList.add("is-wait"));
+    watchId = navigator.geolocation.watchPosition((pos) => {
+      $$("[data-near]").forEach((b) => b.classList.remove("is-wait"));
+      const first = !ME;
+      ME = [pos.coords.latitude, pos.coords.longitude];
+      GEO.me = ME;
+      const now = Date.now();
+      if (first || now - lastFix > 20000) { lastFix = now; refreshNear(); }
+    }, () => {
+      $$("[data-near]").forEach((b) => b.classList.remove("is-wait"));
+      NEAR = false; refreshNear();
+      toast("Sin permiso de ubicación: actívalo en Ajustes › Safari › Ubicación");
+    }, { enableHighAccuracy: true, maximumAge: 15000, timeout: 20000 });
+  }
+  function bindNear() {
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-near]");
+      if (!b) return;
+      NEAR = !NEAR;
+      if (NEAR) startLocation();
+      refreshNear();
+    });
+  }
+
+  /* ---------------------------------------------------------
+     MODO OSCURO (automático de noche)
+     --------------------------------------------------------- */
+  let themePref = store.get("theme", "auto");
+  function applyTheme() {
+    const h = new Date().getHours();
+    const dark = themePref === "dark" || (themePref === "auto" && (h >= 17 || h < 8));
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    const meta = $('meta[name="theme-color"]');
+    meta && meta.setAttribute("content", dark ? "#0E1015" : "#15161C");
+    $$("[data-theme-set]").forEach((b) => b.classList.toggle("is-on", b.dataset.themeSet === themePref));
+  }
+  function bindTheme() {
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-theme-set]");
+      if (!b) return;
+      themePref = b.dataset.themeSet;
+      store.set("theme", themePref);
+      applyTheme();
+    });
+  }
+
+  /* ---------------------------------------------------------
+     TAZAS DE GLÜHWEIN
+     --------------------------------------------------------- */
+  function mugTotal() { return Object.values(MUGS).reduce((a, b) => a + b, 0); }
+  function renderMugs() {
+    const box = $("#mugs");
+    if (!box) return;
+    const n = mugTotal();
+    const entries = Object.entries(MUGS).filter(([, v]) => v > 0);
+    const level = n >= 8 ? "Leyenda del Glühwein" : n >= 5 ? "Coleccionista" : n >= 2 ? "Aficionado" : n === 1 ? "Primera taza" : "Aún sin tazas";
+    box.innerHTML = `
+      <div class="mugs__top"><b>${n}</b><div><small>Tazas en la colección</small><span>${level}</span></div></div>
+      ${entries.length ? `<ul>${entries.map(([k, v]) => `<li><span>${k.split(":")[1]}</span><b>${"🍷".repeat(Math.min(v, 6))}${v > 6 ? " ×" + v : ""}</b></li>`).join("")}</ul>` : `<p>Toca el icono de la taza en cada mercado para ir sumando.</p>`}`;
+  }
+  function bindMugs() {
+    let pressT = null, longPressed = false;
+    const change = (b, delta) => {
+      const k = b.dataset.mug;
+      MUGS[k] = Math.max(0, (MUGS[k] || 0) + delta);
+      store.set("mugs", MUGS);
+      $$(`[data-mug="${CSS.escape(k)}"] b`).forEach((x) => (x.textContent = MUGS[k]));
+      b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+      renderMugs();
+    };
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-mug]");
+      if (!b) return;
+      if (longPressed) { longPressed = false; return; }
+      change(b, +1);
+    });
+    // mantener pulsado = quitar una
+    document.addEventListener("touchstart", (e) => {
+      const b = e.target.closest("[data-mug]");
+      if (!b) return;
+      pressT = setTimeout(() => { longPressed = true; change(b, -1); }, 600);
+    }, { passive: true });
+    ["touchend", "touchmove", "touchcancel"].forEach((ev) => document.addEventListener(ev, () => clearTimeout(pressT), { passive: true }));
+  }
+
+  /* ---------------------------------------------------------
+     COMPARTIR PROGRESO CON LOS ACOMPAÑANTES (por enlace)
+     --------------------------------------------------------- */
+  function packState() {
+    const data = { v: 1, seen: [...seen], mugs: MUGS };
+    return btoa(unescape(encodeURIComponent(JSON.stringify(data)))).replace(/=+$/, "");
+  }
+  function mergeFromHash() {
+    const m = location.hash.match(/#sync=([A-Za-z0-9+/_-]+)/);
+    if (!m) return;
+    try {
+      const data = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      let added = 0;
+      (data.seen || []).forEach((id) => { if (!seen.has(id)) { seen.add(id); added++; } });
+      Object.entries(data.mugs || {}).forEach(([k, v]) => { if ((MUGS[k] || 0) < v) { MUGS[k] = v; added++; } });
+      store.set("seen", [...seen]); store.set("mugs", MUGS);
+      history.replaceState(null, "", location.pathname);
+      toast(added ? `Progreso de tu acompañante añadido (${added} cambios)` : "Ya teníais el mismo progreso");
+    } catch { toast("El enlace de progreso no es válido"); }
+  }
+  function bindShare() {
+    const b = $("#shareBtn");
+    if (!b) return;
+    b.addEventListener("click", async () => {
+      const url = location.origin + location.pathname + "#sync=" + packState();
+      const text = "Mi progreso del viaje (vistos y tazas). Ábrelo en tu móvil para juntarlo con el tuyo:";
+      try {
+        if (navigator.share) await navigator.share({ title: "Invierno en el Rin", text, url });
+        else { await navigator.clipboard.writeText(url); toast("Enlace copiado"); }
+      } catch {}
+    });
+  }
+
+  /* ---------------------------------------------------------
+     AVISOS
+     --------------------------------------------------------- */
+  function toast(msg) {
+    let t = $(".toast");
+    if (!t) { t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.classList.add("is-on");
+    clearTimeout(t._h);
+    t._h = setTimeout(() => t.classList.remove("is-on"), 3200);
+  }
+
+  /* ---------------------------------------------------------
      SIN ZOOM (iOS ignora user-scalable en algunos casos)
      --------------------------------------------------------- */
   function noZoom() {
@@ -815,14 +1047,21 @@
   buildMap();
   buildDays();
   buildInfo();
+  mergeFromHash();
+  applyTheme();
   bindRails();
   bindDx();
+  bindNear();
+  bindTheme();
+  bindMugs();
+  bindShare();
+  renderMugs();
   bindSheet();
   bindReveal();
   bindScroll();
   timeState();
   marketStatus();
-  setInterval(() => { timeState(); marketStatus(); }, 60e3);
+  setInterval(() => { timeState(); marketStatus(); applyTheme(); }, 60e3);
   weather();
   snow();
   noZoom();

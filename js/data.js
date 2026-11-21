@@ -4,6 +4,13 @@
    Precios y horarios: aproximados (revisados nov. 2026).
    ========================================================= */
 
+const HOTEL = {
+  name: "Apartments an der Kö",
+  address: "Talstraße 9, 40217 Düsseldorf",
+  area: "Friedrichstadt, al sur de la Königsallee",
+  at: "dus-hotel",
+};
+
 const TRIP = {
   start: "2026-12-08",
   end: "2026-12-11",
@@ -13,7 +20,7 @@ const TRIP = {
 /* Coordenadas proyectadas (viewBox 0 0 360 280) para el mapa artesanal */
 const MAP_NODES = {
   dus:  { x: 270, y: 79,  label: "Düsseldorf" },
-  air:  { x: 268, y: 57,  label: "DUS ✈" },
+  nrn:  { x: 131, y: -52, label: "Weeze ✈" },
   cgn:  { x: 311, y: 181, label: "Köln" },
   aac:  { x: 118, y: 238, label: "Aachen" },
   mad:  { x: 200, y: 300, label: "Madrid" },
@@ -86,15 +93,21 @@ const GEO = {"dus-hbf": [51.21973, 6.7943],
   "aac-postwagen": [50.77612, 6.08415],
   "aac-domkeller": [50.77572, 6.08531],
   "aac-pont": [50.77874, 6.08133],
-  "aac-nobis": [50.7744, 6.0844]};
+  "aac-nobis": [50.7744, 6.0844],
+  "dus-hotel": [51.21685, 6.77856],
+  "dus-nrn": [51.6031, 6.14339]};
 
-const BASE_NAME = { "dus-hbf": "Düsseldorf Hbf", "cgn-hbf": "Köln Hbf", "aac-hbf": "Aachen Hbf" };
+/* Distancias a pie reales por calles (OpenStreetMap · OSRM), en metros */
+const WALK = {"dus-hbf|dus-engel":1578,"dus-hbf|dus-rathaus":2009,"dus-hbf|dus-riesenrad":2126,"dus-hbf|dus-ko":1311,"dus-hbf|dus-koeon":1434,"dus-hbf|dus-sternchen":1370,"dus-hbf|dus-kobogen":1429,"dus-hbf|dus-altstadt":1843,"dus-hbf|dus-schloss":2234,"dus-hbf|dus-lambertus":2232,"dus-hbf|dus-rheinturm":2680,"dus-hbf|dus-medien":2998,"dus-hbf|dus-japan":804,"dus-hbf|dus-eko":5008,"dus-hbf|dus-kaiserswerth":11233,"dus-hbf|dus-hofgarten":1617,"dus-hbf|dus-carlsplatz":1682,"dus-hbf|dus-uerige":1903,"dus-hbf|dus-schiffchen":1868,"dus-hbf|dus-naniwa":872,"dus-hbf|dus-rhein":2273,"dus-hbf|dus-k21":1816,"dus-hbf|dus-k20":2012,"dus-hbf|dus-nordpark":6251,"dus-hbf|dus-hinkel":1779,"dus-hbf|dus-fuechschen":2124,"dus-hbf|dus-hotel":1421,"dus-engel|dus-rathaus":424,"dus-engel|dus-riesenrad":541,"dus-engel|dus-ko":396,"dus-engel|dus-koeon":248,"dus-engel|dus-sternchen":347,"dus-engel|dus-kobogen":426,"dus-engel|dus-altstadt":244,"dus-engel|dus-schloss":649,"dus-engel|dus-lambertus":636,"dus-engel|dus-rheinturm":1556,"dus-engel|dus-medien":1874,"dus-engel|dus-japan":835,"dus-engel|dus-eko":3520,"dus-engel|dus-kaiserswerth":9855,"dus-engel|dus-hofgarten":870,"dus-engel|dus-carlsplatz":418,"dus-engel|dus-uerige":318,"dus-engel|dus-schiffchen":420,"dus-engel|dus-naniwa":895,"dus-engel|dus-rhein":1095,"dus-engel|dus-k21":1300,"dus-engel|dus-k20":442,"dus-engel|dus-nordpark":4873,"dus-engel|dus-hinkel":181,"dus-engel|dus-fuechschen":534,"dus-engel|dus-hotel":1173,"dus-rathaus|dus-riesenrad":254,"dus-rathaus|dus-ko":760,"dus-rathaus|dus-koeon":662,"dus-rathaus|dus-sternchen":793,"dus-rathaus|dus-kobogen":768,"dus-rathaus|dus-altstadt":249,"dus-rathaus|dus-schloss":307,"dus-rathaus|dus-lambertus":360,"dus-rathaus|dus-rheinturm":1236,"dus-rathaus|dus-medien":1554,"dus-rathaus|dus-japan":1253,"dus-rathaus|dus-eko":3502,"dus-rathaus|dus-kaiserswerth":9583,"dus-rathaus|dus-hofgarten":1187,"dus-rathaus|dus-carlsplatz":372,"dus-rathaus|dus-uerige":131,"dus-rathaus|dus-schiffchen":246,"dus-rathaus|dus-naniwa":1366,"dus-rathaus|dus-rhein":775,"dus-rathaus|dus-k21":1211,"dus-rathaus|dus-k20":647,"dus-rathaus|dus-nordpark":4602,"dus-rathaus|dus-hinkel":334,"dus-rathaus|dus-fuechschen":672,"dus-rathaus|dus-hotel":1478,"dus-riesenrad|dus-ko":878,"dus-riesenrad|dus-koeon":713,"dus-riesenrad|dus-sternchen":844,"dus-riesenrad|dus-kobogen":819,"dus-riesenrad|dus-altstadt":300,"dus-riesenrad|dus-schloss":108,"dus-riesenrad|dus-lambertus":189,"dus-riesenrad|dus-rheinturm":1351,"dus-riesenrad|dus-medien":1670,"dus-riesenrad|dus-japan":1382,"dus-riesenrad|dus-eko":3303,"dus-riesenrad|dus-kaiserswerth":9384,"dus-riesenrad|dus-hofgarten":1147,"dus-riesenrad|dus-carlsplatz":501,"dus-riesenrad|dus-uerige":272,"dus-riesenrad|dus-schiffchen":426,"dus-riesenrad|dus-naniwa":1417,"dus-riesenrad|dus-rhein":890,"dus-riesenrad|dus-k21":1391,"dus-riesenrad|dus-k20":448,"dus-riesenrad|dus-nordpark":4403,"dus-riesenrad|dus-hinkel":385,"dus-riesenrad|dus-fuechschen":502,"dus-riesenrad|dus-hotel":1607,"dus-ko|dus-koeon":276,"dus-ko|dus-sternchen":352,"dus-ko|dus-kobogen":456,"dus-ko|dus-altstadt":639,"dus-ko|dus-schloss":986,"dus-ko|dus-lambertus":983,"dus-ko|dus-rheinturm":1730,"dus-ko|dus-medien":2048,"dus-ko|dus-japan":750,"dus-ko|dus-eko":3907,"dus-ko|dus-kaiserswerth":10202,"dus-ko|dus-hofgarten":891,"dus-ko|dus-carlsplatz":501,"dus-ko|dus-uerige":654,"dus-ko|dus-schiffchen":652,"dus-ko|dus-naniwa":814,"dus-ko|dus-rhein":1269,"dus-ko|dus-k21":1052,"dus-ko|dus-k20":838,"dus-ko|dus-nordpark":5220,"dus-ko|dus-hinkel":576,"dus-ko|dus-fuechschen":929,"dus-ko|dus-hotel":782,"dus-koeon|dus-sternchen":207,"dus-koeon|dus-kobogen":203,"dus-koeon|dus-altstadt":413,"dus-koeon|dus-schloss":821,"dus-koeon|dus-lambertus":805,"dus-koeon|dus-rheinturm":1827,"dus-koeon|dus-medien":2146,"dus-koeon|dus-japan":690,"dus-koeon|dus-eko":3661,"dus-koeon|dus-kaiserswerth":9951,"dus-koeon|dus-hofgarten":638,"dus-koeon|dus-carlsplatz":689,"dus-koeon|dus-uerige":589,"dus-koeon|dus-schiffchen":692,"dus-koeon|dus-naniwa":780,"dus-koeon|dus-rhein":1366,"dus-koeon|dus-k21":1328,"dus-koeon|dus-k20":582,"dus-koeon|dus-nordpark":4970,"dus-koeon|dus-hinkel":349,"dus-koeon|dus-fuechschen":694,"dus-koeon|dus-hotel":1058,"dus-sternchen|dus-kobogen":133,"dus-sternchen|dus-altstadt":544,"dus-sternchen|dus-schloss":952,"dus-sternchen|dus-lambertus":936,"dus-sternchen|dus-rheinturm":1897,"dus-sternchen|dus-medien":2215,"dus-sternchen|dus-japan":538,"dus-sternchen|dus-eko":3792,"dus-sternchen|dus-kaiserswerth":10033,"dus-sternchen|dus-hofgarten":641,"dus-sternchen|dus-carlsplatz":759,"dus-sternchen|dus-uerige":659,"dus-sternchen|dus-schiffchen":762,"dus-sternchen|dus-naniwa":573,"dus-sternchen|dus-rhein":1436,"dus-sternchen|dus-k21":1404,"dus-sternchen|dus-k20":713,"dus-sternchen|dus-nordpark":5052,"dus-sternchen|dus-hinkel":480,"dus-sternchen|dus-fuechschen":825,"dus-sternchen|dus-hotel":1134,"dus-kobogen|dus-altstadt":518,"dus-kobogen|dus-schloss":926,"dus-kobogen|dus-lambertus":910,"dus-kobogen|dus-rheinturm":1966,"dus-kobogen|dus-medien":2285,"dus-kobogen|dus-japan":647,"dus-kobogen|dus-eko":3692,"dus-kobogen|dus-kaiserswerth":9918,"dus-kobogen|dus-hofgarten":528,"dus-kobogen|dus-carlsplatz":828,"dus-kobogen|dus-uerige":728,"dus-kobogen|dus-schiffchen":831,"dus-kobogen|dus-naniwa":616,"dus-kobogen|dus-rhein":1506,"dus-kobogen|dus-k21":1508,"dus-kobogen|dus-k20":673,"dus-kobogen|dus-nordpark":4936,"dus-kobogen|dus-hinkel":455,"dus-kobogen|dus-fuechschen":785,"dus-kobogen|dus-hotel":1238,"dus-altstadt|dus-schloss":408,"dus-altstadt|dus-lambertus":392,"dus-altstadt|dus-rheinturm":1485,"dus-altstadt|dus-medien":1803,"dus-altstadt|dus-japan":1082,"dus-altstadt|dus-eko":3302,"dus-altstadt|dus-kaiserswerth":9610,"dus-altstadt|dus-hofgarten":938,"dus-altstadt|dus-carlsplatz":413,"dus-altstadt|dus-uerige":268,"dus-altstadt|dus-schiffchen":415,"dus-altstadt|dus-naniwa":1116,"dus-altstadt|dus-rhein":1024,"dus-altstadt|dus-k21":1295,"dus-altstadt|dus-k20":402,"dus-altstadt|dus-nordpark":4629,"dus-altstadt|dus-hinkel":85,"dus-altstadt|dus-fuechschen":449,"dus-altstadt|dus-hotel":1436,"dus-schloss|dus-lambertus":164,"dus-schloss|dus-rheinturm":1354,"dus-schloss|dus-medien":1685,"dus-schloss|dus-japan":1490,"dus-schloss|dus-eko":3195,"dus-schloss|dus-kaiserswerth":9276,"dus-schloss|dus-hofgarten":1255,"dus-schloss|dus-carlsplatz":609,"dus-schloss|dus-uerige":380,"dus-schloss|dus-schiffchen":483,"dus-schloss|dus-naniwa":1525,"dus-schloss|dus-rhein":906,"dus-schloss|dus-k21":1447,"dus-schloss|dus-k20":556,"dus-schloss|dus-nordpark":4295,"dus-schloss|dus-hinkel":493,"dus-schloss|dus-fuechschen":420,"dus-schloss|dus-hotel":1715,"dus-lambertus|dus-rheinturm":1518,"dus-lambertus|dus-medien":1850,"dus-lambertus|dus-japan":1474,"dus-lambertus|dus-eko":3136,"dus-lambertus|dus-kaiserswerth":9218,"dus-lambertus|dus-hofgarten":1073,"dus-lambertus|dus-carlsplatz":607,"dus-lambertus|dus-uerige":378,"dus-lambertus|dus-schiffchen":532,"dus-lambertus|dus-naniwa":1508,"dus-lambertus|dus-rhein":1070,"dus-lambertus|dus-k21":1497,"dus-lambertus|dus-k20":493,"dus-lambertus|dus-nordpark":4237,"dus-lambertus|dus-hinkel":470,"dus-lambertus|dus-fuechschen":337,"dus-lambertus|dus-hotel":1713,"dus-rheinturm|dus-medien":389,"dus-rheinturm|dus-japan":2385,"dus-rheinturm|dus-eko":3706,"dus-rheinturm|dus-kaiserswerth":10601,"dus-rheinturm|dus-hofgarten":2410,"dus-rheinturm|dus-carlsplatz":1284,"dus-rheinturm|dus-uerige":1238,"dus-rheinturm|dus-schiffchen":1155,"dus-rheinturm|dus-naniwa":2445,"dus-rheinturm|dus-rhein":461,"dus-rheinturm|dus-k21":1103,"dus-rheinturm|dus-k20":1799,"dus-rheinturm|dus-nordpark":5620,"dus-rheinturm|dus-hinkel":1569,"dus-rheinturm|dus-fuechschen":1774,"dus-rheinturm|dus-hotel":1597,"dus-medien|dus-japan":2703,"dus-medien|dus-eko":4025,"dus-medien|dus-kaiserswerth":10940,"dus-medien|dus-hofgarten":2728,"dus-medien|dus-carlsplatz":1603,"dus-medien|dus-uerige":1557,"dus-medien|dus-schiffchen":1474,"dus-medien|dus-naniwa":2764,"dus-medien|dus-rhein":779,"dus-medien|dus-k21":1421,"dus-medien|dus-k20":2117,"dus-medien|dus-nordpark":5959,"dus-medien|dus-hinkel":1888,"dus-medien|dus-fuechschen":2106,"dus-medien|dus-hotel":1916,"dus-japan|dus-eko":4226,"dus-japan|dus-kaiserswerth":10452,"dus-japan|dus-hofgarten":923,"dus-japan|dus-carlsplatz":1121,"dus-japan|dus-uerige":1146,"dus-japan|dus-schiffchen":1239,"dus-japan|dus-naniwa":169,"dus-japan|dus-rhein":1924,"dus-japan|dus-k21":1590,"dus-japan|dus-k20":1251,"dus-japan|dus-nordpark":5470,"dus-japan|dus-hinkel":1018,"dus-japan|dus-fuechschen":1363,"dus-japan|dus-hotel":1319,"dus-eko|dus-kaiserswerth":8408,"dus-eko|dus-hofgarten":3654,"dus-eko|dus-carlsplatz":3744,"dus-eko|dus-uerige":3514,"dus-eko|dus-schiffchen":3668,"dus-eko|dus-naniwa":4195,"dus-eko|dus-rhein":3411,"dus-eko|dus-k21":4079,"dus-eko|dus-k20":3079,"dus-eko|dus-nordpark":3427,"dus-eko|dus-hinkel":3396,"dus-eko|dus-fuechschen":3066,"dus-eko|dus-hotel":4403,"dus-kaiserswerth|dus-hofgarten":9357,"dus-kaiserswerth|dus-carlsplatz":9825,"dus-kaiserswerth|dus-uerige":9596,"dus-kaiserswerth|dus-schiffchen":9750,"dus-kaiserswerth|dus-naniwa":10420,"dus-kaiserswerth|dus-rhein":10161,"dus-kaiserswerth|dus-k21":10716,"dus-kaiserswerth|dus-k20":9369,"dus-kaiserswerth|dus-nordpark":5825,"dus-kaiserswerth|dus-hinkel":9688,"dus-kaiserswerth|dus-fuechschen":9355,"dus-kaiserswerth|dus-hotel":10931,"dus-hofgarten|dus-carlsplatz":1272,"dus-hofgarten|dus-uerige":1172,"dus-hofgarten|dus-schiffchen":1274,"dus-hofgarten|dus-naniwa":780,"dus-hofgarten|dus-rhein":1949,"dus-hofgarten|dus-k21":1943,"dus-hofgarten|dus-k20":783,"dus-hofgarten|dus-nordpark":4811,"dus-hofgarten|dus-hinkel":874,"dus-hofgarten|dus-fuechschen":770,"dus-hofgarten|dus-hotel":1673,"dus-carlsplatz|dus-uerige":266,"dus-carlsplatz|dus-schiffchen":186,"dus-carlsplatz|dus-naniwa":1249,"dus-carlsplatz|dus-rhein":824,"dus-carlsplatz|dus-k21":965,"dus-carlsplatz|dus-k20":772,"dus-carlsplatz|dus-nordpark":4844,"dus-carlsplatz|dus-hinkel":466,"dus-carlsplatz|dus-fuechschen":819,"dus-carlsplatz|dus-hotel":1106,"dus-uerige|dus-schiffchen":191,"dus-uerige|dus-naniwa":1207,"dus-uerige|dus-rhein":777,"dus-uerige|dus-k21":1156,"dus-uerige|dus-k20":665,"dus-uerige|dus-nordpark":4614,"dus-uerige|dus-hinkel":352,"dus-uerige|dus-fuechschen":690,"dus-uerige|dus-hotel":1372,"dus-schiffchen|dus-naniwa":1299,"dus-schiffchen|dus-rhein":694,"dus-schiffchen|dus-k21":965,"dus-schiffchen|dus-k20":775,"dus-schiffchen|dus-nordpark":4769,"dus-schiffchen|dus-hinkel":468,"dus-schiffchen|dus-fuechschen":822,"dus-schiffchen|dus-hotel":1292,"dus-naniwa|dus-rhein":1984,"dus-naniwa|dus-k21":1694,"dus-naniwa|dus-k20":1286,"dus-naniwa|dus-nordpark":5438,"dus-naniwa|dus-hinkel":1053,"dus-naniwa|dus-fuechschen":1310,"dus-naniwa|dus-hotel":1422,"dus-rhein|dus-k21":843,"dus-rhein|dus-k20":1338,"dus-rhein|dus-nordpark":5180,"dus-rhein|dus-hinkel":1108,"dus-rhein|dus-fuechschen":1326,"dus-rhein|dus-hotel":1243,"dus-k21|dus-k20":1654,"dus-k21|dus-nordpark":5734,"dus-k21|dus-hinkel":1348,"dus-k21|dus-fuechschen":1701,"dus-k21|dus-hotel":617,"dus-k20|dus-nordpark":4387,"dus-k20|dus-hinkel":318,"dus-k20|dus-fuechschen":190,"dus-k20|dus-hotel":1615,"dus-nordpark|dus-hinkel":4706,"dus-nordpark|dus-fuechschen":4373,"dus-nordpark|dus-hotel":5949,"dus-hinkel|dus-fuechschen":365,"dus-hinkel|dus-hotel":1352,"dus-fuechschen|dus-hotel":1706,"cgn-dom|cgn-dommarkt":311,"cgn-dom|cgn-heinzel":593,"cgn-dom|cgn-heumarkt":970,"cgn-dom|cgn-engel":1303,"cgn-dom|cgn-hafen":1506,"cgn-dom|cgn-bridge":811,"cgn-dom|cgn-martin":580,"cgn-dom|cgn-fisch":634,"cgn-dom|cgn-kran":1985,"cgn-dom|cgn-triangle":1291,"cgn-dom|cgn-ludwig":241,"cgn-dom|cgn-4711":741,"cgn-dom|cgn-kolumba":627,"cgn-dom|cgn-boulevard":1205,"cgn-dom|cgn-belgisch":1969,"cgn-dom|cgn-frueh":347,"cgn-dom|cgn-peters":460,"cgn-dom|cgn-nikolaus":1676,"cgn-dom|cgn-hbf":176,"cgn-dom|cgn-paeffgen":1270,"cgn-dommarkt|cgn-heinzel":426,"cgn-dommarkt|cgn-heumarkt":607,"cgn-dommarkt|cgn-engel":1179,"cgn-dommarkt|cgn-hafen":1395,"cgn-dommarkt|cgn-bridge":806,"cgn-dommarkt|cgn-martin":414,"cgn-dommarkt|cgn-fisch":516,"cgn-dommarkt|cgn-kran":1873,"cgn-dommarkt|cgn-triangle":1419,"cgn-dommarkt|cgn-ludwig":253,"cgn-dommarkt|cgn-4711":617,"cgn-dommarkt|cgn-kolumba":503,"cgn-dommarkt|cgn-boulevard":1333,"cgn-dommarkt|cgn-belgisch":1846,"cgn-dommarkt|cgn-frueh":224,"cgn-dommarkt|cgn-peters":294,"cgn-dommarkt|cgn-nikolaus":1552,"cgn-dommarkt|cgn-hbf":460,"cgn-dommarkt|cgn-paeffgen":1317,"cgn-heinzel|cgn-heumarkt":434,"cgn-heinzel|cgn-engel":991,"cgn-heinzel|cgn-hafen":1056,"cgn-heinzel|cgn-bridge":922,"cgn-heinzel|cgn-martin":199,"cgn-heinzel|cgn-fisch":351,"cgn-heinzel|cgn-kran":1535,"cgn-heinzel|cgn-triangle":1536,"cgn-heinzel|cgn-ludwig":403,"cgn-heinzel|cgn-4711":586,"cgn-heinzel|cgn-kolumba":493,"cgn-heinzel|cgn-boulevard":1271,"cgn-heinzel|cgn-belgisch":1929,"cgn-heinzel|cgn-frueh":552,"cgn-heinzel|cgn-peters":210,"cgn-heinzel|cgn-nikolaus":1550,"cgn-heinzel|cgn-hbf":727,"cgn-heinzel|cgn-paeffgen":1582,"cgn-heumarkt|cgn-engel":797,"cgn-heumarkt|cgn-hafen":956,"cgn-heumarkt|cgn-bridge":1357,"cgn-heumarkt|cgn-martin":633,"cgn-heumarkt|cgn-fisch":682,"cgn-heumarkt|cgn-kran":1435,"cgn-heumarkt|cgn-triangle":1688,"cgn-heumarkt|cgn-ludwig":791,"cgn-heumarkt|cgn-4711":727,"cgn-heumarkt|cgn-kolumba":634,"cgn-heumarkt|cgn-boulevard":1395,"cgn-heumarkt|cgn-belgisch":2058,"cgn-heumarkt|cgn-frueh":693,"cgn-heumarkt|cgn-peters":645,"cgn-heumarkt|cgn-nikolaus":1467,"cgn-heumarkt|cgn-hbf":1110,"cgn-heumarkt|cgn-paeffgen":1710,"cgn-engel|cgn-hafen":1769,"cgn-engel|cgn-bridge":1913,"cgn-engel|cgn-martin":1189,"cgn-engel|cgn-fisch":1281,"cgn-engel|cgn-kran":2248,"cgn-engel|cgn-triangle":2327,"cgn-engel|cgn-ludwig":1404,"cgn-engel|cgn-4711":572,"cgn-engel|cgn-kolumba":690,"cgn-engel|cgn-boulevard":2033,"cgn-engel|cgn-belgisch":1157,"cgn-engel|cgn-frueh":1027,"cgn-engel|cgn-peters":1201,"cgn-engel|cgn-nikolaus":625,"cgn-engel|cgn-hbf":1443,"cgn-engel|cgn-paeffgen":832,"cgn-hafen|cgn-bridge":1532,"cgn-hafen|cgn-martin":999,"cgn-hafen|cgn-fisch":870,"cgn-hafen|cgn-kran":522,"cgn-hafen|cgn-triangle":1751,"cgn-hafen|cgn-ludwig":1330,"cgn-hafen|cgn-4711":1582,"cgn-hafen|cgn-kolumba":1488,"cgn-hafen|cgn-boulevard":1400,"cgn-hafen|cgn-belgisch":2925,"cgn-hafen|cgn-frueh":1537,"cgn-hafen|cgn-peters":1122,"cgn-hafen|cgn-nikolaus":2328,"cgn-hafen|cgn-hbf":1648,"cgn-hafen|cgn-paeffgen":2577,"cgn-bridge|cgn-martin":737,"cgn-bridge|cgn-fisch":694,"cgn-bridge|cgn-kran":2010,"cgn-bridge|cgn-triangle":706,"cgn-bridge|cgn-ludwig":729,"cgn-bridge|cgn-4711":1409,"cgn-bridge|cgn-kolumba":1295,"cgn-bridge|cgn-boulevard":1095,"cgn-bridge|cgn-belgisch":2638,"cgn-bridge|cgn-frueh":1016,"cgn-bridge|cgn-peters":763,"cgn-bridge|cgn-nikolaus":2344,"cgn-bridge|cgn-hbf":766,"cgn-bridge|cgn-paeffgen":1938,"cgn-martin|cgn-fisch":252,"cgn-martin|cgn-kran":1477,"cgn-martin|cgn-triangle":1350,"cgn-martin|cgn-ludwig":359,"cgn-martin|cgn-4711":785,"cgn-martin|cgn-kolumba":692,"cgn-martin|cgn-boulevard":1265,"cgn-martin|cgn-belgisch":2128,"cgn-martin|cgn-frueh":556,"cgn-martin|cgn-peters":140,"cgn-martin|cgn-nikolaus":1748,"cgn-martin|cgn-hbf":714,"cgn-martin|cgn-paeffgen":1780,"cgn-fisch|cgn-kran":1349,"cgn-fisch|cgn-triangle":1308,"cgn-fisch|cgn-ludwig":456,"cgn-fisch|cgn-4711":876,"cgn-fisch|cgn-kolumba":783,"cgn-fisch|cgn-boulevard":1222,"cgn-fisch|cgn-belgisch":2219,"cgn-fisch|cgn-frueh":659,"cgn-fisch|cgn-peters":277,"cgn-fisch|cgn-nikolaus":1840,"cgn-fisch|cgn-hbf":776,"cgn-fisch|cgn-paeffgen":1872,"cgn-kran|cgn-triangle":2230,"cgn-kran|cgn-ludwig":1808,"cgn-kran|cgn-4711":2060,"cgn-kran|cgn-kolumba":1967,"cgn-kran|cgn-boulevard":1878,"cgn-kran|cgn-belgisch":3403,"cgn-kran|cgn-frueh":2016,"cgn-kran|cgn-peters":1600,"cgn-kran|cgn-nikolaus":2806,"cgn-kran|cgn-hbf":2127,"cgn-kran|cgn-paeffgen":3055,"cgn-triangle|cgn-ludwig":1342,"cgn-triangle|cgn-4711":2022,"cgn-triangle|cgn-kolumba":1908,"cgn-triangle|cgn-boulevard":470,"cgn-triangle|cgn-belgisch":3251,"cgn-triangle|cgn-frueh":1629,"cgn-triangle|cgn-peters":1376,"cgn-triangle|cgn-nikolaus":2957,"cgn-triangle|cgn-hbf":1260,"cgn-triangle|cgn-paeffgen":2497,"cgn-ludwig|cgn-4711":842,"cgn-ludwig|cgn-kolumba":728,"cgn-ludwig|cgn-boulevard":1256,"cgn-ludwig|cgn-belgisch":2070,"cgn-ludwig|cgn-frueh":448,"cgn-ludwig|cgn-peters":270,"cgn-ludwig|cgn-nikolaus":1776,"cgn-ludwig|cgn-hbf":346,"cgn-ludwig|cgn-paeffgen":1484,"cgn-4711|cgn-kolumba":159,"cgn-4711|cgn-boulevard":1937,"cgn-4711|cgn-belgisch":1355,"cgn-4711|cgn-frueh":465,"cgn-4711|cgn-peters":758,"cgn-4711|cgn-nikolaus":1061,"cgn-4711|cgn-hbf":881,"cgn-4711|cgn-paeffgen":1008,"cgn-kolumba|cgn-boulevard":1823,"cgn-kolumba|cgn-belgisch":1436,"cgn-kolumba|cgn-frueh":351,"cgn-kolumba|cgn-peters":665,"cgn-kolumba|cgn-nikolaus":1142,"cgn-kolumba|cgn-hbf":767,"cgn-kolumba|cgn-paeffgen":1089,"cgn-boulevard|cgn-belgisch":3165,"cgn-boulevard|cgn-frueh":1543,"cgn-boulevard|cgn-peters":1290,"cgn-boulevard|cgn-nikolaus":2592,"cgn-boulevard|cgn-hbf":1174,"cgn-boulevard|cgn-paeffgen":2411,"cgn-belgisch|cgn-frueh":1693,"cgn-belgisch|cgn-peters":2028,"cgn-belgisch|cgn-nikolaus":625,"cgn-belgisch|cgn-hbf":2022,"cgn-belgisch|cgn-paeffgen":768,"cgn-frueh|cgn-peters":436,"cgn-frueh|cgn-nikolaus":1399,"cgn-frueh|cgn-hbf":487,"cgn-frueh|cgn-paeffgen":1346,"cgn-peters|cgn-nikolaus":1734,"cgn-peters|cgn-hbf":594,"cgn-peters|cgn-paeffgen":1681,"cgn-nikolaus|cgn-hbf":1728,"cgn-nikolaus|cgn-paeffgen":518,"cgn-hbf|cgn-paeffgen":1332,"aac-hbf|aac-dom":1210,"aac-hbf|aac-katschhof":1279,"aac-hbf|aac-markt":1382,"aac-hbf|aac-munster":1141,"aac-hbf|aac-rathaus":1379,"aac-hbf|aac-elisen":1063,"aac-hbf|aac-schatz":1203,"aac-hbf|aac-centre":1280,"aac-hbf|aac-ponttor":2088,"aac-hbf|aac-puppen":1215,"aac-hbf|aac-lousberg":2875,"aac-hbf|aac-dreilaender":6398,"aac-hbf|aac-carolus":2093,"aac-hbf|aac-daele":1297,"aac-hbf|aac-postwagen":1336,"aac-hbf|aac-domkeller":1310,"aac-hbf|aac-pont":1693,"aac-hbf|aac-nobis":1112,"aac-dom|aac-katschhof":78,"aac-dom|aac-markt":218,"aac-dom|aac-munster":77,"aac-dom|aac-rathaus":208,"aac-dom|aac-elisen":250,"aac-dom|aac-schatz":215,"aac-dom|aac-centre":140,"aac-dom|aac-ponttor":925,"aac-dom|aac-puppen":75,"aac-dom|aac-lousberg":1712,"aac-dom|aac-dreilaender":5982,"aac-dom|aac-carolus":1673,"aac-dom|aac-daele":191,"aac-dom|aac-postwagen":167,"aac-dom|aac-domkeller":170,"aac-dom|aac-pont":530,"aac-dom|aac-nobis":96,"aac-katschhof|aac-markt":158,"aac-katschhof|aac-munster":155,"aac-katschhof|aac-rathaus":134,"aac-katschhof|aac-elisen":319,"aac-katschhof|aac-schatz":137,"aac-katschhof|aac-centre":62,"aac-katschhof|aac-ponttor":864,"aac-katschhof|aac-puppen":95,"aac-katschhof|aac-lousberg":1651,"aac-katschhof|aac-dreilaender":5896,"aac-katschhof|aac-carolus":1613,"aac-katschhof|aac-daele":177,"aac-katschhof|aac-postwagen":106,"aac-katschhof|aac-domkeller":156,"aac-katschhof|aac-pont":469,"aac-katschhof|aac-nobis":165,"aac-markt|aac-munster":263,"aac-markt|aac-rathaus":145,"aac-markt|aac-elisen":434,"aac-markt|aac-schatz":271,"aac-markt|aac-centre":180,"aac-markt|aac-ponttor":764,"aac-markt|aac-puppen":171,"aac-markt|aac-lousberg":1550,"aac-markt|aac-dreilaender":5890,"aac-markt|aac-carolus":1560,"aac-markt|aac-daele":162,"aac-markt|aac-postwagen":52,"aac-markt|aac-domkeller":141,"aac-markt|aac-pont":369,"aac-markt|aac-nobis":268,"aac-munster|aac-rathaus":260,"aac-munster|aac-elisen":272,"aac-munster|aac-schatz":150,"aac-munster|aac-centre":217,"aac-munster|aac-ponttor":970,"aac-munster|aac-puppen":97,"aac-munster|aac-lousberg":1756,"aac-munster|aac-dreilaender":5905,"aac-munster|aac-carolus":1717,"aac-munster|aac-daele":213,"aac-munster|aac-postwagen":217,"aac-munster|aac-domkeller":192,"aac-munster|aac-pont":575,"aac-munster|aac-nobis":118,"aac-rathaus|aac-elisen":419,"aac-rathaus|aac-schatz":238,"aac-rathaus|aac-centre":146,"aac-rathaus|aac-ponttor":849,"aac-rathaus|aac-puppen":168,"aac-rathaus|aac-lousberg":1636,"aac-rathaus|aac-dreilaender":5940,"aac-rathaus|aac-carolus":1620,"aac-rathaus|aac-daele":185,"aac-rathaus|aac-postwagen":106,"aac-rathaus|aac-domkeller":164,"aac-rathaus|aac-pont":454,"aac-rathaus|aac-nobis":265,"aac-elisen|aac-schatz":401,"aac-elisen|aac-centre":382,"aac-elisen|aac-ponttor":1140,"aac-elisen|aac-puppen":256,"aac-elisen|aac-lousberg":1927,"aac-elisen|aac-dreilaender":6153,"aac-elisen|aac-carolus":1648,"aac-elisen|aac-daele":305,"aac-elisen|aac-postwagen":388,"aac-elisen|aac-domkeller":293,"aac-elisen|aac-pont":745,"aac-elisen|aac-nobis":212,"aac-schatz|aac-centre":156,"aac-schatz|aac-ponttor":975,"aac-schatz|aac-puppen":232,"aac-schatz|aac-lousberg":1761,"aac-schatz|aac-dreilaender":5810,"aac-schatz|aac-carolus":1745,"aac-schatz|aac-daele":310,"aac-schatz|aac-postwagen":238,"aac-schatz|aac-domkeller":289,"aac-schatz|aac-pont":580,"aac-schatz|aac-nobis":195,"aac-centre|aac-ponttor":883,"aac-centre|aac-puppen":157,"aac-centre|aac-lousberg":1670,"aac-centre|aac-dreilaender":5836,"aac-centre|aac-carolus":1670,"aac-centre|aac-daele":234,"aac-centre|aac-postwagen":155,"aac-centre|aac-domkeller":213,"aac-centre|aac-pont":488,"aac-centre|aac-nobis":228,"aac-ponttor|aac-puppen":878,"aac-ponttor|aac-lousberg":901,"aac-ponttor|aac-dreilaender":6130,"aac-ponttor|aac-carolus":1867,"aac-ponttor|aac-daele":869,"aac-ponttor|aac-postwagen":758,"aac-ponttor|aac-domkeller":848,"aac-ponttor|aac-pont":395,"aac-ponttor|aac-nobis":974,"aac-puppen|aac-lousberg":1664,"aac-puppen|aac-dreilaender":6002,"aac-puppen|aac-carolus":1624,"aac-puppen|aac-daele":123,"aac-puppen|aac-postwagen":125,"aac-puppen|aac-domkeller":102,"aac-puppen|aac-pont":482,"aac-puppen|aac-nobis":102,"aac-lousberg|aac-dreilaender":6990,"aac-lousberg|aac-carolus":1840,"aac-lousberg|aac-daele":1655,"aac-lousberg|aac-postwagen":1545,"aac-lousberg|aac-domkeller":1634,"aac-lousberg|aac-pont":1182,"aac-lousberg|aac-nobis":1761,"aac-dreilaender|aac-carolus":7423,"aac-dreilaender|aac-daele":6053,"aac-dreilaender|aac-postwagen":5942,"aac-dreilaender|aac-domkeller":6032,"aac-dreilaender|aac-pont":5962,"aac-dreilaender|aac-nobis":5940,"aac-carolus|aac-daele":1520,"aac-carolus|aac-postwagen":1547,"aac-carolus|aac-domkeller":1548,"aac-carolus|aac-pont":1630,"aac-carolus|aac-nobis":1721,"aac-daele|aac-postwagen":116,"aac-daele|aac-domkeller":32,"aac-daele|aac-pont":474,"aac-daele|aac-nobis":218,"aac-postwagen|aac-domkeller":96,"aac-postwagen|aac-pont":363,"aac-postwagen|aac-nobis":222,"aac-domkeller|aac-pont":453,"aac-domkeller|aac-nobis":197,"aac-pont|aac-nobis":579};
+
+const BASE_NAME = { "dus-hotel": "el hotel", "dus-hbf": "Düsseldorf Hbf", "cgn-hbf": "Köln Hbf", "aac-hbf": "Aachen Hbf" };
 
 const DAYS = [
   /* ------------------------------------------------ DÍA 1 */
   {
     id: "d1",
-    base: "dus-hbf",
+    base: "dus-hotel",
+    rainPlan: ["dus-k20", "dus-k21", "dus-japan", "dus-kobogen"],
     num: "08",
     weekday: "Martes",
     date: "2026-12-08",
@@ -108,41 +121,44 @@ const DAYS = [
     hero: "dus_city",
     heroAlt: "Düsseldorf de noche junto al Rin",
     intro:
-      "Aterrizáis a mediodía y tenéis la tarde entera. El plan: dejar maletas, ramen en el barrio japonés, pasear por la Königsallee, perderse en la Altstadt y ver la puesta de sol (≈16:25) en el paseo del Rin antes de que se enciendan los mercados.",
+      "Aterrizáis en Weeze a mediodía y en hora y media estáis en Düsseldorf. El apartamento está en la Talstraße, justo al sur de la Königsallee: perfecto para dejar las maletas, subir la Kö a pie, ver el atardecer en el Rin (≈16:25) y quedaros en la Altstadt cuando se encienden los mercados.",
     timeline: [
-      { t: "08:00", h: "Salida de Madrid", d: "Vuelo MAD → DUS. Llevad algo de efectivo: en muchos Brauhaus solo aceptan cash." },
-      { t: "12:30", h: "Aterrizaje en DUS", d: "Sigue los carteles «S-Bahn / Bahnhof Terminal». La estación está bajo la terminal." },
-      { t: "12:50", h: "S11 → Düsseldorf Hbf", d: "12 min, cada 20 min. Billete EinzelTicket A (≈3,80 €) o Deutschlandticket.", tag: "transit" },
-      { t: "13:30", h: "Ramen en Little Tokyo", d: "Immermannstraße, a 5 min a pie de la estación. Takumi o Naniwa (llegar antes de las 14 h)." },
-      { t: "14:45", h: "Opción B: EKŌ-Haus", d: "Si preferís calma: templo japonés al otro lado del Rin (interior hasta las 17 h, 5 € en efectivo). Bus 828/836 desde el centro. Si vais, la Kö pasa a las 17 h." },
-      { t: "15:00", h: "Königsallee y Kö-Bogen", d: "El canal con árboles, las tiendas de lujo y el edificio verde de Kö-Bogen II. En diciembre: pista Kö on Ice." },
-      { t: "16:00", h: "Rheinuferpromenade al atardecer", d: "Atardece sobre las 16:25. Bajad al Burgplatz: Schlossturm, escaleras del Rin y la noria navideña." },
-      { t: "17:00", h: "Ruta de mercados navideños", d: "Engelchen-Markt (Heinrich-Heine-Platz) → Marktplatz/Rathaus → Altstadt. Glühwein con taza de depósito." },
+      { t: "10:00", h: "Salida de Madrid", d: "Vuelo a Weeze (NRN). Llevad efectivo: en muchos Brauhaus solo aceptan cash." },
+      { t: "12:30", h: "Aterrizaje en Weeze", d: "Aeropuerto pequeño: en 15 min estáis fuera. Sal a la parada de autobuses frente a la terminal." },
+      { t: "12:50", h: "Bus SW1 → Weeze Bahnhof", d: "11 min hasta la estación de tren de Weeze. Entra en el Deutschlandticket.", tag: "transit" },
+      { t: "13:15", h: "RE10 → Düsseldorf Hbf", d: "≈1 h, cada 30 min. Siéntate a la derecha para ver el campo del Bajo Rin.", tag: "transit" },
+      { t: "14:20", h: "Hbf → apartamento (Talstraße 9)", d: "18 min andando (1,4 km) o tranvía hasta Graf-Adolf-Platz. Check-in y dejar maletas.", tag: "transit" },
+      { t: "15:00", h: "Comer algo rápido", d: "Currywurst o ramen: Little Tokyo está a 15 min; la Kö, a 3 min del apartamento." },
+      { t: "15:45", h: "Königsallee de sur a norte", d: "Sales del apartamento y en 3 minutos estás en la Kö. Súbela entera hasta el Kö-Bogen y la pista Kö on Ice." },
+      { t: "16:15", h: "Atardecer en el Rin", d: "Atardece sobre las 16:25. Escalinatas del Burgplatz, Schlossturm y la noria navideña." },
+      { t: "17:00", h: "Ruta de mercados navideños", d: "Engelchen-Markt → Marktplatz/Rathaus → Altstadt. Glühwein con taza de depósito." },
       { t: "19:30", h: "Cena en un Brauhaus", d: "Uerige, Zum Schiffchen o Im Füchschen. Pide Altbier; el Köbes te traerá otro hasta que tapes el vaso con el posavasos." },
-      { t: "21:30", h: "Opcional: MedienHafen de noche", d: "Los edificios de Gehry iluminados y la Rheinturm a la vista. 20 min andando desde la Altstadt." },
+      { t: "21:30", h: "Vuelta al hotel por el MedienHafen", d: "Los edificios de Gehry iluminados y la Rheinturm: os pilla de camino al apartamento (≈20 min)." },
     ],
     transit: [
       {
-        from: "Aeropuerto DUS", to: "Düsseldorf Hbf",
-        lines: [{ n: "S11", c: "#2E7D32" }],
-        time: "12 min", price: "≈3,80 €", freq: "cada 20 min",
+        from: "Aeropuerto de Weeze", to: "Düsseldorf Hbf",
+        lines: [{ n: "SW1", c: "#E4A400" }, { n: "RE10", c: "#B71C1C" }],
+        time: "≈1 h 30", price: "≈15–22 € / D-Ticket", freq: "tren cada 30 min",
         steps: [
-          "Desde llegadas, baja a la estación «Düsseldorf Flughafen Terminal» (bajo el edificio, sigue la S verde).",
-          "Compra en máquina o en la app (Rheinbahn / VRR / DB Navigator): EinzelTicket Preisstufe A.",
-          "S11 dirección Düsseldorf Hbf / Köln → bájate en Düsseldorf Hbf (≈12 min).",
+          "Sal de la terminal a la parada de autobuses y coge el bus SW1 hasta «Weeze Bahnhof» (≈11 min).",
+          "En Weeze Bahnhof, tren RE10 (Niers-Express) dirección Düsseldorf Hbf: ≈1 h, sin transbordos.",
+          "Con el Deutschlandticket bus y tren van incluidos. Sin él: billete Weeze Flughafen → Düsseldorf Hbf en DB Navigator.",
+          "Si el bus no cuadra con el tren: taxi hasta Weeze Bahnhof (≈20 €, 10 min).",
         ],
-        alt: "Alternativa: SkyTrain (gratis) a «Flughafen Fernbahnhof» y cualquier tren regional (RE/RB/S1) a Hbf en ~8 min. Taxi: ≈25–30 €, 20 min.",
+        alt: "Alternativa directa: Airport Weeze Shuttle hasta Düsseldorf Hbf (≈1 h 15, ≈24 €, pocas salidas al día y con reserva previa en su web). No entra en el Deutschlandticket.",
       },
       {
-        from: "Düsseldorf Hbf", to: "Altstadt (Heinrich-Heine-Allee)",
-        lines: [{ n: "U70–U79", c: "#1565C0" }],
-        time: "5 min", price: "mismo billete", freq: "cada pocos min",
+        from: "Düsseldorf Hbf", to: "Apartamento · Talstraße 9",
+        lines: [{ n: "A pie", c: "#1F4F5E" }, { n: "Tranvía", c: "#1565C0" }],
+        time: "18 min a pie", price: "Gratis / D-Ticket", freq: "—",
         steps: [
-          "Baja a la U-Bahn en el propio Hbf.",
-          "Cualquier línea U70, U74, U75, U76, U77, U78 o U79 dirección centro.",
-          "Bájate en Heinrich-Heine-Allee: sales entre la Kö y la Altstadt.",
+          "Sal del Hbf por la salida principal (Konrad-Adenauer-Platz).",
+          "Sigue recto hacia el oeste por la Graf-Adolf-Straße hasta el Graf-Adolf-Platz (final sur de la Kö).",
+          "La Talstraße sale de ahí hacia el sur: el número 9 está al principio.",
+          "En tranvía: cualquiera hacia «Graf-Adolf-Platz» (mira la línea en la app Rheinbahn) y 3 min andando.",
         ],
-        alt: "A pie: 20 min por Immermannstraße (barrio japonés) → Kö → Altstadt. Es el paseo recomendado.",
+        alt: "Con maletas y lluvia, taxi desde la parada del Hbf: ≈8–10 €.",
       },
     ],
     xmas: [
@@ -187,19 +203,21 @@ const DAYS = [
       { name: "Currywurst", at: "dus-altstadt", type: "Street food", price: "€", img: "food_currywurst", what: "Currywurst con patatas ≈5–7 €.", note: "En cualquier Imbiss de la Altstadt.", q: "Currywurst Altstadt Düsseldorf" },
     ],
     walk: {
-      title: "Paseo de bienvenida",
-      total: "≈ 2,8 km · 40 min sin paradas",
+      title: "Paseo circular desde el apartamento",
+      total: "",
       stops: [
-        { n: "Düsseldorf Hbf", m: "", at: "dus-hbf" },
-        { n: "Immermannstraße · Little Tokyo", m: "5′", at: "dus-japan" },
-        { n: "Königsallee (norte)", m: "12′", at: "dus-koeon" },
-        { n: "Kö-Bogen · Hofgarten", m: "5′", at: "dus-kobogen" },
-        { n: "Heinrich-Heine-Platz · Engelchen-Markt", m: "4′", at: "dus-engel" },
-        { n: "Marktplatz · Rathaus", m: "6′", at: "dus-rathaus" },
-        { n: "Burgplatz · Rin", m: "3′", at: "dus-riesenrad" },
-        { n: "Rheinuferpromenade → Rheinturm", m: "15′", at: "dus-rheinturm" },
+        { n: "Apartamento · Talstraße 9", m: "", at: "dus-hotel" },
+        { n: "Königsallee (sur → norte)", m: "", at: "dus-ko" },
+        { n: "Kö on Ice · Corneliusplatz", m: "", at: "dus-koeon" },
+        { n: "Kö-Bogen · Hofgarten", m: "", at: "dus-kobogen" },
+        { n: "Heinrich-Heine-Platz · Engelchen-Markt", m: "", at: "dus-engel" },
+        { n: "Marktplatz · Rathaus", m: "", at: "dus-rathaus" },
+        { n: "Burgplatz · Rin", m: "", at: "dus-riesenrad" },
+        { n: "Rheinuferpromenade → Rheinturm", m: "", at: "dus-rheinturm" },
+        { n: "MedienHafen", m: "", at: "dus-medien" },
+        { n: "Vuelta al apartamento", m: "", at: "dus-hotel" },
       ],
-      gmaps: ["Düsseldorf Hauptbahnhof", "Immermannstraße Düsseldorf", "Kö-Bogen Düsseldorf", "Heinrich-Heine-Platz Düsseldorf", "Marktplatz Düsseldorf", "Burgplatz Düsseldorf", "Rheinturm Düsseldorf"],
+      gmaps: ["Talstraße 9, 40217 Düsseldorf", "Kö-Bogen Düsseldorf", "Heinrich-Heine-Platz Düsseldorf", "Marktplatz Düsseldorf", "Burgplatz Düsseldorf", "Rheinturm Düsseldorf", "Neuer Zollhof Düsseldorf", "Talstraße 9, 40217 Düsseldorf"],
     },
   },
 
@@ -207,6 +225,7 @@ const DAYS = [
   {
     id: "d2",
     base: "cgn-hbf",
+    rainPlan: ["cgn-dom", "cgn-ludwig", "cgn-choco", "cgn-kolumba", "cgn-4711"],
     num: "09",
     weekday: "Miércoles",
     date: "2026-12-09",
@@ -222,6 +241,7 @@ const DAYS = [
     intro:
       "Colonia está a 25–35 min en tren regional. Sales de la estación y la catedral está literalmente delante. Día de mercados: el de la catedral, el de los gnomos en la Altstadt, el del puerto junto al Museo del Chocolate y el de los ángeles en el Neumarkt.",
     timeline: [
+      { t: "09:10", h: "Apartamento → Düsseldorf Hbf", d: "18 min a pie por la Graf-Adolf-Straße.", tag: "transit" },
       { t: "09:30", h: "Tren Düsseldorf Hbf → Köln Hbf", d: "RE1, RE5, RE6 o S6 (lento). 25–35 min. ≈13 € por trayecto o Deutschlandticket.", tag: "transit" },
       { t: "10:15", h: "Catedral (Kölner Dom)", d: "Entrada gratis. Relicario de los Reyes Magos. Subir a la torre sur: 533 escalones (≈6 €)." },
       { t: "11:30", h: "Mercado de la Catedral", d: "Roncalliplatz: el árbol gigante y el techo de luces. Primer Glühwein del día." },
@@ -231,7 +251,7 @@ const DAYS = [
       { t: "16:15", h: "Atardecer en el puente Hohenzollern", d: "Cruza el puente de los candados hasta Deutz. Foto icónica de la catedral iluminada." },
       { t: "17:00", h: "KölnTriangle (opcional)", d: "Mirador en planta 29 (≈5 €). La catedral y el Rin de noche, desde arriba." },
       { t: "18:15", h: "Markt der Engel (Neumarkt)", d: "Estrellas colgando de los árboles y ángeles paseando: el más mágico de noche." },
-      { t: "20:00", h: "Cena y vuelta", d: "Päffgen o Peters Brauhaus. Trenes de vuelta a Düsseldorf hasta tarde.", tag: "transit" },
+      { t: "20:00", h: "Cena y vuelta", d: "Päffgen o Peters Brauhaus. Trenes de vuelta a Düsseldorf hasta tarde; del Hbf al apartamento, 18 min a pie.", tag: "transit" },
     ],
     transit: [
       {
@@ -309,6 +329,7 @@ const DAYS = [
   {
     id: "d3",
     base: "aac-hbf",
+    rainPlan: ["aac-dom", "aac-schatz", "aac-centre", "aac-carolus", "aac-daele"],
     num: "10",
     weekday: "Jueves",
     date: "2026-12-10",
@@ -324,6 +345,7 @@ const DAYS = [
     intro:
       "Aquisgrán (Aachen) fue la capital del imperio de Carlomagno y aquí se coronaron 31 reyes. El casco antiguo es pequeño y se hace entero a pie: catedral, ayuntamiento y mercado navideño están pegados. Es la tierra de las Printen, galletas especiadas que se comen todo diciembre, y de las fuentes termales más calientes de Centroeuropa.",
     timeline: [
+      { t: "08:40", h: "Apartamento → Düsseldorf Hbf", d: "18 min a pie por la Graf-Adolf-Straße.", tag: "transit" },
       { t: "09:00", h: "Tren Düsseldorf Hbf → Aachen Hbf", d: "RE4 (vía Mönchengladbach) o RE1 (vía Colonia). ≈1 h 25. Entra en el Deutschlandticket.", tag: "transit" },
       { t: "10:30", h: "Elisenbrunnen", d: "Fuente termal neoclásica: el agua sale a ≈52 °C y huele a azufre. Puedes tocarla. 10 min a pie desde la estación." },
       { t: "10:45", h: "Catedral (Aachener Dom)", d: "La Capilla Palatina de Carlomagno (año 800), la cúpula de mosaicos dorados y su tumba. Primer monumento alemán Patrimonio de la Humanidad." },
@@ -334,7 +356,7 @@ const DAYS = [
       { t: "15:30", h: "Lousberg o Puppenbrunnen", d: "Sube al Lousberg (20 min) para el atardecer sobre la ciudad, o pasea por la fuente de los muñecos y la Pontstraße." },
       { t: "16:30", h: "Mercado navideño de noche", d: "Münsterplatz, Katschhof y Markt iluminados, con la catedral y el ayuntamiento de fondo." },
       { t: "18:30", h: "Cena barata en la Pontstraße", d: "La calle universitaria: bares y comida asequible. O una cerveza en el Domkeller." },
-      { t: "20:00", h: "Tren de vuelta a Düsseldorf", d: "RE4 o RE1 desde Aachen Hbf, cada ≈30 min. ≈1 h 25.", tag: "transit" },
+      { t: "20:00", h: "Tren de vuelta a Düsseldorf", d: "RE4 o RE1 desde Aachen Hbf, cada ≈30 min. ≈1 h 25. Del Hbf al apartamento, 18 min a pie.", tag: "transit" },
     ],
     transit: [
       {
@@ -422,7 +444,8 @@ const DAYS = [
   /* ------------------------------------------------ DÍA 4 */
   {
     id: "d4",
-    base: "dus-hbf",
+    base: "dus-hotel",
+    rainPlan: ["dus4-carls", "dus4-k21", "dus-k20"],
     num: "11",
     weekday: "Viernes",
     date: "2026-12-11",
@@ -432,31 +455,42 @@ const DAYS = [
     accentSoft: "#E3E1EA",
     kicker: "Vuelta",
     title: "Hasta pronto",
-    subtitle: "Mañana tranquila y vuelo a las 16:30",
+    subtitle: "Mañana tranquila y vuelo desde Weeze a las 16:30",
     hero: "dus_medienhafen",
     heroAlt: "MedienHafen de Düsseldorf",
     intro:
-      "Mañana para lo que quedó pendiente: desayuno en el mercado de Carlsplatz, MedienHafen con luz de día o subir a la Rheinturm. Comida temprana y a las 13:45 rumbo al aeropuerto. Hay que estar en DUS hacia las 14:30.",
+      "Mañana corta: Weeze está a hora y media, así que hay que salir del apartamento hacia las 12:15. Da tiempo a desayunar en el mercado de Carlsplatz (a 8 min del apartamento), dar un último paseo por el MedienHafen o el jardín del EKŌ-Haus y comer algo antes del tren.",
     timeline: [
-      { t: "09:00", h: "Desayuno en Carlsplatz", d: "Mercado gourmet cubierto: café, pan, Reibekuchen y dulces." },
-      { t: "10:00", h: "Jardín del EKŌ-Haus o MedienHafen", d: "Jardín zen del templo japonés (gratis, abre a las 10 h) o los edificios de Gehry con luz de día y la Rheinturm." },
-      { t: "12:00", h: "Comida temprana", d: "Último ramen en Little Tokyo o última Currywurst. Compras de última hora: Altbier-Senf (mostaza) y galletas Printen." },
-      { t: "13:15", h: "Recoger maletas", d: "Vuelve al hotel / consigna (taquillas en el Hbf)." },
-      { t: "13:45", h: "S11 → Flughafen Terminal", d: "Desde Düsseldorf Hbf, 12 min. Mismo billete que a la ida.", tag: "transit" },
-      { t: "14:30", h: "En el aeropuerto", d: "Vuelo Schengen: con 2 h de margen vas sobrado." },
-      { t: "16:30", h: "Vuelo a Madrid", d: "Auf Wiedersehen · Tot ziens · Hasta la próxima." },
+      { t: "08:45", h: "Desayuno en Carlsplatz", d: "Mercado gourmet cubierto a 8 min del apartamento: café, pan, Reibekuchen y dulces." },
+      { t: "09:45", h: "MedienHafen o jardín del EKŌ-Haus", d: "Gehry con luz de día (15 min a pie del apartamento) o el jardín zen del templo japonés (gratis, abre a las 10 h; bus 828/836)." },
+      { t: "11:15", h: "Comida temprana y últimas compras", d: "Currywurst o ramen. Souvenirs: mostaza Löwensenf y Printen." },
+      { t: "12:15", h: "Salir del apartamento con las maletas", d: "18 min a pie al Hbf (o tranvía/taxi).", tag: "transit" },
+      { t: "12:45", h: "RE10 → Weeze Bahnhof", d: "≈1 h. Revisa la hora exacta en DB Navigator: va cada 30 min.", tag: "transit" },
+      { t: "13:50", h: "Bus SW1 → aeropuerto de Weeze", d: "11 min. Si no cuadra, taxi (≈20 €).", tag: "transit" },
+      { t: "14:15", h: "En el aeropuerto", d: "Facturación y control: Weeze es pequeño, con 2 h vas sobrado." },
+      { t: "16:30", h: "Vuelo a Madrid", d: "Auf Wiedersehen · ¡Hasta la próxima!" },
     ],
     transit: [
       {
-        from: "Düsseldorf Hbf", to: "Aeropuerto DUS",
-        lines: [{ n: "S11", c: "#2E7D32" }],
-        time: "12 min", price: "≈3,80 €", freq: "cada 20 min",
+        from: "Apartamento · Talstraße 9", to: "Düsseldorf Hbf",
+        lines: [{ n: "A pie", c: "#3A3550" }, { n: "Tranvía", c: "#1565C0" }],
+        time: "18 min a pie", price: "Gratis / D-Ticket", freq: "—",
         steps: [
-          "Andén de la S11 dirección «Düsseldorf Flughafen Terminal».",
-          "Bájate en la última parada: subes directo a la terminal.",
-          "Si se retrasa: cualquier RE/RB a «Flughafen (Fernbahnhof)» + SkyTrain gratuito a la terminal (5 min).",
+          "Desde el Graf-Adolf-Platz, recto por la Graf-Adolf-Straße hacia el este hasta el Hbf.",
+          "Con maletas: tranvía desde Graf-Adolf-Platz hacia el Hbf (mira la línea en la app Rheinbahn) o taxi (≈8–10 €).",
         ],
-        alt: "Taquillas de equipaje: en el Hbf de Düsseldorf hay consignas automáticas.",
+        alt: "Sal con margen: el RE10 va cada 30 min y el bus del aeropuerto no siempre está sincronizado.",
+      },
+      {
+        from: "Düsseldorf Hbf", to: "Aeropuerto de Weeze",
+        lines: [{ n: "RE10", c: "#B71C1C" }, { n: "SW1", c: "#E4A400" }],
+        time: "≈1 h 30", price: "≈15–22 € / D-Ticket", freq: "tren cada 30 min",
+        steps: [
+          "RE10 (Niers-Express) dirección Kleve: bájate en Weeze (≈1 h).",
+          "Frente a la estación, bus SW1 hasta «Airport Weeze» (≈11 min).",
+          "Plan B si el bus no cuadra: taxi desde la estación (≈20 €, 10 min).",
+        ],
+        alt: "Alternativa: Airport Weeze Shuttle directo desde Düsseldorf Hbf (≈1 h 15, ≈24 €, con reserva). Útil si coincide con vuestra hora.",
       },
     ],
     xmas: [
@@ -491,7 +525,8 @@ const DAYS = [
 
 /* Guía práctica */
 const ESSENTIALS = [
-  { icon: "ticket", title: "Deutschlandticket: sí", body: "63 €/mes, transporte regional ilimitado en Alemania (S, U, tranvía, RE/RB; no ICE). Aeropuerto ida/vuelta (7,60 €) + Colonia ida/vuelta (≈26 €) + Aquisgrán ida/vuelta (≈50 €) + metros (≈15 €) ≈ 100 € en billetes sueltos: con el Deutschlandticket ahorráis ≈35 € por persona. Es suscripción: cancélala antes del 10 de diciembre." },
+  { icon: "ticket", title: "Deutschlandticket: sí", body: "63 €/mes, transporte regional ilimitado en Alemania (S, U, tranvía, RE/RB; no ICE). Weeze ida/vuelta (≈35 €) + Colonia ida/vuelta (≈26 €) + Aquisgrán ida/vuelta (≈50 €) + tranvías (≈15 €) ≈ 125 € en billetes sueltos: con el Deutschlandticket ahorráis más de 60 € por persona. Incluye el bus SW1 del aeropuerto. Es suscripción: cancélala antes del 10 de diciembre." },
+  { icon: "home", title: "Vuestro apartamento", body: "Apartments an der Kö · Talstraße 9, Friedrichstadt. A 3 min de la Königsallee, 8 min de Carlsplatz, 15 min de la Altstadt y del MedienHafen y 18 min del Hbf. Desde cualquier parte de la guía tienes el botón «Volver al apartamento»." },
   { icon: "cash", title: "Efectivo en Alemania", body: "Muchos Brauhaus (Uerige, Päffgen…) y puestos de mercado aceptan solo efectivo. Lleva 60–80 € en billetes pequeños. En el EKŌ-Haus también se paga solo en efectivo." },
   { icon: "cup", title: "El Pfand de la taza", body: "El Glühwein se sirve en taza de cerámica con depósito (≈3–5 €). Devuélvela en cualquier caseta del mismo mercado o quédatela: cada mercado tiene la suya." },
   { icon: "weather", title: "Clima y luz", body: "Entre 1 y 7 °C, a menudo húmedo. Amanece hacia las 8:20 y anochece sobre las 16:25: planifica lo exterior temprano y deja los mercados para la noche." },
