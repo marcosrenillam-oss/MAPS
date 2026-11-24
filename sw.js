@@ -1,8 +1,8 @@
 /* Invierno en el Rin · service worker: funciona sin conexión */
-const VERSION = "rm-v6";
+const VERSION = "rm-v7";
 const CORE = [
   "./", "index.html", "credits.html", "manifest.webmanifest",
-  "css/style.css", "js/images.js", "js/data.js", "js/app.js",
+  "css/style.css", "css/experience.css", "css/maplibre-gl.css", "js/images.js", "js/data.js", "js/routes.js", "js/app.js", "js/experience.js", "js/vendor/maplibre-gl.js",
   "fonts/fraunces.woff2", "fonts/fraunces-italic.woff2", "fonts/inter.woff2",
   "img/dus_ko.webp", "img/dus_rheinturm.webp", "img/cgn_altermarkt.webp",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",
@@ -15,7 +15,7 @@ self.addEventListener("install", (e) => {
 self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION && k !== "rm-photos").map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION && k !== "rm-photos" && k !== "rm-tiles").map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -38,6 +38,19 @@ self.addEventListener("fetch", (e) => {
         } catch (err) {
           try { return await fetch(req); } catch { return Response.error(); }
         }
+      })
+    );
+    return;
+  }
+
+  // Mapa: estilos y teselas de OpenFreeMap, caché primero (sirve sin conexión lo ya visto)
+  if (url.hostname === "tiles.openfreemap.org") {
+    e.respondWith(
+      caches.open("rm-tiles").then(async (c) => {
+        const hit = await c.match(req);
+        if (hit) return hit;
+        try { const res = await fetch(req); if (res.ok) c.put(req, res.clone()); return res; }
+        catch { return hit || Response.error(); }
       })
     );
     return;

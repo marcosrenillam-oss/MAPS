@@ -17,6 +17,9 @@ Web estática pensada para añadirse a la pantalla de inicio del móvil: pantall
 - **Cerca de mí**: con tu ubicación, cada sitio muestra «a X min de ti» y se puede ordenar por cercanía.
 - **Modo oscuro** automático de noche (17:00–8:00) o manual.
 - **Tazas de Glühwein**, **plan B si llueve** (se abre solo si la previsión da lluvia) y **compartir progreso** con tus acompañantes por enlace.
+- **Mapa del día** a pantalla completa (MapLibre + OpenFreeMap): edificios en 3D, ruta a pie real que se dibuja sola, marcadores por tipo (imprescindible, mercado, comer, opcional), tu posición y tarjetas deslizables sincronizadas con el mapa.
+- **Modo paseo**: los imprescindibles del día como historias a pantalla completa (tocar para avanzar, mantener para pausar, deslizar abajo para cerrar).
+- **Tarjeta «Ahora»** durante el viaje: qué toca, qué viene después y cuánto falta. Para probarla antes: añade `?ahora=2026-12-08T16:10` a la dirección.
 - **Tiempo real** (Open-Meteo) en cada día cuando la fecha entra en la previsión de 16 días.
 - **Kit de viaje**: Deutschlandticket, efectivo, Pfand, frases en alemán con pronunciación y checklist que se guarda.
 

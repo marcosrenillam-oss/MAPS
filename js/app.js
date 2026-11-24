@@ -5,6 +5,10 @@
   "use strict";
 
   const $ = (s, r = document) => r.querySelector(s);
+  // ?ahora=2026-12-08T16:10 simula una fecha/hora (para probar el modo viaje)
+  const NOW_Q = new URLSearchParams(location.search).get("ahora");
+  const NOW_OFFSET = NOW_Q && !isNaN(new Date(NOW_Q)) ? new Date(NOW_Q) - Date.now() : 0;
+  const nowD = () => new Date(Date.now() + NOW_OFFSET);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const img = (k, big) => (IMG[k] ? (big ? IMG[k].l : IMG[k].s) : "");
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -266,6 +270,20 @@
 
         <p class="day__intro" data-reveal>${d.intro}</p>
         ${mustBlock(d)}
+        ${d.walk || d.markets ? `
+        <div class="xp" data-reveal>
+          <button class="xp__tile xp__tile--map" data-open-map="${d.id}">
+            <span class="xp__map" style="background-image:url('${img(d.hero)}')"></span>
+            <span class="xp__shade"></span>
+            <span class="xp__ico">${ICON.pin}</span>
+            <span class="xp__txt"><b>Mapa del día</b><small>Ruta por calles, mercados y tú</small></span>
+          </button>
+          <button class="xp__tile xp__tile--story" data-open-story="${d.id}">
+            <span class="xp__stack">${mustItems(d).filter((x) => x.poi).slice(0, 3).map((x, k) => `<i style="--k:${k};background-image:url('${img(POI_INDEX[x.poi].img)}')"></i>`).join("")}</span>
+            <span class="xp__ico xp__ico--play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z"/></svg></span>
+            <span class="xp__txt"><b>Modo paseo</b><small>${mustItems(d).length} imprescindibles, uno a uno</small></span>
+          </button>
+        </div>` : ""}
         ${hotelStrip(d)}
         ${rainBlock(d)}
 
@@ -457,7 +475,7 @@
 
   function marketStatus() {
     const t = todayISO();
-    const now = new Date();
+    const now = nowD();
     const h = now.getHours() + now.getMinutes() / 60;
     $$(".mk__item").forEach((li) => {
       const [o, c] = li.dataset.open.split(",").map(Number);
@@ -747,13 +765,13 @@
      FECHAS · cuenta atrás y «hoy»
      --------------------------------------------------------- */
   const todayISO = () => {
-    const d = new Date();
+    const d = nowD();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   };
   function timeState() {
     const t = todayISO();
     const start = new Date(TRIP.start + "T00:00:00");
-    const now = new Date();
+    const now = nowD();
     const c = $("#countdown");
     const tripDay = DAYS.find((d) => d.date === t);
     if (t < TRIP.start) {
@@ -982,7 +1000,7 @@
      --------------------------------------------------------- */
   let themePref = store.get("theme", "auto");
   function applyTheme() {
-    const h = new Date().getHours();
+    const h = nowD().getHours();
     const dark = themePref === "dark" || (themePref === "auto" && (h >= 17 || h < 8));
     document.documentElement.dataset.theme = dark ? "dark" : "light";
     const meta = $('meta[name="theme-color"]');
@@ -1100,6 +1118,18 @@
 
   /* --------------------------------------------------------- */
   $("#slides").innerHTML = ["dus_city", "cgn_dom", "aac_wm"].map((k) => `<div class="cover__slide" style="background-image:url('${img(k, true)}')"></div>`).join("");
+  window.TRIP = {
+    img, hop, fmtM, walkMin, dist, mapsSearch, openSheet, toast, store, ICON,
+    seen, POI_INDEX, POI_DAY, mustItems, refreshMust, todayISO, nowD,
+    me: () => ME,
+    markSeen(k, on) {
+      if (on) seen.add(k); else seen.delete(k);
+      store.set("seen", [...seen]);
+      $$(`[data-poi="${CSS.escape(k)}"].poi`).forEach((c) => c.classList.toggle("is-seen", on));
+      refreshMust();
+    },
+    startLocation: () => startLocation(),
+  };
   buildMap();
   buildDays();
   buildInfo();
