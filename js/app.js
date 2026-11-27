@@ -243,7 +243,7 @@
       }) : [];
       const walk = d.walk ? `
         <div class="block">
-          <div class="block__head" data-reveal><h3>Ruta <em>a pie</em></h3><span class="eyebrow">${ICON.walk ? "" : ""}Paso a paso</span></div>
+          <div class="block__head" data-reveal><h3>Ruta <em>a pie</em></h3><span class="eyebrow">Paso a paso</span></div>
           <div class="walk" data-reveal data-walk style="--accent-line:${lighten(d.accent)}">
             <div class="walk__head">
               <span class="eyebrow" style="opacity:.6">${d.city}</span>
@@ -251,7 +251,6 @@
               <p>≈ ${fmtM(walkTotal)} · ${walkMin(walkTotal)} min andando sin paradas</p>
             </div>
             <ol>${walkStops.map((s, i) => `<li style="--i:${i}"><span class="walk__dot"></span><span class="walk__name">${s.n}${s.sub ? `<small>${s.sub}</small>` : ""}</span><span class="walk__min">${s.lbl}</span></li>`).join("")}</ol>
-            <a class="btn btn--light" href="${mapsWalk(d.walk.gmaps)}" target="_blank" rel="noopener">${ICON.pin}Abrir ruta en Google Maps</a>
           </div>
         </div>` : "";
 
@@ -300,6 +299,7 @@
           </ol>
         </div>
 
+        ${marketsBlock(d, di)}
         <div class="block">
           <div class="block__head" data-reveal><h3>Cómo <em>llegar</em></h3><span class="eyebrow">Transporte</span></div>
           <div class="tickets">
@@ -328,37 +328,10 @@
           </div>
         </div>
 
-        <div class="block">
-          <div class="block__head" data-reveal><h3>Qué <em>ver</em></h3><button class="near-btn ${NEAR ? "is-on" : ""}" data-near>${ICON.locate}<span>Cerca de mí</span></button></div>
-          <div class="seg" data-reveal data-seg data-mode="${mode}">
-            <span class="seg__pill"></span>
-            <button data-m="must" class="${mode === "must" ? "is-on" : ""}">★ Lo nuestro</button>
-            <button data-m="extra" class="${mode === "extra" ? "is-on" : ""}">+ Si sobra tiempo</button>
-          </div>
-          <div class="rail" data-rail="${di}"></div>
-          <div class="rail__hint"><span>Toca una tarjeta para ver la ficha</span><span class="dots" data-dots="${di}"></span></div>
-        </div>
 
         ${factsBlock(d)}
-        ${marketsBlock(d, di)}
 
-        <div class="block">
-          <div class="block__head" data-reveal><h3>Dónde <em>comer</em></h3><span class="eyebrow">€ · €€</span></div>
-          <div class="food">
-            ${d.food.map((f, i) => `
-              <a class="food__item" data-reveal style="--d:${i % 2}" href="${mapsSearch(f.q)}" target="_blank" rel="noopener">
-                <div class="food__img"><img src="${img(f.img)}" alt="${f.name}" loading="lazy" decoding="async"><span class="food__price">${priceTag(f.price)}</span></div>
-                <div class="food__txt">
-                  <span class="food__type">${f.type}</span>
-                  <h4>${f.name}</h4>
-                  <p>${f.what}</p>
-                  <p class="note">${f.note}</p>
-                </div>
-              </a>`).join("")}
-          </div>
-        </div>
 
-        ${distBlock(d, di)}
         ${walk}
         <div class="day__end"></div>
       </section>`;
@@ -460,7 +433,7 @@
       </li>`).join("");
   }
   function bindDx() {
-    $$("[data-dx]").forEach((box) => renderDx(box, $("button.is-on", box).dataset.from));
+    $$("[data-dx]").forEach((box) => { const b = $("button.is-on", box); if (b) renderDx(box, b.dataset.from); });
     document.addEventListener("click", (e) => {
       const b = e.target.closest(".dx__chips button");
       if (!b) return;
@@ -620,6 +593,7 @@
   function renderRails() {
     DAYS.forEach((d, di) => {
       const rail = $(`[data-rail="${di}"]`);
+      if (!rail) return;
       const pool = [...d.xmas, ...d.always, ...(d.gems || [])];
       const musts = pool.filter((p) => p.must), extras = pool.filter((p) => !p.must);
       if (d.mustOrder) musts.sort((x, y) => ((d.mustOrder.indexOf(x.id) + 1) || 99) - ((d.mustOrder.indexOf(y.id) + 1) || 99));
@@ -1163,7 +1137,7 @@
   }
 
   /* --------------------------------------------------------- */
-  $("#slides").innerHTML = ["dus_city", "cgn_dom", "aac_wm"].map((k) => `<div class="cover__slide" style="background-image:url('${img(k, true)}')"></div>`).join("");
+  $("#slides").innerHTML = ["dus_city", "cgn_wmdom", "aac_wm"].map((k) => `<div class="cover__slide" style="background-image:url('${img(k, true)}')"></div>`).join("");
   window.TRIP = {
     img, hop, fmtM, walkMin, dist, mapsSearch, openSheet, toast, store, ICON,
     seen, POI_INDEX, POI_DAY, mustItems, refreshMust, todayISO, nowD,

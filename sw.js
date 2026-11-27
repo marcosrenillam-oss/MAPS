@@ -1,9 +1,9 @@
 /* Invierno en el Rin · service worker: funciona sin conexión */
-const VERSION = "rm-v8";
+const VERSION = "rm-v9";
 const CORE = [
   "./", "index.html", "credits.html", "manifest.webmanifest",
   "css/style.css", "css/experience.css", "css/maplibre-gl.css", "js/images.js", "js/data.js", "js/routes.js", "js/app.js", "js/experience.js", "js/vendor/maplibre-gl.js",
-  "fonts/fraunces.woff2", "fonts/fraunces-italic.woff2", "fonts/inter.woff2",
+  "fonts/instrument-serif.woff2", "fonts/instrument-serif-italic.woff2", "fonts/inter-tight.woff2",
   "img/dus_ko.webp", "img/dus_rheinturm.webp", "img/cgn_altermarkt.webp",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",
 ];

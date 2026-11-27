@@ -1,16 +1,16 @@
 /* Fotos: Wikimedia Commons (CC). s = tarjeta, l = portada/hero */
 const IMG = {
  "dus_city": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Rheinuferpromenade%2C_D%C3%BCsseldorf%2C_Germany_at_night.jpg/960px-Rheinuferpromenade%2C_D%C3%BCsseldorf%2C_Germany_at_night.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Rheinuferpromenade%2C_D%C3%BCsseldorf%2C_Germany_at_night.jpg/1280px-Rheinuferpromenade%2C_D%C3%BCsseldorf%2C_Germany_at_night.jpg"
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg/960px-D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg/1280px-D%C3%BCsseldorf_%28DE%29%2C_Rathausufer_--_2014_--_2154.jpg"
  },
  "dus_rheinufer": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/D%C3%BCsseldorf_Rheinuferpromenade.jpg/960px-D%C3%BCsseldorf_Rheinuferpromenade.jpg",
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/D%C3%BCsseldorf_Rheinuferpromenade.jpg/1280px-D%C3%BCsseldorf_Rheinuferpromenade.jpg"
  },
  "dus_koebogen": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/D%C3%BCsseldorf%2C_K%C3%B6-Bogen%2C_Februar_2019.jpg/960px-D%C3%BCsseldorf%2C_K%C3%B6-Bogen%2C_Februar_2019.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/D%C3%BCsseldorf%2C_K%C3%B6-Bogen%2C_Februar_2019.jpg/1280px-D%C3%BCsseldorf%2C_K%C3%B6-Bogen%2C_Februar_2019.jpg"
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hainbuchenfassade-K%C3%B6bogen-II-D%C3%BCsseldorf-2026.jpg/960px-Hainbuchenfassade-K%C3%B6bogen-II-D%C3%BCsseldorf-2026.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Hainbuchenfassade-K%C3%B6bogen-II-D%C3%BCsseldorf-2026.jpg/1280px-Hainbuchenfassade-K%C3%B6bogen-II-D%C3%BCsseldorf-2026.jpg"
  },
  "dus_altstadt": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Altstadt_in_D%C3%BCsseldorf_-_panoramio_%281%29.jpg/960px-Altstadt_in_D%C3%BCsseldorf_-_panoramio_%281%29.jpg",
@@ -65,8 +65,8 @@ const IMG = {
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/K%C3%B6lner_Dom_-_Westfassade_2022_ohne_Ger%C3%BCst-0968_b.jpg/1280px-K%C3%B6lner_Dom_-_Westfassade_2022_ohne_Ger%C3%BCst-0968_b.jpg"
  },
  "cgn_wmdom": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dom_mit_Weihnachtsmarkt_2011.jpg/960px-Dom_mit_Weihnachtsmarkt_2011.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dom_mit_Weihnachtsmarkt_2011.jpg/1280px-Dom_mit_Weihnachtsmarkt_2011.jpg"
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Weihnachtsmarkt_Dom_2011_1.jpg/960px-Weihnachtsmarkt_Dom_2011_1.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Weihnachtsmarkt_Dom_2011_1.jpg/1280px-Weihnachtsmarkt_Dom_2011_1.jpg"
  },
  "cgn_heinzel": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/K%C3%B6ln_Heinzels_Winterm%C3%A4rchen.jpg/960px-K%C3%B6ln_Heinzels_Winterm%C3%A4rchen.jpg",
@@ -233,8 +233,8 @@ const IMG = {
   "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Kraeuterprinten_1.jpg/1280px-Kraeuterprinten_1.jpg"
  },
  "aac_wm": {
-  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Aachener_Weihnachtsmarkt_2025.jpg/960px-Aachener_Weihnachtsmarkt_2025.jpg",
-  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Aachener_Weihnachtsmarkt_2025.jpg/1280px-Aachener_Weihnachtsmarkt_2025.jpg"
+  "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Aachener_Weihnachtsmarkt_2021_%2851823735842%29.jpg/960px-Aachener_Weihnachtsmarkt_2021_%2851823735842%29.jpg",
+  "l": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Aachener_Weihnachtsmarkt_2021_%2851823735842%29.jpg/1280px-Aachener_Weihnachtsmarkt_2021_%2851823735842%29.jpg"
  },
  "aac_postwagen": {
   "s": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Aachen_%E2%80%93_das_originelle_Restaurant_%E2%80%9EPostwagen%E2%80%9C_direkt_neben_dem_Ratskeller_Ratskeller_-_panoramio.jpg/960px-Aachen_%E2%80%93_das_originelle_Restaurant_%E2%80%9EPostwagen%E2%80%9C_direkt_neben_dem_Ratskeller_Ratskeller_-_panoramio.jpg",
@@ -246,9 +246,9 @@ const IMG = {
  }
 };
 const IMG_FILES = {
- "dus_city": "Rheinuferpromenade, Düsseldorf, Germany at night.jpg",
+ "dus_city": "Düsseldorf (DE), Rathausufer -- 2014 -- 2154.jpg",
  "dus_rheinufer": "Düsseldorf Rheinuferpromenade.jpg",
- "dus_koebogen": "Düsseldorf, Kö-Bogen, Februar 2019.jpg",
+ "dus_koebogen": "Hainbuchenfassade-Köbogen-II-Düsseldorf-2026.jpg",
  "dus_altstadt": "Altstadt in Düsseldorf - panoramio (1).jpg",
  "dus_engel": "Weihnachtsmarkt der Düsseldorfer Altstadt.jpg",
  "dus_wm_rathaus": "Düsseldorf, Weihnachtsmarkt vor dem Rathaus, Dezember 2022.jpg",
@@ -262,7 +262,7 @@ const IMG_FILES = {
  "dus_carlsplatz": "Düsseldorf Carlsplatz, Markt Gang B, Juni 2023.JPG",
  "dus_hofgarten": "Duesseldorf Hofgarten.jpg",
  "cgn_dom": "Kölner Dom - Westfassade 2022 ohne Gerüst-0968 b.jpg",
- "cgn_wmdom": "Dom mit Weihnachtsmarkt 2011.jpg",
+ "cgn_wmdom": "Weihnachtsmarkt Dom 2011 1.jpg",
  "cgn_heinzel": "Köln Heinzels Wintermärchen.jpg",
  "cgn_engel": "Heinzels Wintermärchen (52615446389).jpg",
  "cgn_choco": "Schoko Koeln 20061015.jpg",
@@ -304,7 +304,7 @@ const IMG_FILES = {
  "aac_dreilaender": "Ac vaalserberg.JPG",
  "aac_carolus": "Carolus Thermen.JPG",
  "aac_printen": "Kraeuterprinten 1.jpg",
- "aac_wm": "Aachener Weihnachtsmarkt 2025.jpg",
+ "aac_wm": "Aachener Weihnachtsmarkt 2021 (51823735842).jpg",
  "aac_postwagen": "Aachen – das originelle Restaurant „Postwagen“ direkt neben dem Ratskeller Ratskeller - panoramio.jpg",
  "aac_pont": "Aachen, Pontstraße.jpg"
 };

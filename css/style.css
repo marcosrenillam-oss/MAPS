@@ -1,9 +1,9 @@
 /* =========================================================
    Rin & Mosa · cuaderno de viaje
    ========================================================= */
-@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces.woff2") format("woff2"); font-weight: 300 700; font-style: normal; font-display: swap; }
-@font-face { font-family: "Fraunces"; src: url("../fonts/fraunces-italic.woff2") format("woff2"); font-weight: 300 600; font-style: italic; font-display: swap; }
-@font-face { font-family: "Inter"; src: url("../fonts/inter.woff2") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("../fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("../fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Inter Tight"; src: url("../fonts/inter-tight.woff2") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
 
 :root {
   --paper: #F4EFE6;
@@ -18,8 +18,8 @@
   --night: #101219;
   --accent: #1F4F5E;
   --accent-soft: #DCE8EA;
-  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --sat: env(safe-area-inset-top, 0px);
   --sab: env(safe-area-inset-bottom, 0px);
   --gutter: 20px;
@@ -30,6 +30,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html {
+  font-synthesis: none;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   touch-action: manipulation;
@@ -979,3 +980,60 @@ html[data-theme="dark"] .must__head .eyebrow, html[data-theme="dark"] .must__cou
 .mugfact h4 { font: 400 20px/1.15 var(--serif); margin: 0 0 6px; }
 .mugfact p { margin: 0; font-size: 13px; line-height: 1.5; opacity: .85; }
 .day-hero__body, .day-hero__num { will-change: transform; }
+
+/* =========================================================
+   ACABADO PREMIUM
+   ========================================================= */
+/* textura de papel muy sutil */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.4  0 0 0 0 0.32  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  max-width: 600px; margin-inline: auto;
+}
+html[data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .25; }
+main { position: relative; z-index: 1; }
+
+/* titulares con la serif editorial */
+.h2, .route__title, .day-hero__title, .cover__title, .block__head h3, .today__head h3, .must__head h3 { letter-spacing: -.01em; }
+.cover__title { font-size: clamp(56px, 16.5vw, 92px); line-height: .9; }
+.cover__title em { font-style: italic; }
+.day-hero__title { font-size: clamp(70px, 21vw, 112px); line-height: .86; letter-spacing: -.02em; }
+.day-hero__sub { font-size: 21px; }
+.day-hero__num { -webkit-text-stroke: 1px rgba(233,207,150,.8); font-size: clamp(130px, 44vw, 240px); }
+.day__intro { font-size: 23px; line-height: 1.38; }
+.day__intro::first-letter { font-size: 78px; color: #B08D57; }
+
+/* secciones numeradas con filete dorado */
+.day { counter-reset: sec; }
+.day .block__head { position: relative; padding-top: 18px; border-top: 1px solid color-mix(in srgb, #B08D57 30%, transparent); align-items: flex-end; }
+.day .block__head h3 { font-size: 38px; line-height: 1; }
+.day .block__head h3::before {
+  counter-increment: sec; content: counter(sec, decimal-leading-zero);
+  display: block; margin-bottom: 8px;
+  font: 700 10.5px/1 var(--sans); letter-spacing: .22em; color: #B08D57;
+}
+.block__head h3 em { font-style: italic; }
+.block { padding-top: 48px; }
+
+/* números y datos */
+.fact b { font-size: 48px; }
+.mugfact__n b, .must__count b, .now__ring b { font-family: var(--sans); }
+.tl__h { font-size: 21px; }
+.tl__time { letter-spacing: .12em; }
+.mk__txt h4, .ticket__route b, .food__txt h4, .tip h4, .dx__name { font-size: 20px; }
+.tv strong { font-size: 15.5px; }
+.st__body h2 { font-size: clamp(54px, 15vw, 78px); line-height: .9; }
+.mvd__body h3 { font-size: 32px; }
+.mvc__txt b { font-size: 19px; }
+.xp__txt b { font-size: 25px; }
+.dock b { font-size: 22px; }
+
+/* tarjetas: sombras más finas y bordes dorados en lo importante */
+.ticket, .mk__item, .fact, .hotel, .rain, .tip, .phrases, .mugs, .theme button, .checklist label {
+  box-shadow: 0 0 0 1px var(--line), 0 18px 34px -30px rgba(21,22,28,.45);
+}
+.mk__n { background: linear-gradient(135deg, #E9CF96, #B08D57); color: #2B1F08; }
+.today { background: transparent; border: 0; margin-top: 30px; }
+.today__head h3 { font-size: 40px; }
+.tv__img { width: 86px; height: 86px; }
+.tv { flex-basis: 98px; }

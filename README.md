@@ -17,7 +17,6 @@ Web estática pensada para añadirse a la pantalla de inicio del móvil: pantall
 - **Cerca de mí**: con tu ubicación, cada sitio muestra «a X min de ti» y se puede ordenar por cercanía.
 - **Modo oscuro** automático de noche (17:00–8:00) o manual.
 - **Plan B si llueve** (se abre solo si la previsión da lluvia).
-- **Lo nuestro / Si sobra tiempo**: cada día enseña primero solo lo que queréis ver (mercados, catedrales, EKŌ-Haus, Little Tokyo…) y aparte lo secundario.
 - **Hoy veréis**: franja con fotos de las paradas del día y los minutos andando entre ellas.
 - **En cifras**: datos curiosos con números animados y una pizarra de precios (Glühwein, fianza de la taza, Kölsch, entradas…).
 - **Mapa del día** a pantalla completa (MapLibre + OpenFreeMap): edificios en 3D, ruta a pie real que se dibuja sola, marcadores por tipo (imprescindible, mercado, comer, opcional), tu posición y tarjetas deslizables sincronizadas con el mapa.
