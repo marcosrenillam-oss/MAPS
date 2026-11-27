@@ -17,10 +17,14 @@
     const out = [], seenAt = new Set();
     const push = (o) => { if (!o.at || !GEO[o.at] || seenAt.has(o.at)) return; seenAt.add(o.at); out.push(o); };
     if (d.base === "dus-hotel") push({ id: "hotel", name: HOTEL.name, at: HOTEL.at, kind: "hotel", short: HOTEL.address });
-    [...d.xmas, ...d.always, ...(d.gems || [])].filter((p) => p.must).forEach((p) => push({ id: p.id, name: p.name, at: p.at, kind: d.xmas.includes(p) ? "market" : "must", must: true, img: p.img, short: p.short, poi: p.id }));
-    (d.markets ? d.markets.list : []).forEach((m) => push({ id: "mk:" + m.name, name: m.name, at: m.at, kind: "market", must: true, short: "🕒 " + m.hours, img: null }));
-    [...d.xmas, ...d.always, ...(d.gems || [])].filter((p) => !p.must).forEach((p) => push({ id: p.id, name: p.name, at: p.at, kind: "opt", img: p.img, short: p.short, poi: p.id }));
-    d.food.forEach((f) => push({ id: "food:" + f.name, name: f.name, at: f.at, kind: "food", img: f.img, short: f.what }));
+    const mk = (at) => (d.markets ? d.markets.list.find((m) => m.at === at) : null);
+    [...d.xmas, ...d.always, ...(d.gems || [])].filter((p) => p.must).forEach((p) => {
+      const m = mk(p.at);
+      push({ id: p.id, name: p.name, at: p.at, kind: m || p.tag === "Mercado" ? "market" : "must", must: true, img: p.img, short: p.short, desc: p.desc, tip: p.tip, time: p.time, price: p.price, hours: m && m.hours, poi: p.id });
+    });
+    (d.markets ? d.markets.list : []).forEach((m) => push({ id: "mk:" + m.name, name: m.name, at: m.at, kind: "market", must: true, short: m.tip, desc: m.tip, hours: m.hours, price: "Gratis", img: d.xmas[0] && d.xmas[0].img }));
+    [...d.xmas, ...d.always, ...(d.gems || [])].filter((p) => !p.must).forEach((p) => push({ id: p.id, name: p.name, at: p.at, kind: "opt", img: p.img, short: p.short, desc: p.desc, tip: p.tip, time: p.time, price: p.price, poi: p.id }));
+    d.food.forEach((f) => push({ id: "food:" + f.name, name: f.name, at: f.at, kind: "food", img: f.img, short: f.what, desc: f.what, tip: f.note, price: f.price, sub: f.type }));
     if (d.base !== "dus-hotel") push({ id: "base", name: BASE_NAME[d.base] ? BASE_NAME[d.base] : "Estación", at: d.base, kind: "base", short: "Estación de tren" });
     return out;
   }
@@ -61,10 +65,11 @@
     </div>
     <div class="mv__route" id="mvRoute"></div>
     <div class="mv__cards" id="mvCards"></div>
-    <div class="mv__loading" id="mvLoading"><i></i><span>Cargando mapa…</span></div>`;
+    <div class="mv__loading" id="mvLoading"><i></i><span>Cargando mapa…</span></div>
+    <article class="mvd" id="mvDetail" aria-hidden="true"></article>`;
   document.body.appendChild(mv);
 
-  let map = null, markers = [], places = [], curDay = null, sel = -1, meMarker = null, meTimer = null, filter = "all";
+  let map = null, markers = [], places = [], curDay = null, sel = -1, meMarker = null, meTimer = null, filter = "all", linkLbl = null;
 
   function cardHTML(p, i) {
     const k = KIND[p.kind];
@@ -93,10 +98,68 @@
     markers.forEach((m, i) => m.getElement().classList.toggle("is-hidden", !vis.some((v) => v.i === i)));
   }
 
+  function origin() {
+    const me = T.me();
+    if (me) return { at: "me", label: "de ti" };
+    return { at: curDay.base, label: curDay.base === "dus-hotel" ? "del apartamento" : "de la estación" };
+  }
+  function linkTo(p) {
+    if (!map || !map.getSource) return;
+    const o = origin();
+    const A = GEO[o.at], B = GEO[p.at];
+    const data = { type: "Feature", geometry: { type: "LineString", coordinates: A && B && o.at !== p.at ? [[A[1], A[0]], [B[1], B[0]]] : [] } };
+    if (map.getSource("link")) map.getSource("link").setData(data);
+    else {
+      map.addSource("link", { type: "geojson", data });
+      map.addLayer({ id: "link", type: "line", source: "link", layout: { "line-cap": "round" }, paint: { "line-color": isDark() ? "#ECE6DB" : "#15161C", "line-width": 2.2, "line-dasharray": [1, 2], "line-opacity": 0.8 } });
+    }
+    if (linkLbl) { linkLbl.remove(); linkLbl = null; }
+    const h = A && B && o.at !== p.at ? T.hop(o.at, p.at) : null;
+    if (h && !h.same) {
+      const el = document.createElement("div");
+      el.className = "mv-lbl";
+      el.innerHTML = `<b>${h.far ? T.fmtM(h.m) : h.min + "′"}</b><span>${h.far ? "en transporte" : T.fmtM(h.m) + " " + o.label}</span>`;
+      linkLbl = new maplibregl.Marker({ element: el }).setLngLat([(A[1] + B[1]) / 2, (A[0] + B[0]) / 2]).addTo(map);
+    }
+  }
+  function showDetail(p) {
+    const k = KIND[p.kind], o = origin();
+    const h = T.hop(o.at, p.at);
+    const g = GEO[p.at];
+    const box = $("#mvDetail");
+    box.innerHTML = `
+      <button class="mvd__x" data-mvd-close aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="mvd__img" style="${p.img ? `background-image:url('${T.img(p.img, true)}')` : ""}"><span class="mvd__kind mvd__kind--${p.kind}">${k.icon} ${p.sub || k.label}</span></div>
+      <div class="mvd__body">
+        <h3>${p.name}</h3>
+        <p>${p.desc || p.short || ""}</p>
+        <div class="mvd__chips">
+          ${p.hours ? `<span>🕒 ${p.hours}</span>` : ""}
+          ${p.time ? `<span>⏱ ${p.time}</span>` : ""}
+          ${p.price ? `<span>€ ${p.price}</span>` : ""}
+          ${h && !h.same ? `<span class="is-dist">🚶 ${h.far ? T.fmtM(h.m) + " · transporte" : h.min + "′ · " + T.fmtM(h.m)} ${o.label}</span>` : ""}
+        </div>
+        ${p.tip ? `<p class="mvd__tip">💡 ${p.tip}</p>` : ""}
+        <div class="mvd__act">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=${g[0]},${g[1]}&travelmode=walking" target="_blank" rel="noopener">Llévame</a>
+          ${p.poi ? `<button data-mv-sheet="${p.poi}">Ficha completa</button>` : ""}
+        </div>
+      </div>`;
+    box.classList.add("is-open");
+    box.setAttribute("aria-hidden", "false");
+    mv.classList.add("has-detail");
+  }
+  function hideDetail() {
+    $("#mvDetail").classList.remove("is-open");
+    $("#mvDetail").setAttribute("aria-hidden", "true");
+    mv.classList.remove("has-detail");
+  }
+
   function select(i, fly = true) {
     sel = i;
     markers.forEach((m, j) => m.getElement().classList.toggle("is-sel", j === i));
     $$(".mvc", mv).forEach((c) => c.classList.toggle("is-sel", +c.dataset.i === i));
+    if (map && places[i]) linkTo(places[i]);
     if (fly && map && places[i]) {
       const g = GEO[places[i].at];
       map.easeTo({ center: [g[1], g[0]], zoom: Math.max(map.getZoom(), 15.6), pitch: 55, duration: 900, padding: { top: 130, bottom: 250, left: 20, right: 20 } });
@@ -156,7 +219,8 @@
     $("#mvCards").innerHTML = "";
     mv.classList.add("is-open", "is-loading"); mv.setAttribute("aria-hidden", "false"); lock(true);
     try { await loadLib(); } catch { mv.classList.remove("is-loading"); T.toast("No se pudo cargar el mapa (¿sin conexión?)"); return; }
-    if (map) { map.remove(); map = null; markers = []; meMarker = null; }
+    hideDetail();
+    if (map) { map.remove(); map = null; markers = []; meMarker = null; linkLbl = null; }
     const all = places.map((p) => GEO[p.at]);
     const lats = all.map((g) => g[0]), lngs = all.map((g) => g[1]);
     const center = [(Math.min(...lngs) + Math.max(...lngs)) / 2, (Math.min(...lats) + Math.max(...lats)) / 2];
@@ -166,6 +230,7 @@
       center, zoom: 10.5, pitch: 0, bearing: 0, attributionControl: { compact: true },
       fadeDuration: 150, maxPitch: 70,
     });
+    map.on("click", hideDetail);
     map.on("load", () => {
       mv.classList.remove("is-loading");
       // edificios en 3D
@@ -189,7 +254,7 @@
         el.style.setProperty("--d", `${i * 45}ms`);
         el.innerHTML = `<span>${KIND[p.kind].icon}</span>`;
         el.setAttribute("aria-label", p.name);
-        el.addEventListener("click", (e) => { e.stopPropagation(); select(i); scrollToCard(i); });
+        el.addEventListener("click", (e) => { e.stopPropagation(); select(i); scrollToCard(i); showDetail(places[i]); });
         const g = GEO[p.at];
         markers.push(new maplibregl.Marker({ element: el, anchor: "bottom" }).setLngLat([g[1], g[0]]).addTo(map));
       });
@@ -230,6 +295,7 @@
 
   mv.addEventListener("click", (e) => {
     if (e.target.closest("[data-mv-close]")) return closeMap();
+    if (e.target.closest("[data-mvd-close]")) return hideDetail();
     if (e.target.closest("[data-mv-loc]")) {
       T.startLocation();
       const me = T.me();
@@ -248,7 +314,7 @@
     const sh = e.target.closest("[data-mv-sheet]");
     if (sh) { T.openSheet(sh.dataset.mvSheet, document.getElementById(curDay.id)); return; }
     const c = e.target.closest(".mvc");
-    if (c && !e.target.closest("a,button")) select(+c.dataset.i);
+    if (c && !e.target.closest("a,button")) { select(+c.dataset.i); showDetail(places[+c.dataset.i]); }
   });
 
   /* =========================================================
@@ -282,7 +348,7 @@
   function renderStory() {
     const it = sItems[sIdx];
     const nx = sItems[sIdx + 1];
-    const seenNow = T.seen.has(it.key);
+
     const h = nx && T.hop(it.at, nx.at);
     const bg = document.createElement("div");
     bg.className = "st__img";
@@ -304,7 +370,7 @@
         ${h && !h.same ? `<span>🚶 siguiente a ${h.short}</span>` : ""}
       </div>
       <div class="st__act">
-        <button class="st__seen ${seenNow ? "is-on" : ""}" data-st-seen>${seenNow ? "✓ Visto" : "Marcar visto"}</button>
+        <button class="st__seen" data-st-next>${nx ? "Siguiente →" : "Terminar"}</button>
         <a href="https://www.google.com/maps/dir/?api=1&destination=${GEO[it.at][0]},${GEO[it.at][1]}&travelmode=walking" target="_blank" rel="noopener">Llévame</a>
         ${it.poi ? `<button data-st-sheet>Ficha</button>` : ""}
       </div>`;
@@ -330,20 +396,21 @@
   function prev() { if (sIdx > 0) { sIdx--; renderStory(); } else { sLeft = DUR; play(); } }
   function finale() {
     clearTimeout(sTimer);
-    const n = sItems.filter((x) => T.seen.has(x.key)).length;
+    let m = 0;
+    sItems.forEach((x, i) => { if (i) { const h = T.hop(sItems[i - 1].at, x.at); if (h && !h.far) m += h.m; } });
+    const nMk = sItems.filter((x) => x.tag === "Mercado").length;
     $("#stBars").innerHTML = sItems.map(() => `<i class="is-done"><span></span></i>`).join("");
     $("#stBody").innerHTML = `
       <span class="st__tag">Fin del paseo</span>
-      <h2><span>${n}/${sItems.length}</span> <span>vistos</span></h2>
-      <p>${n === sItems.length ? "¡Día completado! Todos los imprescindibles, hechos." : "Te quedan " + (sItems.length - n) + " imprescindibles por marcar hoy."}</p>
-      <div class="st__act"><button data-st-restart>Ver otra vez</button><button class="st__seen is-on" data-st-close>Cerrar</button></div>`;
+      <h2><span>${sItems.length}</span> <span>paradas</span></h2>
+      <p>≈ ${T.fmtM(m)} andando entre ellas${nMk ? ` y ${nMk} mercados navideños` : ""}. ¡A disfrutarlo!</p>
+      <div class="st__act"><button data-st-restart>Ver otra vez</button><button class="st__seen" data-st-close>Cerrar</button></div>`;
   }
   function openStory(id) {
     sDay = dayById(id);
     sItems = storyItems(sDay);
     if (!sItems.length) return;
-    const firstPending = sItems.findIndex((x) => !T.seen.has(x.key));
-    sIdx = firstPending > 0 ? firstPending : 0;
+    sIdx = 0;
     st.style.setProperty("--acc", sDay.accent);
     $("#stBg").innerHTML = "";
     st.classList.add("is-open"); st.setAttribute("aria-hidden", "false"); lock(true);
@@ -383,6 +450,7 @@
       return;
     }
     if (e.target.closest("[data-st-sheet]")) { pause(); return T.openSheet(sItems[sIdx].poi, document.getElementById(sDay.id)); }
+    if (e.target.closest(".st__act [data-st-next]")) return next();
     if (held) return;
     if (e.target.closest("[data-st-prev]")) return prev();
     if (e.target.closest("[data-st-next]")) return next();

@@ -184,3 +184,37 @@ body:has(.dock:not(.is-shown)) .now { bottom: calc(var(--sab) + 16px); }
 @keyframes flash { 0%, 60% { background: color-mix(in srgb, #D9BF8C 35%, transparent); } }
 /* que el contenido no quede tapado por la tarjeta */
 body:has(.now:not([hidden])) .info { padding-bottom: calc(var(--sab) + 200px); }
+
+/* ---------- detalle dentro del mapa ---------- */
+.mvd {
+  position: absolute; z-index: 6; left: 10px; right: 10px; bottom: calc(var(--sab) + 12px);
+  max-height: 62%; overflow-y: auto; border-radius: 24px; background: var(--card);
+  box-shadow: 0 24px 50px -16px rgba(0,0,0,.55), 0 0 0 1px var(--line);
+  transform: translateY(115%); transition: transform .55s var(--ease);
+  scrollbar-width: none;
+}
+.mvd::-webkit-scrollbar { display: none; }
+.mvd.is-open { transform: none; }
+.mv.has-detail .mv__cards, .mv.has-detail .mv__route { opacity: 0; pointer-events: none; transition: opacity .3s; }
+.mvd__img { position: relative; height: 160px; background: linear-gradient(150deg, var(--acc), #15161C); background-size: cover; background-position: center; border-radius: 24px 24px 0 0; animation: mvdImg 6s ease-out both; }
+@keyframes mvdImg { from { background-size: 118%; } to { background-size: 100%; } }
+.mvd__img::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(transparent 45%, rgba(0,0,0,.45)); }
+.mvd__kind { position: absolute; z-index: 1; left: 14px; bottom: 12px; padding: 6px 10px; border-radius: 99px; font: 700 10.5px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.94); color: #15161C; }
+.mvd__kind--must, .mvd__kind--market { background: linear-gradient(135deg, #E9CF96, #C9A25E); color: #2B1F08; }
+.mvd__kind--food { background: #D9773C; color: #fff; }
+.mvd__x { position: absolute; z-index: 2; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: rgba(16,18,25,.5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.mvd__x svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.2; }
+.mvd__body { padding: 16px 18px 18px; }
+.mvd__body h3 { font: 400 28px/1.05 var(--serif); margin: 0 0 8px; letter-spacing: -.015em; animation: up .5s var(--ease) both; }
+.mvd__body > p { margin: 0 0 12px; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); animation: up .5s var(--ease) .06s both; }
+.mvd__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; animation: up .5s var(--ease) .12s both; }
+.mvd__chips span { padding: 7px 10px; border-radius: 99px; background: var(--paper-2); font: 600 12px/1 var(--sans); }
+.mvd__chips .is-dist { background: color-mix(in srgb, var(--acc) 16%, var(--card)); color: var(--acc); }
+.mvd__tip { margin: 0 0 14px !important; padding: 12px 14px; border-radius: 14px; background: var(--paper-2); font-size: 13.5px !important; }
+.mvd__act { display: flex; gap: 8px; }
+.mvd__act a, .mvd__act button { flex: 1; text-align: center; padding: 14px 10px; border-radius: 14px; font: 600 14px/1 var(--sans); background: var(--paper-2); color: var(--ink); }
+.mvd__act a { background: var(--acc); color: #fff; }
+.mv-lbl { display: flex; flex-direction: column; align-items: center; padding: 6px 10px; border-radius: 12px; background: #15161C; color: #fff; box-shadow: 0 8px 18px -6px rgba(0,0,0,.5); animation: pinDrop .45s var(--ease) both; pointer-events: none; }
+.mv-lbl b { font: 700 15px/1 var(--sans); }
+.mv-lbl span { font: 500 9.5px/1.2 var(--sans); opacity: .75; margin-top: 2px; white-space: nowrap; }
+html[data-theme="dark"] .mv-lbl { background: #ECE6DB; color: #15161C; }

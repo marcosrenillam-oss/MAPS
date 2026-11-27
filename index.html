@@ -90,13 +90,12 @@
           <button class="btn btn--dark" id="offlineBtn">Guardar sin conexión</button>
         </div>
 
-        <h3 class="h3">Tu colección de <em>tazas</em></h3>
-        <div class="mugs" id="mugs" data-reveal></div>
-
-        <h3 class="h3">Viajar <em>juntos</em></h3>
-        <div class="share" data-reveal>
-          <p>Comparte lo que has marcado como visto y tus tazas. Cuando tu acompañante abre el enlace, se junta con lo suyo (y al revés).</p>
-          <button class="btn btn--dark" id="shareBtn"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Compartir mi progreso</button>
+        <div class="mugfact" data-reveal>
+          <div class="mugfact__n"><b data-count="10">0</b><small>tazas</small></div>
+          <div>
+            <h4>La colección de tazas</h4>
+            <p>Cada mercado sirve el Glühwein en su propia taza de cerámica, con un diseño nuevo cada año. En vuestra ruta podéis juntar unas 10 distintas. La fianza (Pfand) es de 3 a 5 €: si os la quedáis, ese es su precio.</p>
+          </div>
         </div>
 
         <h3 class="h3">Apariencia</h3>
@@ -151,7 +150,7 @@
               <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
               Llévame (Google Maps)
             </a>
-            <button class="btn btn--ghost" id="sheetSeen">
+            <button class="btn btn--ghost" id="sheetSeen" hidden>
               <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
               <span>Marcar como visto</span>
             </button>

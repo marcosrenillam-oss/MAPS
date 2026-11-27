@@ -196,7 +196,7 @@
   let ME = null;                       // [lat, lng] cuando se activa la ubicación
   let NEAR = false;                    // ordenar por cercanía
   const MUGS = store.get("mugs", {});
-  let mode = store.get("mode", "xmas");
+  let mode = store.get("mode2", "must");
   const POI_INDEX = {};
 
   function poiCard(p, i) {
@@ -207,9 +207,9 @@
     const from = hm ? `<div class="poi__from is-me">${ICON.locate}<span>${hm.short} de ti</span></div>`
       : h ? `<div class="poi__from">${d.base === "dus-hotel" ? ICON.home : ICON.walk}<span>${h.same ? "Aquí mismo" : h.short + " desde " + BASE_NAME[d.base]}</span></div>` : "";
     return `
-      <button class="poi ${p.must ? "is-must" : "is-opt"} ${seen.has(p.id) ? "is-seen" : ""}" data-poi="${p.id}" style="--i:${i}">
+      <button class="poi ${p.must ? "is-must" : "is-opt"}" data-poi="${p.id}" style="--i:${i}">
         <img src="${img(p.img)}" alt="${p.name}" loading="lazy" decoding="async">
-        <div class="poi__top"><span class="chip">${p.tag}</span>${p.must ? '<span class="must-badge">★ Imprescindible</span>' : '<span class="opt-badge">Opcional</span>'}<span class="poi__seen">${ICON.check}</span></div>
+        <div class="poi__top"><span class="chip">${p.tag}</span>${p.must ? "" : '<span class="opt-badge">Si sobra tiempo</span>'}</div>
         <div class="poi__body">
           <h4>${p.name}</h4>
           <p>${p.short}</p>
@@ -332,14 +332,14 @@
           <div class="block__head" data-reveal><h3>Qué <em>ver</em></h3><button class="near-btn ${NEAR ? "is-on" : ""}" data-near>${ICON.locate}<span>Cerca de mí</span></button></div>
           <div class="seg" data-reveal data-seg data-mode="${mode}">
             <span class="seg__pill"></span>
-            <button data-m="xmas" class="${mode === "xmas" ? "is-on" : ""}">✦ En Navidad</button>
-            <button data-m="always" class="${mode === "always" ? "is-on" : ""}">Todo el año</button>
-            <button data-m="gems" class="${mode === "gems" ? "is-on" : ""}">★ Joyas</button>
+            <button data-m="must" class="${mode === "must" ? "is-on" : ""}">★ Lo nuestro</button>
+            <button data-m="extra" class="${mode === "extra" ? "is-on" : ""}">+ Si sobra tiempo</button>
           </div>
           <div class="rail" data-rail="${di}"></div>
           <div class="rail__hint"><span>Toca una tarjeta para ver la ficha</span><span class="dots" data-dots="${di}"></span></div>
         </div>
 
+        ${factsBlock(d)}
         ${marketsBlock(d, di)}
 
         <div class="block">
@@ -421,10 +421,7 @@
             ${m.tip ? `<p class="mk__tip">${m.tip}</p>` : ""}
             <span class="mk__status"></span>
           </div>
-          <div class="mk__side">
-            <a class="mk__go" href="${mapsSearch(m.name + " " + d.city)}" target="_blank" rel="noopener" aria-label="Abrir en Google Maps">${ICON.pin}</a>
-            <button class="mug" data-mug="${d.id}:${m.name}" aria-label="Sumar una taza">${ICON.mug}<b>${MUGS[d.id + ":" + m.name] || 0}</b></button>
-          </div>
+          <a class="mk__go" href="${mapsSearch(m.name + " " + d.city)}" target="_blank" rel="noopener" aria-label="Abrir en Google Maps">${ICON.pin}</a>
         </li>`;
     }).join("");
     return `
@@ -491,49 +488,76 @@
   /* ---------- imprescindibles del día ---------- */
   function mustItems(d) {
     const out = [], ats = new Set();
-    [...d.xmas, ...d.always, ...(d.gems || [])].filter((p) => p.must).forEach((p) => { out.push({ key: p.id, name: p.name, kind: p.tag, poi: p.id }); ats.add(p.at); });
-    (d.markets ? d.markets.list : []).forEach((m) => { if (!ats.has(m.at)) { out.push({ key: `mk:${d.id}:${m.name}`, name: m.name, kind: "Mercado" }); ats.add(m.at); } });
+    [...d.xmas, ...d.always, ...(d.gems || [])].filter((p) => p.must).forEach((p) => { out.push({ key: p.id, name: p.name, kind: p.tag, poi: p.id, at: p.at, img: p.img }); ats.add(p.at); });
+    (d.markets ? d.markets.list : []).forEach((m) => { if (!ats.has(m.at)) { out.push({ key: `mk:${d.id}:${m.name}`, name: m.name, kind: "Mercado", at: m.at, img: d.xmas[0] ? d.xmas[0].img : d.hero }); ats.add(m.at); } });
     if (d.mustOrder) out.sort((a, b) => ((d.mustOrder.indexOf(a.key) + 1) || 99) - ((d.mustOrder.indexOf(b.key) + 1) || 99));
     return out;
   }
   function mustBlock(d) {
     const L = mustItems(d);
     if (!L.length) return "";
+    let tot = 0;
+    const items = L.map((x, i) => {
+      const h = i ? hop(L[i - 1].at, x.at) : null;
+      if (h && !h.far) tot += h.m;
+      const hopHTML = i ? `<span class="tv__hop"><i></i><b>${h ? (h.same ? "aquí" : h.far ? "bus" : h.min + "′") : ""}</b></span>` : "";
+      return `${hopHTML}
+            <button class="tv" ${x.poi ? `data-poi="${x.poi}"` : ""} style="--i:${i}">
+              <span class="tv__img" style="background-image:url('${img(x.img)}')"><b>${i + 1}</b></span>
+              <strong>${x.name}</strong><small>${x.kind}</small>
+            </button>`;
+    }).join("");
+    const nMk = L.filter((x) => x.kind === "Mercado").length + (d.markets ? 0 : 0);
     return `
-        <div class="must" data-must="${d.id}" data-reveal>
-          <div class="must__head">
-            <div><span class="eyebrow">Sí o sí hoy</span><h3>Imprescindibles</h3></div>
-            <div class="must__count"><b data-must-n>0</b><span>/ ${L.length}</span></div>
+        <div class="today" data-reveal>
+          <div class="today__head">
+            <div><span class="eyebrow">Hoy veréis</span><h3>${L.length} paradas</h3></div>
+            <p>≈ ${fmtM(tot)} andando<br>${d.markets ? d.markets.list.length + " mercados" : ""}</p>
           </div>
-          <div class="must__bar"><span data-must-bar></span></div>
-          <ul>${L.map((x) => `
-            <li class="${seen.has(x.key) ? "is-seen" : ""}" data-must-key="${x.key}">
-              <button class="must__check" data-must-toggle="${x.key}" aria-label="Marcar como visto">${ICON.check}</button>
-              <button class="must__name" ${x.poi ? `data-poi="${x.poi}"` : `data-must-toggle="${x.key}"`}><b>${x.name}</b><small>${x.kind}</small></button>
-            </li>`).join("")}</ul>
-          <p class="must__legend"><span class="lg lg--must">★ Imprescindible</span><span class="lg lg--opt">Opcional: si os da tiempo</span></p>
+          <div class="today__rail">${items}</div>
         </div>`;
   }
-  function refreshMust() {
-    $$("[data-must]").forEach((box) => {
-      const lis = $$("li", box);
-      let n = 0;
-      lis.forEach((li) => { const on = seen.has(li.dataset.mustKey); li.classList.toggle("is-seen", on); if (on) n++; });
-      $("[data-must-n]", box).textContent = n;
-      $("[data-must-bar]", box).style.transform = `scaleX(${lis.length ? n / lis.length : 0})`;
-      box.classList.toggle("is-done", n === lis.length);
-    });
+  function refreshMust() {}
+  function bindMust() {}
+
+  /* ---------- en cifras ---------- */
+  function factsBlock(d) {
+    if (!d.facts) return "";
+    return `
+        <div class="block">
+          <div class="block__head" data-reveal><h3>En <em>cifras</em></h3><span class="eyebrow">Datos y precios</span></div>
+          <div class="facts">${d.facts.map((f, i) => `
+            <div class="fact" data-reveal style="--d:${i % 3}">
+              <b><span class="fact__pre">${f.pre || ""}</span><span data-count="${f.n}">0</span>${f.u ? `<small>${f.u}</small>` : ""}</b>
+              <p>${f.t}</p>
+            </div>`).join("")}</div>
+          ${d.prices ? `
+          <div class="board" data-reveal>
+            <div class="board__head"><span>Lo que cuesta</span><small>precios orientativos 2026</small></div>
+            <ul>${d.prices.map(([k, v], i) => `<li style="--i:${i}"><span>${k}</span><i></i><b>${v}</b></li>`).join("")}</ul>
+          </div>` : ""}
+        </div>`;
   }
-  function bindMust() {
-    document.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-must-toggle]");
-      if (!b) return;
-      const k = b.dataset.mustToggle;
-      seen.has(k) ? seen.delete(k) : seen.add(k);
-      store.set("seen", [...seen]);
-      $$(`[data-poi="${CSS.escape(k)}"].poi`).forEach((c) => c.classList.toggle("is-seen", seen.has(k)));
-      refreshMust();
-    });
+  function countUp() {
+    const fmt = (v, dec) => {
+      const [i, f] = v.toFixed(dec).split(".");
+      return i.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (f ? "," + f : "");
+    };
+    const io = new IntersectionObserver((ents) => ents.forEach((e) => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      const el = e.target, n = parseFloat(el.dataset.count), dec = (String(n).split(".")[1] || "").length;
+      const yr = n >= 1900 && n <= 2100 && Number.isInteger(n);   // años: sin separador
+      const t0 = performance.now(), dur = 1400;
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / dur), e2 = 1 - Math.pow(1 - k, 4);
+        const v = n * e2;
+        el.textContent = yr ? String(Math.round(v)) : fmt(dec ? v : Math.round(v), dec);
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }), { threshold: 0.4 });
+    $$("[data-count]").forEach((el) => io.observe(el));
   }
 
   /* ---------- apartamento ---------- */
@@ -596,10 +620,13 @@
   function renderRails() {
     DAYS.forEach((d, di) => {
       const rail = $(`[data-rail="${di}"]`);
-      let items = d[mode] && d[mode].length ? d[mode] : d.always;
+      const pool = [...d.xmas, ...d.always, ...(d.gems || [])];
+      const musts = pool.filter((p) => p.must), extras = pool.filter((p) => !p.must);
+      if (d.mustOrder) musts.sort((x, y) => ((d.mustOrder.indexOf(x.id) + 1) || 99) - ((d.mustOrder.indexOf(y.id) + 1) || 99));
+      let items = mode === "extra" ? (extras.length ? extras : musts) : (musts.length ? musts : extras);
       items.forEach((p) => (POI_DAY[p.id] = d));
       if (NEAR && ME) items = [...items].sort((a, b) => (dist("me", a.at) ?? 1e9) - (dist("me", b.at) ?? 1e9));
-      else items = [...items].sort((a, b) => (b.must ? 1 : 0) - (a.must ? 1 : 0));
+
       rail.innerHTML = items.map(poiCard).join("");
       rail.scrollLeft = 0;
       const dots = $(`[data-dots="${di}"]`);
@@ -618,6 +645,13 @@
           const cards = rail.children;
           if (!cards.length) return;
           const w = cards[0].getBoundingClientRect().width + 12;
+          const mid = rail.scrollLeft + rail.clientWidth / 2;
+          for (const c of cards) {
+            const im = c.firstElementChild;
+            if (!im) continue;
+            const off = (c.offsetLeft + c.offsetWidth / 2 - mid) / rail.clientWidth;
+            im.style.transform = `translate3d(${(off * -12).toFixed(2)}%, 0, 0) scale(1.22)`;
+          }
           const i = clamp(Math.round(rail.scrollLeft / w), 0, cards.length - 1);
           $$("i", $(`[data-dots="${rail.dataset.rail}"]`)).forEach((d, j) => d.classList.toggle("is-on", j === i));
         });
@@ -628,12 +662,13 @@
       const b = e.target.closest("[data-seg] button");
       if (b) {
         mode = b.dataset.m;
-        store.set("mode", mode);
+        store.set("mode2", mode);
         $$("[data-seg]").forEach((s) => {
           s.dataset.mode = mode;
           $$("button", s).forEach((x) => x.classList.toggle("is-on", x.dataset.m === mode));
         });
         renderRails();
+        $$("[data-rail]").forEach((r) => r.dispatchEvent(new Event("scroll")));
         return;
       }
       const card = e.target.closest("[data-poi]");
@@ -863,7 +898,8 @@
   }
 
   function bindScroll() {
-    const heroes = $$(".day-hero").map((el) => ({ el, im: el.firstElementChild, top: 0, h: 0, on: false }));
+    const heroes = $$(".day-hero").map((el) => ({ el, im: el.firstElementChild, body: $(".day-hero__body", el), num: $(".day-hero__num", el), top: 0, h: 0, on: false }));
+    const cv = $("#cover"), cvBody = $(".cover__body", cv), cvSlides = $(".cover__slides", cv);
     const tls = $$(".tl").map((el) => ({ el, top: 0, h: 0, last: -1 }));
     const dock = $("#dock");
     const pill = $(".dock__pill");
@@ -893,13 +929,23 @@
         const vis = rel < vh && rel + x.h > 0;
         if (vis !== x.on) { x.on = vis; x.im.style.willChange = vis ? "transform" : "auto"; }
         if (!vis) continue;
-        x.im.style.transform = `translate3d(0, ${(-rel * 0.22).toFixed(1)}px, 0) scale(${(1.08 + clamp(-rel / vh, 0, 1) * 0.06).toFixed(3)})`;
+        x.im.style.transform = `translate3d(0, ${(-rel * 0.3).toFixed(1)}px, 0) scale(${(1.1 + clamp(-rel / vh, 0, 1) * 0.08).toFixed(3)})`;
+        const out = clamp(-rel / (x.h * 0.7), 0, 1);
+        x.body.style.transform = `translate3d(0, ${(-rel * 0.18).toFixed(1)}px, 0)`;
+        x.body.style.opacity = (1 - out * 1.1).toFixed(3);
+        x.num.style.transform = `translate3d(0, ${(rel * 0.25).toFixed(1)}px, 0)`;
       }
       for (const x of tls) {
         const rel = x.top - y;
         if (rel + x.h < -50 || rel > vh) continue;
         const v = Math.round(clamp((vh * 0.62 - rel) / x.h, 0, 1) * 200) / 200;
         if (v !== x.last) { x.last = v; x.el.style.setProperty("--tl", v); }
+      }
+      if (y < vh * 1.1) {
+        const k = clamp(y / vh, 0, 1);
+        cvBody.style.transform = `translate3d(0, ${(y * 0.45).toFixed(1)}px, 0)`;
+        cvBody.style.opacity = (1 - k * 1.3).toFixed(3);
+        cvSlides.style.transform = `translate3d(0, ${(y * 0.25).toFixed(1)}px, 0) scale(${(1 + k * 0.08).toFixed(3)})`;
       }
       const sh = coverBottom - y < vh * 0.55;
       if (sh !== shown) { shown = sh; dock.classList.toggle("is-shown", sh); }
@@ -1137,12 +1183,12 @@
   applyTheme();
   bindRails();
   bindDx();
+  $$("[data-rail]").forEach((r) => r.dispatchEvent(new Event("scroll")));
   bindNear();
   bindTheme();
   bindMugs();
   bindShare();
-  bindMust();
-  refreshMust();
+  countUp();
   renderMugs();
   bindSheet();
   bindReveal();

@@ -1,5 +1,5 @@
 /* Invierno en el Rin · service worker: funciona sin conexión */
-const VERSION = "rm-v7";
+const VERSION = "rm-v8";
 const CORE = [
   "./", "index.html", "credits.html", "manifest.webmanifest",
   "css/style.css", "css/experience.css", "css/maplibre-gl.css", "js/images.js", "js/data.js", "js/routes.js", "js/app.js", "js/experience.js", "js/vendor/maplibre-gl.js",
